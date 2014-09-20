@@ -11,7 +11,7 @@ abstract class BatchProcess extends Base {
 	
 	function __construct($db) {
 		$this->db = $db;
-		$this->loadModel("Log");
+		$this->loadModel("Log"); // Requiere tener creado un modelo Log. TODO: cambiar para que no sea necesario.
 	}
 		
 	protected function setMensajeFinal($mensajeFinal){

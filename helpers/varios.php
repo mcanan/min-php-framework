@@ -1,4 +1,6 @@
 <?php
+// TODO: depurar estas funciones
+
 if ( ! function_exists('nicetrim')){
 	function nicetrim($s,$MAX_LENGTH){
 		$str_to_count = html_entity_decode($s);
