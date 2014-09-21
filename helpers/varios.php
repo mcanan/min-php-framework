@@ -1,6 +1,14 @@
 <?php
 // TODO: depurar estas funciones
 
+if ( ! function_exists('remove_tildes_chars')){
+       function remove_tilde_chars($str){
+               $str = strtolower($str);
+               $str = str_replace(array("á", "é", "í", "ó", "ú","ñ"), array("a", "e", "i", "o", "u","n"),$str);
+               return $str;
+       }
+}
+
 if ( ! function_exists('nicetrim')){
 	function nicetrim($s,$MAX_LENGTH){
 		$str_to_count = html_entity_decode($s);
@@ -177,6 +185,16 @@ if ( ! function_exists('resize_image')){
 		imagejpeg($dst,$file_dest,90);
 		imagedestroy($dst);
 		return $dst;
+	}
+}
+
+if ( ! function_exists('parseTweet')){
+	function parseTweet($text){
+		$text = preg_replace("#(^|[\n ])([\w]+?://[\w]+[^ \"\n\r\t< ]*)#", "\\1<a href=\"\\2\" target=\"_blank\">\\2</a>", $text);
+		$text = preg_replace("#(^|[\n ])((www|ftp)\.[^ \"\t\n\r< ]*)#", "\\1<a href=\"http://\\2\" target=\"_blank\">\\2</a>", $text);
+		$text = preg_replace("/@([\p{L}\p{N}\p{Pc}]+)/u", "<a href=\"http://www.twitter.com/\\1\" target=\"_blank\">@\\1</a>", $text);
+		$text = preg_replace("/#([\p{L}\p{N}\p{Pc}]+)/u", "<a href=\"http://twitter.com/search?q=\\1\" target=\"_blank\">#\\1</a>", $text);		
+		return $text;
 	}
 }
 ?>

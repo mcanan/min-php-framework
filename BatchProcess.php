@@ -57,7 +57,7 @@ abstract class BatchProcess extends Base {
 			$name = $modelName;
 		}
 	
-		require_once './app/models/'.strtolower($modelName).'.php';
+		require_once $_SERVER["DOCUMENT_ROOT"].'/app/models/'.strtolower($modelName).'.php';
 		$this->$name = new $modelName($this->db);
 		return $this;
 	}

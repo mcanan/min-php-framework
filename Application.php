@@ -1,5 +1,5 @@
 <?php
-require './framework/Common.php';
+require_once './framework/Common.php';
 
 class Application
 {
@@ -23,6 +23,10 @@ class Application
 
 	public function setDefaultController($default_controller){
 		$this->default_controller=$default_controller;
+	}
+
+	public function setDefaultAction($default_action){
+		$this->default_action=$default_action;
 	}
 	
 	public function init(){

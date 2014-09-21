@@ -2,6 +2,7 @@
 require_once 'Base.php';
 require_once 'Db2.php';
 require_once 'View.php';
+require_once 'Common.php';
 
 /**
  * Abstract base class for a controller
@@ -47,7 +48,7 @@ abstract class Controller extends Base {
 			$name = $modelName;
 		}
 	
-		require_once './app/models/'.strtolower($modelName).'.php';
+		require_once $_SERVER["DOCUMENT_ROOT"].'/app/models/'.strtolower($modelName).'.php';
 		$this->$name = new $modelName($this->db);
 		return $this;
 	}
@@ -64,7 +65,7 @@ abstract class Controller extends Base {
 			$name = $batchName;
 		}
 	
-		require_once './app/batchs/'.strtolower($batchName).'.php';
+		require_once $_SERVER["DOCUMENT_ROOT"].'/app/batchs/'.strtolower($batchName).'.php';
 		$this->$name = new $batchName($this->db);
 		return $this;
 	}
