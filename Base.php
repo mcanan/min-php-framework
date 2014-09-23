@@ -13,7 +13,12 @@ abstract class Base {
 
 			return $this;
 		}
-		require_once $_SERVER["DOCUMENT_ROOT"].'/framework/helpers/'.strtolower($helperName).'.php';
+
+		if (file_exists($_SERVER["DOCUMENT_ROOT"].'/app/helpers/'.strtolower($helperName).'.php')){
+			require_once $_SERVER["DOCUMENT_ROOT"].'/app/helpers/'.strtolower($helperName).'.php';
+		} else if (file_exists($_SERVER["DOCUMENT_ROOT"].'/framework/helpers/'.strtolower($helperName).'.php')){
+			require_once $_SERVER["DOCUMENT_ROOT"].'/framework/helpers/'.strtolower($helperName).'.php';
+		}
 		return $this;
 	}
 
@@ -29,8 +34,13 @@ abstract class Base {
 			$name = $libraryName;
 		}
 
-		require_once $_SERVER["DOCUMENT_ROOT"].'/framework/libraries/'.strtolower($libraryName).'.php';
-		$this->$name = new $libraryName();
+		if (file_exists($_SERVER["DOCUMENT_ROOT"].'/app/libraries/'.strtolower($libraryName).'.php')){
+			require_once $_SERVER["DOCUMENT_ROOT"].'/app/libraries/'.strtolower($libraryName).'.php';
+			$this->$name = new $libraryName();
+		} else if (file_exists($_SERVER["DOCUMENT_ROOT"].'/framework/libraries/'.strtolower($libraryName).'.php')){
+			require_once $_SERVER["DOCUMENT_ROOT"].'/framework/libraries/'.strtolower($libraryName).'.php';
+			$this->$name = new $libraryName();
+		}
 		return $this;
 	}
 }
