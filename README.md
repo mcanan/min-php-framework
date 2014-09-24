@@ -9,6 +9,7 @@ The framework have a structure like this:
 
 * framework
   * helpers
+  * libraries
 
 The app must be in a structure like this:
 
