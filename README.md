@@ -17,6 +17,8 @@ The app must be in a structure like this:
   * models
   * views
   * controllers
+  * conf
+  * libraries
   * helpers
 
 
