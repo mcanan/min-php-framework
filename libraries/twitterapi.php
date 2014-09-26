@@ -6,10 +6,6 @@ class TwitterAPI {
 	private $twitterClient;
 
 	function __construct()	{
-		$ck = 'dH4SVOcSp0zCHObDWNtXUQ';
-		$cs = 'FMngCztKQWp0a71JWXa0gX5lmua4nPFSWvHVKXEOEQ';
-		$oat = '2315995297-fgOJaNzTJ3qMgnO5ynVC68bFXlvINqFkXogL63I';
-		$oas = 'rNiEOjdIclnkfKm5Ws3I6CZUvMxut8mE5YCgAAj3OefgS';
 	}
 	
 	public function init($ck,$cs,$oat,$oas){
