@@ -20,5 +20,6 @@ The app must be in a structure like this:
   * conf
   * libraries
   * helpers
+  * batchs
 
 
