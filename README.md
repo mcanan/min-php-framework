@@ -21,5 +21,6 @@ The app must be in a structure like this:
   * libraries
   * helpers
   * batchs
+  * cache
 
 
