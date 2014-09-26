@@ -38,7 +38,7 @@ class Application
 
 		if ($this->router==null){
 			// Si no tengo router definido, le asigno el basico
-			$this->rotuer = new Router();
+			$this->router = new BasicRouter();
 		}
 
 		$url = isset($_GET['url']) ? $_GET['url'] : '';
