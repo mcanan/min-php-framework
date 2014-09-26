@@ -2,8 +2,11 @@ min-php-framework
 =================
 
 Minimal PHP MVC framework
+
 Developed to be the initial framework to all my Php projects.
+
 The main features will be:
+
   * Only core functionality
   * Minimal code (always trying to remove innecesary code)
   * Performance (benchmarking and trying to improve speed)
