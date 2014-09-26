@@ -46,7 +46,6 @@ class Output {
 		header("Pragma: no-cache");
 		header('Content-Type: text/html; charset=utf-8');
 		if($this->escribirCache){
-			
 			$archivo=$controller."_".$action;
 			$this->put($archivo,$this->html);
 		}
@@ -68,6 +67,7 @@ class Output {
 			echo str_replace("%BENCHMARK%", $benchmark->getTimestampsAsHtmlComment(), $html);
 			$retorno=true;
 		} else {
+			$benchmark->mark("cache old");
 			$this->escribirCache = true;
 		}
 		$benchmark->mark("displayFromCache_end");
