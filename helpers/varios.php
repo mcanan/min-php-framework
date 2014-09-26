@@ -63,6 +63,16 @@ if ( ! function_exists('emailValido')){
 	}
 }
 
+if ( ! function_exists('enviar_mail')){
+	function enviar_mail($from, $to, $subject, $message){
+			$headers = "From: $from <$from>\n"; 
+			$headers .= "MIME-Version: 1.0\n"; 
+			$headers .= "Content-type: text/html; charset=utf-8\r\n"; 
+			return mail($to, $subject, $message, $headers);
+	}
+}
+
+
 if ( ! function_exists('beginsWith')){
 	function beginsWith($string, $search){
 		return (strncmp($string, $search, strlen($search)) == 0);
