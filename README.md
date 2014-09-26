@@ -32,5 +32,3 @@ The app must be in a structure like this:
   * helpers
   * batchs
   * cache
-
-
