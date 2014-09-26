@@ -1,6 +1,4 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'].'/app/conf/Db.inc.php');
-
 class Db2 {
 	private $handler;
 	

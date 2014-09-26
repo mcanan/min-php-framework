@@ -1,5 +1,5 @@
 <?php
-require_once './framework/Common.php';
+require_once 'Common.php';
 
 class Application
 {
@@ -9,14 +9,14 @@ class Application
 	private $url_parameter_2 = null;
 	private $url_parameter_3 = null;
 	private $url_original;
-	
+
 	private $urls_cache = array();
 	private $default_controller = "home";
 	private $default_action = "index";
-	
+
 	public function __construct(){
 	}
-	
+
 	public function setCacheUrl($controller,$action,$time){
 		$this->urls_cache[$controller][$action]=$time;
 	}
@@ -28,11 +28,12 @@ class Application
 	public function setDefaultAction($default_action){
 		$this->default_action=$default_action;
 	}
-	
+
+
 	public function init(){
 		$benchmark =& getBenchmarkInstance();
 		$benchmark->mark("application_start");
-		 
+
 		$output =& getOutputInstance();
 		$this->splitUrl();
 
@@ -50,7 +51,7 @@ class Application
 			require $url;
 			$controller = ucwords(strtolower($this->url_controller));
 			$instance = new $controller();
-			
+
 			if (method_exists($instance, $this->url_action)) {
 				if (isset($this->url_parameter_3)) {
 					$instance->{$this->url_action}($this->url_parameter_1, $this->url_parameter_2, $this->url_parameter_3);
@@ -100,6 +101,10 @@ class Application
 			$this->url_parameter_2 = null;
 			$this->url_parameter_3 = null;
 		}
+	}
+
+	public function loadConfigurationFile($file){
+			require_once($file);
 	}
 }
 ?>

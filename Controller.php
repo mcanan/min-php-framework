@@ -14,7 +14,7 @@ abstract class Controller extends Base {
 	protected $showBenchmarks=false;
 	protected $benchmark;
 	protected $output;
-	
+
 	function __construct()	{
 		$this->benchmark =& getBenchmarkInstance();
 		$this->output =& getOutputInstance();
@@ -23,11 +23,12 @@ abstract class Controller extends Base {
 		$this->layoutView = new View();
 		$this->contentView = new View();
 	}
-	
+
 	protected function render($contentTemplateName){
 		$this->benchmark->mark("controller_render_start");
 		$this->contentView->template = $contentTemplateName;
 		$this->layoutView->contenido = $this->contentView->render();
+
 		if ($this->showBenchmarks){
 			$this->output->setHtml($this->layoutView->render()."%BENCHMARK%");
 		} else {
@@ -35,7 +36,7 @@ abstract class Controller extends Base {
 		}
 		$this->benchmark->mark("controller_render_end");
 	}
-	
+
 	protected function loadModel($modelName, $name=''){
 		if (is_array($modelName)){
 			foreach ($modelName as $m)	{
@@ -43,16 +44,16 @@ abstract class Controller extends Base {
 			}
 			return $this;
 		}
-	
+
 		if (empty($name)){
 			$name = $modelName;
 		}
-	
+
 		require_once $_SERVER["DOCUMENT_ROOT"].'/app/models/'.strtolower($modelName).'.php';
 		$this->$name = new $modelName($this->db);
 		return $this;
 	}
-	
+
 	protected function loadBatch($batchName, $name=''){
 		if (is_array($batchName)){
 			foreach ($batchName as $b)	{
@@ -60,16 +61,16 @@ abstract class Controller extends Base {
 			}
 			return $this;
 		}
-		
+
 		if (empty($name)){
 			$name = $batchName;
 		}
-	
+
 		require_once $_SERVER["DOCUMENT_ROOT"].'/app/batchs/'.strtolower($batchName).'.php';
 		$this->$name = new $batchName($this->db);
 		return $this;
 	}
-	
+
 	protected function setMensaje($error,$mensaje){
 		$this->contentView->error = $error;
 		$this->contentView->mensaje = $mensaje;
