@@ -11,7 +11,7 @@ The main features will be:
   * Minimal code (always trying to remove innecesary code)
   * Performance (benchmarking and trying to improve speed)
 
-The first concepts was taken from Codeigniter Framework and the book Pro PHP MCV.
+The first concepts was taken from Codeigniter Framework and the book Pro PHP MVC.
 
 #### Folder structure
 
