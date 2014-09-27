@@ -50,6 +50,7 @@ class TwitterAPI {
 	}
 
 	public function update_with_media($mensaje,$imagen){
+		error_log($mensaje." - ".$imagen);
 		return $this->twitterClient->post('statuses/update_with_media', array('status' => "$mensaje",'media[]' => "@{$imagen};type=image/jpeg;filename={$imagen}" ),true);
 	}
 }
