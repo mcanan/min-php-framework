@@ -14,16 +14,16 @@ class Application
 		$this->router = $router;
 	}
 
+	public function getRouter(){
+		if ($this->router==null){
+			require_once('BasicRouter.php');
+			$this->router = new BasicRouter();
+		}
+		return $this->router;
+	}
+
 	public function setCacheUrl($controller,$action,$time){
 		$this->urls_cache[$controller][$action]=$time;
-	}
-
-	public function setDefaultController($default_controller){
-		$this->router->setDefaultController($default_controller);
-	}
-
-	public function setDefaultAction($default_action){
-		$this->router->setDefaultAction($default_action);
 	}
 
 	public function loadConfigurationFile($file){
@@ -35,17 +35,11 @@ class Application
 		$benchmark->mark("application_start");
 		$output =& getOutputInstance();
 
-		if ($this->router==null){
-			// Si no tengo router definido, le asigno el basico
-			require_once('BasicRouter.php');
-			$this->router = new BasicRouter();
-		}
-
 		$url = isset($_GET['url']) ? $_GET['url'] : '';
-		$this->router->setUrl($url);
+		$this->getRouter()->setUrl($url);
 
-		$controller = $this->router->getController();
-		$action = $this->router->getAction();
+		$controller = $this->getRouter()->getController();
+		$action = $this->getRouter()->getAction();
 
 		// Verifico cache
 		if ( isset($this->urls_cache[$controller][$action])) {
@@ -57,10 +51,12 @@ class Application
 		}
 
 		$benchmark->mark("controller_start c:$controller a:$action");
-		$this->router->dispatch();
+		$this->getRouter()->dispatch();
 		$benchmark->mark("controller_end");
 		$benchmark->mark("application_end");
-		$output->display($controller,$action);
+		if ($output->hasContent()){
+			$output->display($controller,$action);
+		}
 	}
 }
 ?>

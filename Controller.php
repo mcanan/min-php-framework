@@ -49,7 +49,7 @@ abstract class Controller extends Base {
 			$name = $modelName;
 		}
 
-		require_once $_SERVER["DOCUMENT_ROOT"].'/app/models/'.strtolower($modelName).'.php';
+		require_once $this->getDocumentRoot().'/app/models/'.strtolower($modelName).'.php';
 		$this->$name = new $modelName($this->db);
 		return $this;
 	}
@@ -66,7 +66,7 @@ abstract class Controller extends Base {
 			$name = $batchName;
 		}
 
-		require_once $_SERVER["DOCUMENT_ROOT"].'/app/batchs/'.strtolower($batchName).'.php';
+		require_once $this->getDocumentRoot().'/app/batchs/'.strtolower($batchName).'.php';
 		$this->$name = new $batchName($this->db);
 		return $this;
 	}

@@ -1,11 +1,15 @@
 <?php
 class Benchmark {
 
-	private $timestamps=array();
+	private $timestamps = array();
 
 	function __construct()	{
 	}
-	
+
+	public function reset(){
+		$timestamps = array();
+	}
+
 	public function mark($name){
 		$this->timestamps[]= array($name,microtime(true));
 	}

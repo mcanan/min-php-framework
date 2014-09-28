@@ -14,10 +14,10 @@ abstract class Base {
 			return $this;
 		}
 
-		if (file_exists($_SERVER["DOCUMENT_ROOT"].'/app/helpers/'.strtolower($helperName).'.php')){
-			require_once $_SERVER["DOCUMENT_ROOT"].'/app/helpers/'.strtolower($helperName).'.php';
-		} else if (file_exists($_SERVER["DOCUMENT_ROOT"].'/framework/helpers/'.strtolower($helperName).'.php')){
-			require_once $_SERVER["DOCUMENT_ROOT"].'/framework/helpers/'.strtolower($helperName).'.php';
+		if (file_exists($this->getDocumentRoot().'/app/helpers/'.strtolower($helperName).'.php')){
+			require_once $this->getDocumentRoot().'/app/helpers/'.strtolower($helperName).'.php';
+		} else if (file_exists($this->getDocumentRoot().'/framework/helpers/'.strtolower($helperName).'.php')){
+			require_once $this->getDocumentRoot().'/framework/helpers/'.strtolower($helperName).'.php';
 		}
 		return $this;
 	}
@@ -34,14 +34,22 @@ abstract class Base {
 			$name = $libraryName;
 		}
 
-		if (file_exists($_SERVER["DOCUMENT_ROOT"].'/app/libraries/'.strtolower($libraryName).'.php')){
-			require_once $_SERVER["DOCUMENT_ROOT"].'/app/libraries/'.strtolower($libraryName).'.php';
+		if (file_exists($this->getDocumentRoot().'/app/libraries/'.strtolower($libraryName).'.php')){
+			require_once $this->getDocumentRoot().'/app/libraries/'.strtolower($libraryName).'.php';
 			$this->$name = new $libraryName();
-		} else if (file_exists($_SERVER["DOCUMENT_ROOT"].'/framework/libraries/'.strtolower($libraryName).'.php')){
-			require_once $_SERVER["DOCUMENT_ROOT"].'/framework/libraries/'.strtolower($libraryName).'.php';
+		} else if (file_exists($this->getDocumentRoot().'/framework/libraries/'.strtolower($libraryName).'.php')){
+			require_once $this->getDocumentRoot().'/framework/libraries/'.strtolower($libraryName).'.php';
 			$this->$name = new $libraryName();
 		}
 		return $this;
+	}
+
+	protected function getDocumentRoot(){
+		if(defined("CONFIG_DOCUMENT_ROOT")){
+			return CONFIG_DOCUMENT_ROOT;
+		} else {
+			return $_SERVER["DOCUMENT_ROOT"];
+		}
 	}
 }
 ?>

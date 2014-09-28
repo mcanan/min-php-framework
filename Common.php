@@ -27,4 +27,5 @@ if ( ! function_exists('getOutputInstance')) {
 		return load_class_from_registry("Output", "Output.php");
 	}
 }
+
 ?>
