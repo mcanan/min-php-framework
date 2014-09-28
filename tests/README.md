@@ -1,7 +1,8 @@
 #### Instructions
 
-Before a commit please run test.sh.
-All test must be passed.
+Before a commit please run tests.sh.
+
+All tests must be passed.
 
 #### Requirements
 
