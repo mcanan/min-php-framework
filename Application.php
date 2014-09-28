@@ -1,7 +1,6 @@
 <?php
 require_once 'Common.php';
 require_once 'IRouter.php';
-require_once 'BasicRouter.php';
 
 class Application
 {
@@ -38,6 +37,7 @@ class Application
 
 		if ($this->router==null){
 			// Si no tengo router definido, le asigno el basico
+			require_once('BasicRouter.php');
 			$this->router = new BasicRouter();
 		}
 

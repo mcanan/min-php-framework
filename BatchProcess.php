@@ -11,7 +11,7 @@ abstract class BatchProcess extends Base {
 	
 	function __construct($db) {
 		$this->db = $db;
-		$this->loadModel("Log"); // Requiere tener creado un modelo Log. TODO: cambiar para que no sea necesario.
+		$this->loadModel("Log"); // Requiere tener creado un modelo Log.
 	}
 		
 	protected function setMensajeFinal($mensajeFinal){
@@ -21,15 +21,27 @@ abstract class BatchProcess extends Base {
 	protected abstract function main();
 	
 	protected function error($descripcion){
-		$this->Log->insert('E', get_class($this), $descripcion);
+		if isset($this->Log){
+			$this->Log->insert('E', get_class($this), $descripcion);
+		} else {
+			error_log("LOG: E - ".get_class($this)." $descripcion");
+		}
 	}
 	
 	protected function info($descripcion){
-		$this->Log->insert('I', get_class($this), $descripcion);
+		if isset($this->Log){
+			$this->Log->insert('I', get_class($this), $descripcion);
+		} else {
+			error_log("LOG: I - ".get_class($this)." $descripcion");
+		}
 	}
 	
 	protected function debug($descripcion){
-		$this->Log->insert('D', get_class($this), $descripcion);
+		if isset($this->Log){
+			$this->Log->insert('D', get_class($this), $descripcion);
+		} else {
+			error_log("LOG: D - ".get_class($this)." $descripcion");
+		}
 	}
 	
 	protected function preProcess(){}
@@ -37,11 +49,11 @@ abstract class BatchProcess extends Base {
 	
 	public function run(){
 		echo "Inicio\n";
-		$this->Log->insert("I",get_class($this),"Inicio");
+		$this->info("Inicio");
 		$this->preProcess();
 		$this->main();
 		$this->postProcess();
-		$this->Log->insert("I",get_class($this),"Fin");
+		$this->info("Fin");
 		echo "Fin\n";
 	}
 	
@@ -56,9 +68,11 @@ abstract class BatchProcess extends Base {
 		if (empty($name)){
 			$name = $modelName;
 		}
-	
-		require_once $_SERVER["DOCUMENT_ROOT"].'/app/models/'.strtolower($modelName).'.php';
-		$this->$name = new $modelName($this->db);
+
+		if file_exists($_SERVER["DOCUMENT_ROOT"].'/app/models/'.strtolower($modelName).'.php'){
+			require_once($_SERVER["DOCUMENT_ROOT"].'/app/models/'.strtolower($modelName).'.php');
+			$this->$name = new $modelName($this->db);
+		}
 		return $this;
 	}
 }
