@@ -26,7 +26,7 @@ abstract class Controller extends Base {
 
 	protected function render($contentTemplateName){
 		$this->benchmark->mark("controller_render_start");
-		$this->contentView->template = $contentTemplateName;
+		$this->contentView->setTemplate($contentTemplateName);
 		$this->layoutView->contenido = $this->contentView->render();
 
 		if ($this->showBenchmarks){

@@ -12,6 +12,14 @@ class View extends Base {
 		$this->vars[$name] = $value;
 	}
 
+	public function setTemplate($template){
+		$this->vars['template'] = $template;
+	}
+
+	public function getTemplate(){
+		return $this->vars['template'];
+	}
+
 	public function render() {
 		$contents = "";
 		if(isset($this->vars['template']) && file_exists($this->vars['template'])){	
