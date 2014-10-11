@@ -1,12 +1,11 @@
 <?php
-require_once(getcwd().'/../Controller.php');
+require_once (getcwd().'/../Controller.php');
 
-class BatchControllerTest extends Controller
+class batchcontrollertest extends Controller
 {
-	public function batchTest()
-	{
-		$this->loadBatch("BatchTest");	
-		$this->BatchTest->run();
-	}
+    public function batchTest()
+    {
+        $this->loadBatch("BatchTest");
+        $this->BatchTest->run();
+    }
 }
-?>

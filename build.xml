@@ -1,0 +1,66 @@
+<project name="framework" default="build">
+	<target name="clean">
+		<delete dir="${basedir}/build"/>
+	</target>
+
+	<target name="prepare">
+		<mkdir dir="${basedir}/build/logs"/>
+	</target>
+
+	<target name="phpcs">
+		<exec dir="${basedir}"
+			executable="phpcs"
+			output="${basedir}/build/logs/checkstyle.xml"
+			failonerror="false">
+			<arg line="--ignore=libraries --report=checkstyle --standard=PSR2 ."/>
+		</exec>
+	</target>
+
+	<target name="phploc">
+		<exec dir="${basedir}"
+			executable="phploc.phar"
+			failonerror="false">
+			<arg line="--log-xml=${basedir}/build/logs/phploc.xml --exclude libraries ."/>
+		</exec>
+	</target>
+
+	<target name="phpmd">
+		<exec dir="${basedir}"
+			executable="phpmd.phar"
+			failonerror="false">
+			<arg line=". xml codesize --reportfile ${basedir}/build/logs/pmd.xml --exclude libraries"/>
+		</exec>
+	</target>
+
+	<target name="phpcpd">
+		<exec dir="${basedir}"
+			executable="phpcpd"
+			failonerror="false">
+			<arg line="--log-pmd=${basedir}/build/logs/pmd-cpd.xml --exclude libraries ."/>
+		</exec>
+	</target>
+
+	<target name="phpunit">
+		<exec dir="${basedir}/tests"
+			executable="phpunit"
+			failonerror="true">
+			<env key="CONF_FILE" value="app/conf/configTest.php"/>
+			<arg line="--colors --log-junit ${basedir}/build/logs/junit.xml --coverage-clover ${basedir}/build/logs/clover1.xml --bootstrap ${basedir}/tests/phpUnitTests/webserver.php ${basedir}/tests/phpUnitTests/applicationtest.php"/>
+		</exec>
+		<exec dir="${basedir}/tests"
+			executable="phpunit"
+			failonerror="true">
+			<env key="CONF_FILE" value="app/conf/configTest1.php"/>
+			<arg line="--colors --log-junit ${basedir}/build/logs/junit.xml --coverage-clover ${basedir}/build/logs/clover2.xml --bootstrap ${basedir}/tests/phpUnitTests/webserver.php ${basedir}/tests/phpUnitTests/routertest1.php"/>
+		</exec>
+		<exec dir="${basedir}/tests"
+			executable="phpunit"
+			failonerror="true">
+			<env key="CONF_FILE" value="app/conf/configTest2.php"/>
+			<arg line="--colors --log-junit ${basedir}/build/logs/junit.xml --coverage-clover ${basedir}/build/logs/clover3.xml --bootstrap ${basedir}/tests/phpUnitTests/webserver.php ${basedir}/tests/phpUnitTests/routertest2.php"/>
+		</exec>
+	</target>
+
+	<target name="build"
+		depends="clean,prepare,phploc,phpcs,phpmd,phpcpd,phpunit"/>
+</project>

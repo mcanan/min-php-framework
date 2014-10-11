@@ -1,13 +1,12 @@
 <?php
-require_once(getcwd().'/../BatchProcess.php');
+require_once (getcwd().'/../BatchProcess.php');
 
-class BatchTest extends BatchProcess
+class batchtest extends BatchProcess
 {
-	function main()
-	{
-		$this->loadModel("ModelTest");		
-		$items = $this->ModelTest->getItems();
-		echo $items[0][1];
-	}
+    public function main()
+    {
+        $this->loadModel("ModelTest");
+        $items = $this->ModelTest->getItems();
+        echo $items[0][1];
+    }
 }
-?>
