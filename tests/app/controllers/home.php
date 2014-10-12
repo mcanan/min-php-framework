@@ -1,12 +1,11 @@
 <?php
-require_once (getcwd().'/../Controller.php');
+require_once (getcwd().'/../BasicController.php');
 
-class home extends Controller
+class home extends BasicController
 {
     public function __construct()
     {
-        parent::__construct();
-        $this->layoutView->template = getcwd()."/app/views/viewlayout.php";
+        parent::__construct(getcwd()."/app/views/viewlayout.php");
     }
 
     public function index()

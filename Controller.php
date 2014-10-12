@@ -10,11 +10,9 @@ require_once 'Common.php';
 abstract class Controller extends Base
 {
     private $db = null;
-    protected $layoutView;
-    protected $contentView;
-    protected $showBenchmarks=false;
-    protected $benchmark;
-    protected $output;
+    private $showBenchmarks = false;
+    private $benchmark;
+    private $output;
 
     public function __construct()
     {
@@ -22,22 +20,26 @@ abstract class Controller extends Base
         $this->output =& getOutputInstance();
         $this->benchmark->mark("controller_construct");
         $this->db = new Db2();
-        $this->layoutView = new View();
-        $this->contentView = new View();
     }
 
-    protected function render($contentTemplateName)
+    protected function getBenchmark()
     {
-        $this->benchmark->mark("controller_render_start");
-        $this->contentView->setTemplate($contentTemplateName);
-        $this->layoutView->contenido = $this->contentView->render();
+        return $this->benchmark;
+    }
 
-        if ($this->showBenchmarks) {
-            $this->output->setHtml($this->layoutView->render()."%BENCHMARK%");
-        } else {
-            $this->output->setHtml($this->layoutView->render());
-        }
-        $this->benchmark->mark("controller_render_end");
+    protected function getOutput()
+    {
+        return $this->output;
+    }
+
+    protected function setShowBenchmarks($show)
+    {
+        $this->showBenchmarks = $show;
+    }
+
+    protected function isShowBenchmarks()
+    {
+        return $this->showBenchmarks;
     }
 
     protected function loadModel($modelName, $name = '')
@@ -46,7 +48,6 @@ abstract class Controller extends Base
             foreach ($modelName as $m) {
                 $this->loadModel($m);
             }
-
             return $this;
         }
 
@@ -66,7 +67,6 @@ abstract class Controller extends Base
             foreach ($batchName as $b) {
                 $this->loadBatch($b);
             }
-
             return $this;
         }
 
@@ -80,9 +80,8 @@ abstract class Controller extends Base
         return $this;
     }
 
-    protected function setMensaje($error, $mensaje)
+    protected function getRequestParameter($parameter, $default)
     {
-        $this->contentView->error = $error;
-        $this->contentView->mensaje = $mensaje;
+        return isset($_REQUEST["$parameter"]) ? $_REQUEST["$parameter"] : $default;
     }
 }

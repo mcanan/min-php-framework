@@ -38,19 +38,19 @@ class pagination
         // TODO: HTML.
     ?>
         <ul class="pagination">
-            <?php if ($this->paginaActual>3) {?>
-            <li><a href="<?=$link?>&p=1">1</a></li>
-            <li class="disabled"><a href=''>...</a></li>
-            <?php } ?>
-            <?php for ($i=($this->paginaActual>2 ? $this->paginaActual-2 : 1);$i<=($this->paginaActual<$this->cntTotalPaginas-2 ? $this->paginaActual+2 : $this->cntTotalPaginas);$i++) { ?>
-            <li <?= ($this->paginaActual==$i ? "class='active'" : "") ?>><a href="<?=$link?>&p=<?=$i?>"><?=$i?></a></li>
-            <?php } ?>
-            <?php if ($this->paginaActual<$this->cntTotalPaginas-2) {?>
-            <li class="disabled"><a href=''>...</a></li>
-            <li><a href="<?=$link?>&p=<?=$this->cntTotalPaginas?>"><?=$this->cntTotalPaginas?></a></li>
-            <?php } ?>
+        <?php if ($this->paginaActual>3) {?>
+        <li><a href="<?=$link?>&p=1">1</a></li>
+        <li class="disabled"><a href=''>...</a></li>
+        <?php } ?>
+        <?php for ($i=($this->paginaActual>2 ? $this->paginaActual-2 : 1);$i<=($this->paginaActual<$this->cntTotalPaginas-2 ? $this->paginaActual+2 : $this->cntTotalPaginas);$i++) { ?>
+        <li <?= ($this->paginaActual==$i ? "class='active'" : "") ?>><a href="<?=$link?>&p=<?=$i?>"><?=$i?></a></li>
+        <?php } ?>
+        <?php if ($this->paginaActual<$this->cntTotalPaginas-2) {?>
+        <li class="disabled"><a href=''>...</a></li>
+        <li><a href="<?=$link?>&p=<?=$this->cntTotalPaginas?>"><?=$this->cntTotalPaginas?></a></li>
+        <?php } ?>
         </ul>
-       <?php
+    <?php
 }
 }
 ?>

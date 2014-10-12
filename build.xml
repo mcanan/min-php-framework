@@ -12,7 +12,7 @@
 			executable="phpcs"
 			output="${basedir}/build/logs/checkstyle.xml"
 			failonerror="false">
-			<arg line="--ignore=libraries --report=checkstyle --standard=PSR2 ."/>
+			<arg line="--ignore=libraries/facebookapi,libraries/textrankapi,libraries/twitterapi --report=checkstyle --standard=PSR2 ."/>
 		</exec>
 	</target>
 
