@@ -17,7 +17,7 @@
   <?php if (isset($actions)) {?>
   <div class="col-md-6 text-right">
     <?php foreach ($actions as $a) { ?>
-    <a href='<?= $a[0] ?>' class="<?= $a[1] ?>"><?= $a[2] ?></a>&nbsp;
+    <a href='<?= $a['href'] ?>' class="<?= (isset($a['class'])?$a['class']:"") ?>"><?= $a['description'] ?></a>&nbsp;
     <?php } ?>
   </div>
   <?php } ?>
@@ -28,12 +28,12 @@
   <?php foreach ($items as $i) { ?>
   <tr>
     <?php foreach ($item_attributes as $a) { ?>
-    <td><?= $i[$a] ?></td>
+    <td class='<?= $a['tdclass'] ?>'><?= $i[$a['attribute']] ?></td>
     <?php } ?>
     <?php if (isset($item_actions)) {?>
     <?php foreach ($item_actions as $a) { ?>
-    <td><a 	href="<?php eval("echo '".str_replace("}",'\'].\'',str_replace("{", '\'.$i[\'', $a[0])."';")); ?>"
-        onclick="<?php eval("echo '".str_replace("}",'\'].\'\\\'',str_replace("{", '\\\'\'.$i[\'', $a[1])."';")); ?>" class="<?= $a[2] ?>"><?= $a[3] ?></a></td>
+    <td class='<?= $a['tdclass'] ?>'><a 	href="<?php eval("echo '".str_replace("}",'\'].\'',str_replace("{", '\'.$i[\'', $a['href'])."';")); ?>"
+        onclick="<?php eval("echo '".str_replace("}",'\'].\'\\\'',str_replace("{", '\\\'\'.$i[\'', $a['onclick'])."';")); ?>" class="<?= $a['class'] ?>"><?= $a['description'] ?></a></td>
   </td>
   <?php } ?>
   <?php } ?>

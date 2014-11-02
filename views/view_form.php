@@ -2,18 +2,18 @@
 <br />
 <form class="form-horizontal" id='formData' role="form" action="<?= $formActionAceptar ?>" method="get">
 	<?php foreach ($items as $i) { ?>
-	<?php if ($i[4]!=1) { ?>
+	<?php if (!isset($i['hidden']) || ($i['hidden']!="1" && $i['hidden']!="true")) { ?>
 	<div class="form-group">
-		<label for="<?= $i[0] ?>" class='control-label col-md-2'><?=$i[1]?></label>
+		<label for="<?= $i['id'] ?>" class='control-label col-md-2'><?=$i['descripcion']?></label>
 		<div class="col-md-4">
 			<div class='input-group'>
-				<?=$i[3]?>
-				<input class='form-control' type="text" id="<?= $i[0] ?>" name="<?= $i[0] ?>" placeholder="<?= $i[3] ?>" value="<?= $i[2] ?>">
+				<?= (isset($i['addon'])?$i['addon']:'') ?>
+				<input class='form-control' type="text" id="<?= $i['id'] ?>" name="<?= $i['id'] ?>" placeholder="<?= (isset($i['placeholder'])?$i['placeholder']:'') ?>" value="<?= (isset($i['value'])?$i['value']:'') ?>">
 			</div>
 		</div>
 	</div>
 	<?php } else { ?>
-	<input type='hidden' name='<?= $i[0] ?>' value='<?= $i[1] ?>'>
+	<input type='hidden' name='<?= $i['id'] ?>' value='<?= $i['value'] ?>'>
 	<?php } ?>
 	<?php } ?>
 	<div class="form-group">
