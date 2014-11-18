@@ -22,6 +22,11 @@ abstract class Controller extends Base
         $this->db = new Db2();
     }
 
+    protected function mark($m)
+    {
+        $this->benchmark->mark($m);
+    }
+    
     protected function getBenchmark()
     {
         return $this->benchmark;

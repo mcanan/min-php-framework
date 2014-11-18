@@ -16,7 +16,11 @@ class AuthController extends BasicController
 
 	protected function logout(){
         unset($_SESSION[CONF_AUTH_TOKEN]);
-        header('Location: /login');
+        if (defined('CONF_URL_BASE')){
+            header('Location: /'.CONF_URL_BASE.'/login');
+        } else {
+            header('Location: /login');
+        }
         exit();
     }
 

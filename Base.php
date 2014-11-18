@@ -53,7 +53,11 @@ abstract class Base
         if (defined("CONFIG_DOCUMENT_ROOT")) {
             return CONFIG_DOCUMENT_ROOT;
         } else {
-            return $_SERVER["DOCUMENT_ROOT"];
+            if (defined("CONF_URL_BASE")){
+                return $_SERVER["DOCUMENT_ROOT"].'/'.CONF_URL_BASE;
+            } else {
+                return $_SERVER["DOCUMENT_ROOT"];
+            }
         }
     }
 }
