@@ -2,9 +2,10 @@
 // TODO: mejorar en gral estas funciones
 
 if (! function_exists('getFechaMysql')) {
-    function getFechaMysql($strtotime)
+    function getFechaMysql($fecha)
     {
-        return strftime("%Y-%m-%d", strtotime($strtotime));
+        $date = DateTime::createFromFormat('d/m/Y', $fecha);
+        return $date->format('Y-m-d');
     }
 }
 
