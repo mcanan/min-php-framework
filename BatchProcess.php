@@ -66,13 +66,11 @@ abstract class BatchProcess extends Base
 
     public function run()
     {
-        echo "Inicio\n";
         $this->info("Inicio");
         $this->preProcess();
         $this->main();
         $this->postProcess();
         $this->info("Fin");
-        echo "Fin\n";
     }
 
     protected function loadModel($modelName, $name = '')

@@ -33,7 +33,13 @@
     <?php if (isset($item_actions)) {?>
     <?php foreach ($item_actions as $a) { ?>
     <td class='<?= $a['tdclass'] ?>'><a 	href="<?php eval("echo '".str_replace("}",'\'].\'',str_replace("{", '\'.$i[\'', $a['href'])."';")); ?>"
-        onclick="<?php eval("echo '".str_replace("}",'\'].\'\\\'',str_replace("{", '\\\'\'.$i[\'', $a['onclick'])."';")); ?>" class="<?= $a['class'] ?>"><?= $a['description'] ?></a></td>
+        <?php if (isset($a['onclick'])) { ?>
+        onclick="<?php eval("echo '".str_replace("}",'\'].\'\\\'',str_replace("{", '\\\'\'.$i[\'', $a['onclick'])."';")); ?>"
+        <?php } ?> 
+        <?php if (isset($a['class'])) { ?>
+        class="<?= $a['class'] ?>">
+        <?php } ?> 
+        ><?= $a['description'] ?></a></td>    
   </td>
   <?php } ?>
   <?php } ?>

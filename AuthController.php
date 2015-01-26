@@ -11,6 +11,7 @@ class AuthController extends BasicController
             $this->logout();
         } else {
             parent::__construct($layout);
+            $this->setLayoutVariable('logged_user', $_SESSION[CONF_AUTH_TOKEN]);
         }
     }
 
@@ -30,6 +31,15 @@ class AuthController extends BasicController
 		} else {
 			return false;
 		}
-	}
+    }
+
+    protected function getLoggedUser(){
+        if (isset($_SESSION[CONF_AUTH_TOKEN])){
+			return $_SESSION[CONF_AUTH_TOKEN];
+		} else {
+			return NULL;
+		}
+    }
+
 }
 ?>

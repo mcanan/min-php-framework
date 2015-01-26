@@ -60,4 +60,9 @@ abstract class Base
             }
         }
     }
+
+    protected function getFullPath($url)
+    {
+        return getDocumentRoot().$url;
+    }
 }

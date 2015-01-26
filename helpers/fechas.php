@@ -9,6 +9,14 @@ if (! function_exists('getFechaMysql')) {
     }
 }
 
+if (! function_exists('getFechaEspanol')) {
+    function getFechaEspanol($fecha)
+    {
+        $date = DateTime::createFromFormat('Y-m-d', $fecha);
+        return $date->format('d/m/Y');
+    }
+}
+
 if (! function_exists('getFechaTimeMysql')) {
     function getFechaTimeMysql($strtotime)
     {
@@ -27,13 +35,6 @@ if (! function_exists('getFechaTimeMysqlDayTruncated')) {
     function getFechaTimeMysqlDayTruncated($strtotime)
     {
         return strftime("%Y-%m-%d 00:00:00", strtotime($strtotime));
-    }
-}
-
-if (! function_exists('getFechaEspanol')) {
-    function getFechaEspanol($strtotime)
-    {
-        return strftime("%d-%m-%Y", strtotime($strtotime));
     }
 }
 

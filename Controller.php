@@ -89,4 +89,25 @@ abstract class Controller extends Base
     {
         return isset($_REQUEST["$parameter"]) ? $_REQUEST["$parameter"] : $default;
     }
+
+    protected function getRequestParameterOrCookie($parameter, $default)
+    {
+        if (isset($_REQUEST["$parameter"])){
+            setcookie($parameter,$_REQUEST["$parameter"]);
+            return $_REQUEST["$parameter"];
+        } else if(isset($_COOKIE["$parameter"])){
+            return $_COOKIE["$parameter"];
+        } else {
+            return $default;    
+        }
+    }
+
+    protected function getFullUrl($url)
+    {
+        if (defined("CONF_URL_BASE")){
+            return '/'.CONF_URL_BASE.$url;
+        } else {
+            return $url;
+        }
+    }
 }

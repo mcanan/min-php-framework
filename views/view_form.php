@@ -48,6 +48,17 @@
 				</div>
 			</div>
 			<?php break;
+			case 'password':
+			default: ?>
+			<div class="form-group">
+				<label for="<?= $i['id'] ?>" class='control-label col-md-2'><?=$i['label']?></label>
+				<div class="col-md-4">
+					<div class='input-group'>
+						<input class='form-control' type="password" id="<?= $i['id'] ?>" name="<?= $i['id'] ?>" >
+					</div>
+				</div>
+			</div>
+			<?php break;
 			case 'input':
 			default: ?>
 			<div class="form-group">
