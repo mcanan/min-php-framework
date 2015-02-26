@@ -28,11 +28,11 @@
   <?php foreach ($items as $i) { ?>
   <tr>
     <?php foreach ($item_attributes as $a) { ?>
-    <td class='<?= $a['tdclass'] ?>'><?= $i[$a['attribute']] ?></td>
+    <td class='<?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><?= $i[$a['attribute']] ?></td>
     <?php } ?>
     <?php if (isset($item_actions)) {?>
     <?php foreach ($item_actions as $a) { ?>
-    <td class='<?= $a['tdclass'] ?>'><a 	href="<?php eval("echo '".str_replace("}",'\'].\'',str_replace("{", '\'.$i[\'', $a['href'])."';")); ?>"
+    <td class='<?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><a 	href="<?php eval("echo '".str_replace("}",'\'].\'',str_replace("{", '\'.$i[\'', $a['href'])."';")); ?>"
         <?php if (isset($a['onclick'])) { ?>
         onclick="<?php eval("echo '".str_replace("}",'\'].\'\\\'',str_replace("{", '\\\'\'.$i[\'', $a['onclick'])."';")); ?>"
         <?php } ?> 

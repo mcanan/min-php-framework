@@ -1,6 +1,6 @@
 <h3><?= $titulo ?></h3>
 <br />
-<form class="form-horizontal" id='formData' role="form" action="<?= $formActionAceptar ?>" method="get">
+<form class="form-horizontal" id='formData' role="form" action="<?= $formActionAceptar ?>" method="post">
 	<?php foreach ($items as $i) { 
 		switch ($i['type']) {
 			case 'hidden': ?>
