@@ -3,7 +3,7 @@ class Db2
 {
     private $handler;
 
-    public function getHandler()
+    private function getHandler()
     {
         if (is_null($this->handler)) {
             $this->handler = mysql_connect(CONF_DB_HOST, CONF_DB_USER, CONF_DB_PASSWORD);
@@ -12,6 +12,11 @@ class Db2
         }
 
         return $this->handler;
+    }
+
+    public function getError()
+    {
+        return mysql_error($this->getHandler());
     }
 
     public function consulta($consulta)
@@ -65,6 +70,11 @@ class Db2
         }
 
         return $retorno;
+    }
+
+    public function getLastInsertId()
+    {
+        return mysql_insert_id($this->getHandler());
     }
 
     public function escape($string)

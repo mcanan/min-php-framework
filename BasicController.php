@@ -13,6 +13,9 @@ abstract class BasicController extends Controller
         $this->views['layout'] = new View();
         $this->views['content'] = new View();
         $this->views['layout']->setTemplate($layoutTemplate);
+        
+        $this->views['content']->error = false;
+        $this->views['content']->mensaje = "";
     }
 
     protected function render($contentTemplateName)
