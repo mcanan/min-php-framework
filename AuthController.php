@@ -15,7 +15,8 @@ class AuthController extends BasicController
         }
     }
 
-	protected function logout(){
+    protected function logout()
+    {
         unset($_SESSION[CONF_AUTH_TOKEN]);
         if (defined('CONF_URL_BASE')){
             header('Location: /'.CONF_URL_BASE.'/login');
@@ -25,7 +26,8 @@ class AuthController extends BasicController
         exit();
     }
 
-	protected function isAuthorized(){
+    protected function isAuthorized()
+    {
         if (isset($_SESSION[CONF_AUTH_TOKEN])){
 			return true;
 		} else {
@@ -33,13 +35,13 @@ class AuthController extends BasicController
 		}
     }
 
-    protected function getLoggedUser(){
+    protected function getLoggedUser()
+    {
         if (isset($_SESSION[CONF_AUTH_TOKEN])){
 			return $_SESSION[CONF_AUTH_TOKEN];
 		} else {
 			return NULL;
 		}
     }
-
 }
 ?>
