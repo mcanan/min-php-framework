@@ -1,4 +1,6 @@
 <?php
+namespace mcanan\framework\helpers;
+
 // TODO: depurar estas funciones
 
 if (! function_exists('remove_tildes_chars')) {

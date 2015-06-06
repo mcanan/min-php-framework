@@ -1,4 +1,9 @@
 <?php
+namespace mcanan\framework\helpers;
+
+use \DateTime;
+use \DateTimeZone;
+
 // TODO: mejorar en gral estas funciones
 
 if (! function_exists('getFechaMysql')) {

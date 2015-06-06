@@ -1,5 +1,5 @@
 <?php
-require_once 'BasicController.php';
+namespace mcanan\framework;
 
 class AuthController extends BasicController 
 {

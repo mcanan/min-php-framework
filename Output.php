@@ -1,4 +1,6 @@
 <?php
+namespace mcanan\framework;
+
 class Output
 {
     private $html;

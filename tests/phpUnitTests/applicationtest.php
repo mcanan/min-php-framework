@@ -1,5 +1,8 @@
 <?php
-require 'basetest.php';
+namespace mcanan\framework\tests\phpUnitTests;
+
+require_once '../Autoloader.php';
+require_once '../Common.php';
 
 class ApplicationTest extends BaseTest
 {
@@ -35,7 +38,7 @@ class ApplicationTest extends BaseTest
 
     public function testBatchTestWithModel()
     {
-        $this->expectOutputString('Inicio'.PHP_EOL.'Item1Fin'.PHP_EOL);
+        $this->expectOutputString('Item1');
         echo $this->getUrlHttp($this->url."/batchcontrollertest/batchTest");
     }
 

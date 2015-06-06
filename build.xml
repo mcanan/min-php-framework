@@ -1,16 +1,16 @@
 <project name="framework" default="build">
 	<target name="clean">
-		<delete dir="${basedir}/build"/>
+		<delete dir="${basedir}/tests_logs"/>
 	</target>
 
 	<target name="prepare">
-		<mkdir dir="${basedir}/build/logs"/>
+		<mkdir dir="${basedir}/tests_logs"/>
 	</target>
 
 	<target name="phpcs">
 		<exec dir="${basedir}"
 			executable="phpcs"
-			output="${basedir}/build/logs/checkstyle.xml"
+			output="${basedir}/tests_logs/checkstyle.xml"
 			failonerror="false">
 			<arg line="--ignore=libraries/facebookapi,libraries/textrankapi,libraries/twitterapi --report=checkstyle --standard=PSR2 ."/>
 		</exec>
@@ -20,7 +20,7 @@
 		<exec dir="${basedir}"
 			executable="phploc.phar"
 			failonerror="false">
-			<arg line="--log-xml=${basedir}/build/logs/phploc.xml --exclude libraries ."/>
+			<arg line="--log-xml=${basedir}/tests_logs/phploc.xml --exclude libraries ."/>
 		</exec>
 	</target>
 
@@ -28,7 +28,7 @@
 		<exec dir="${basedir}"
 			executable="phpmd.phar"
 			failonerror="false">
-			<arg line=". xml codesize --reportfile ${basedir}/build/logs/pmd.xml --exclude libraries"/>
+			<arg line=". xml codesize --reportfile ${basedir}/tests_logs/pmd.xml --exclude libraries"/>
 		</exec>
 	</target>
 
@@ -36,7 +36,7 @@
 		<exec dir="${basedir}"
 			executable="phpcpd"
 			failonerror="false">
-			<arg line="--log-pmd=${basedir}/build/logs/pmd-cpd.xml --exclude libraries ."/>
+			<arg line="--log-pmd=${basedir}/tests_logs/pmd-cpd.xml --exclude libraries ."/>
 		</exec>
 	</target>
 
@@ -45,19 +45,19 @@
 			executable="phpunit"
 			failonerror="true">
 			<env key="CONF_FILE" value="app/conf/configTest.php"/>
-			<arg line="--colors --log-junit ${basedir}/build/logs/junit.xml --coverage-clover ${basedir}/build/logs/clover1.xml --bootstrap ${basedir}/tests/phpUnitTests/webserver.php ${basedir}/tests/phpUnitTests/applicationtest.php"/>
+			<arg line="--colors --log-junit ${basedir}/tests_logs/junit.xml --coverage-clover ${basedir}/tests_logs/clover1.xml --bootstrap ${basedir}/tests/phpUnitTests/webserver.php ${basedir}/tests/phpUnitTests/applicationtest.php"/>
 		</exec>
 		<exec dir="${basedir}/tests"
 			executable="phpunit"
 			failonerror="true">
 			<env key="CONF_FILE" value="app/conf/configTest1.php"/>
-			<arg line="--colors --log-junit ${basedir}/build/logs/junit.xml --coverage-clover ${basedir}/build/logs/clover2.xml --bootstrap ${basedir}/tests/phpUnitTests/webserver.php ${basedir}/tests/phpUnitTests/routertest1.php"/>
+			<arg line="--colors --log-junit ${basedir}/tests_logs/junit.xml --coverage-clover ${basedir}/tests_logs/clover2.xml --bootstrap ${basedir}/tests/phpUnitTests/webserver.php ${basedir}/tests/phpUnitTests/routertest1.php"/>
 		</exec>
 		<exec dir="${basedir}/tests"
 			executable="phpunit"
 			failonerror="true">
 			<env key="CONF_FILE" value="app/conf/configTest2.php"/>
-			<arg line="--colors --log-junit ${basedir}/build/logs/junit.xml --coverage-clover ${basedir}/build/logs/clover3.xml --bootstrap ${basedir}/tests/phpUnitTests/webserver.php ${basedir}/tests/phpUnitTests/routertest2.php"/>
+			<arg line="--colors --log-junit ${basedir}/tests_logs/junit.xml --coverage-clover ${basedir}/tests_logs/clover3.xml --bootstrap ${basedir}/tests/phpUnitTests/webserver.php ${basedir}/tests/phpUnitTests/routertest2.php"/>
 		</exec>
 	</target>
 

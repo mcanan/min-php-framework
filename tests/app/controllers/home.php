@@ -1,7 +1,7 @@
 <?php
-require_once (getcwd().'/../BasicController.php');
+namespace mcanan\app\controllers;
 
-class home extends BasicController
+class home extends \mcanan\framework\BasicController
 {
     public function __construct()
     {

@@ -1,8 +1,5 @@
 <?php
-require_once 'Base.php';
-require_once 'Db2.php';
-require_once 'View.php';
-require_once 'Common.php';
+namespace mcanan\framework;
 
 /**
 * Abstract base class for a controller
@@ -61,6 +58,7 @@ abstract class Controller extends Base
         }
 
         require_once $this->getDocumentRoot().'/app/models/'.strtolower($modelName).'.php';
+        $modelName = "\\mcanan\\app\\models\\".$modelName;
         $this->$name = new $modelName($this->db);
 
         return $this;
@@ -80,6 +78,7 @@ abstract class Controller extends Base
         }
 
         require_once $this->getDocumentRoot().'/app/batchs/'.strtolower($batchName).'.php';
+        $batchName = "\\mcanan\\app\\batchs\\".$batchName;
         $this->$name = new $batchName($this->db);
 
         return $this;

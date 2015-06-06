@@ -1,5 +1,7 @@
 <?php
-if (! function_exists('load_class')) {
+namespace mcanan\framework;
+
+if (! function_exists('load_class_from_registry')) {
     // Registro de clases singleton
     function &load_class_from_registry($class, $ruta)
     {
@@ -20,13 +22,13 @@ if (! function_exists('load_class')) {
 if (! function_exists('getBenchmarkInstance')) {
     function &getBenchmarkInstance()
     {
-        return load_class_from_registry("Benchmark", "Benchmark.php");
+        return load_class_from_registry("mcanan\\framework\\Benchmark", "Benchmark.php");
     }
 }
 
 if (! function_exists('getOutputInstance')) {
     function &getOutputInstance()
     {
-        return load_class_from_registry("Output", "Output.php");
+        return load_class_from_registry("mcanan\\framework\\Output", "Output.php");
     }
 }

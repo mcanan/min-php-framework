@@ -1,4 +1,6 @@
 <?php
+namespace mcanan\framework\libraries;
+
 class pagination
 {
     private $paginaActual;

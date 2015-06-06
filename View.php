@@ -1,5 +1,5 @@
 <?php
-require_once 'Base.php';
+namespace mcanan\framework;
 
 class View extends Base
 {

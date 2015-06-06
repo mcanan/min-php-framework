@@ -1,5 +1,8 @@
 <?php
+namespace mcanan\framework\libraries;
+
 require_once dirname(__FILE__).'/facebookapi/facebook.php';
+use \Facebook;
 
 class facebookapi
 {

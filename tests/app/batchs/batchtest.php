@@ -1,7 +1,7 @@
 <?php
-require_once (getcwd().'/../BatchProcess.php');
+namespace mcanan\app\batchs;
 
-class batchtest extends BatchProcess
+class batchtest extends \mcanan\framework\BatchProcess
 {
     public function main()
     {

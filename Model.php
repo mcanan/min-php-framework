@@ -1,6 +1,5 @@
 <?php
-require_once 'Base.php';
-require_once 'Db2.php';
+namespace mcanan\framework;
 
 /**
 * Abstract base class for a model entity

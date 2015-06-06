@@ -1,6 +1,5 @@
 <?php
-require_once 'Base.php';
-require_once 'Db2.php';
+namespace mcanan\framework;
 
 /**
 * Abstract base class for a batch process
@@ -89,6 +88,7 @@ abstract class BatchProcess extends Base
 
         if (file_exists($this->getDocumentRoot().'/app/models/'.strtolower($modelName).'.php')) {
             require_once $this->getDocumentRoot().'/app/models/'.strtolower($modelName).'.php';
+            $modelName = "\\mcanan\\app\\models\\".$modelName;
             $this->$name = new $modelName($this->db);
         }
 

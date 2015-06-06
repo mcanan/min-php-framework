@@ -10,7 +10,7 @@ ini_set('xdebug.show_mem_delta', '1');
 require '../Application.php';
 
 xdebug_start_trace('/tmp/1.xt');
-$app = new Application();
+$app = new mcanan\framework\Application();
 $app->loadConfigurationFile(getenv("CONF_FILE"));
 $app->init();
 xdebug_stop_trace();

@@ -1,6 +1,8 @@
 <?php
+namespace mcanan\framework;
+
+require 'Autoloader.php';
 require_once 'Common.php';
-require_once 'IRouter.php';
 
 class Application
 {

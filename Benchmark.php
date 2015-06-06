@@ -1,4 +1,6 @@
 <?php
+namespace mcanan\framework;
+
 class Benchmark
 {
     private $timestamps = array();

@@ -1,6 +1,5 @@
 <?php
-require_once 'Controller.php';
-require_once 'View.php';
+namespace mcanan\framework;
 
 abstract class BasicController extends Controller
 {

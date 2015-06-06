@@ -1,7 +1,7 @@
 <?php
-require_once (getcwd().'/../Model.php');
+namespace mcanan\app\models;
 
-class modeltest extends Model
+class modeltest extends \mcanan\framework\Model
 {
     public function getItems()
     {

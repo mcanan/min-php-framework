@@ -1,5 +1,7 @@
 <?php
-require '../Application.php';
+namespace mcanan\framework\tests\phpUnitTests;
+
+use \PHPUnit_Framework_TestCase;
 
 class BaseTest extends PHPUnit_Framework_TestCase
 {
@@ -8,8 +10,8 @@ class BaseTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         // Clean the singleton registry
-        $benchmark =& getBenchmarkInstance();
-        $output =& getOutputInstance();
+        $benchmark =& \mcanan\framework\getBenchmarkInstance();
+        $output =& \mcanan\framework\getOutputInstance();
         $output->setHtml("");
         $benchmark->reset();
         $this->url = 'http://'.WEB_SERVER_HOST.':'.WEB_SERVER_PORT;

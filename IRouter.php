@@ -1,4 +1,6 @@
 <?php
+namespace mcanan\framework;
+
 interface IRouter
 {
     public function setUrl($url);

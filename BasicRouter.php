@@ -1,6 +1,5 @@
 <?php
-require_once 'Common.php';
-require_once 'IRouter.php';
+namespace mcanan\framework;
 
 class BasicRouter implements IRouter
 {
@@ -43,7 +42,7 @@ class BasicRouter implements IRouter
 
         if (file_exists($url)) {
             require_once "$url";
-            $controller = ucwords(strtolower($this->url_controller));
+            $controller = "\\mcanan\\app\\controllers\\".ucwords(strtolower($this->url_controller));
             $instance = new $controller();
 
             if (method_exists($instance, $this->url_action)) {

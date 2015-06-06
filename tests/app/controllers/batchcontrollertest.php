@@ -1,7 +1,7 @@
 <?php
-require_once (getcwd().'/../Controller.php');
+namespace mcanan\app\controllers;
 
-class batchcontrollertest extends Controller
+class batchcontrollertest extends \mcanan\framework\Controller
 {
     public function batchTest()
     {
