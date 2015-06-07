@@ -54,8 +54,8 @@ abstract class Base
 
     protected function getDocumentRoot()
     {
-        if (defined("CONFIG_DOCUMENT_ROOT")) {
-            return CONFIG_DOCUMENT_ROOT;
+        if (defined("CONF_DOCUMENT_ROOT")) {
+            return CONF_DOCUMENT_ROOT;
         } else {
             if (defined("CONF_URL_BASE")){
                 return $_SERVER["DOCUMENT_ROOT"].'/'.CONF_URL_BASE;

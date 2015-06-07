@@ -1,3 +1,3 @@
 <?php
-define('CONFIG_DOCUMENT_ROOT', '.');
-define('CONFIG_TEST_ENVIRONMENT', '1');
+define('CONF_DOCUMENT_ROOT', '.');
+define('CONF_TEST_ENVIRONMENT', '1');

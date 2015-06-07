@@ -27,7 +27,7 @@ abstract class BatchProcess extends Base
         if (isset($this->Log)) {
             $this->Log->insert('E', get_class($this), $descripcion);
         } else {
-            if (!defined('CONFIG_TEST_ENVIRONMENT')) {
+            if (!defined('CONF_TEST_ENVIRONMENT')) {
                 error_log("LOG: E - ".get_class($this)." $descripcion");
             }
         }
@@ -38,7 +38,7 @@ abstract class BatchProcess extends Base
         if (isset($this->Log)) {
             $this->Log->insert('I', get_class($this), $descripcion);
         } else {
-            if (!defined('CONFIG_TEST_ENVIRONMENT')) {
+            if (!defined('CONF_TEST_ENVIRONMENT')) {
                 error_log("LOG: I - ".get_class($this)." $descripcion");
             }
         }
@@ -49,7 +49,7 @@ abstract class BatchProcess extends Base
         if (isset($this->Log)) {
             $this->Log->insert('D', get_class($this), $descripcion);
         } else {
-            if (!defined('CONFIG_TEST_ENVIRONMENT')) {
+            if (!defined('CONF_TEST_ENVIRONMENT')) {
                 error_log("LOG: D - ".get_class($this)." $descripcion");
             }
         }

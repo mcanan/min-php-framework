@@ -66,16 +66,18 @@ class BasicRouter implements IRouter
                     // URL invalida, llamo index
                     error_log("URL invalida: ".$this->url_original);
                     require './app/controllers/'.$this->default_controller.'.php';
-                    $instance = new $this->default_controller();
+                    $controller = "\\mcanan\\app\\controllers\\".$this->default_controller;
+                    $instance = new $controller;
                     $instance->{$this->default_action}();
                 }
             }
         } else {
-            if (defined("CONFIG_ERROR_404_DEFAULT_CONTROLLER") && CONFIG_ERROR_404_DEFAULT_CONTROLLER=='Y') {
+            if (defined("CONF_ERROR_404_DEFAULT_CONTROLLER") && CONF_ERROR_404_DEFAULT_CONTROLLER=='Y') {
                 // Url invalida, llamo index
                 error_log("URL invalida: ".$this->url_original);
                 require './app/controllers/'.$this->default_controller.'.php';
-                $instance = new $this->default_controller();
+                $controller = "\\mcanan\\app\\controllers\\".$this->default_controller;
+                $instance = new $controller;
                 $instance->{$this->default_action}();
             } else {
                 header("HTTP/1.1 404 Not Found");
