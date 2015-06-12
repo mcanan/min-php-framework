@@ -1,8 +1,8 @@
 <?php
 namespace mcanan\framework\libraries;
 
-require_once dirname(__FILE__).'/twitterapi/twitteroauth.php';
-use \TwitterOAuth;
+require dirname(__FILE__)."/twitterapi/autoload.php";
+use Abraham\TwitterOAuth\TwitterOAuth;
 
 class twitterapi
 {
@@ -41,6 +41,14 @@ class twitterapi
         return $this->twitterClient->get(
             'friends/ids',
             array('user_id' => $id, 'count' => $count, 'cursor' => $cursor)
+        );
+    }
+
+    public function getFriendsByScreenName($screen_name, $count, $cursor)
+    {
+        return $this->twitterClient->get(
+            'friends/ids',
+            array('screen_name' => $screen_name, 'count' => $count, 'cursor' => $cursor)
         );
     }
 
@@ -90,12 +98,8 @@ class twitterapi
 
     public function update_with_media($mensaje, $imagen)
     {
-        error_log($mensaje." - ".$imagen);
-
-        return $this->twitterClient->post(
-            'statuses/update_with_media',
-            array('status' => "$mensaje", 'media[]' => "@{$imagen};type=image/jpeg;filename={$imagen}" ),
-            true
-        );
+        $media = $this->twitterClient->upload('media/upload', array('media' => $imagen));
+        $parameters = array('status' => $mensaje, 'media_ids' => $media->media_id_string);
+        return $this->twitterClient->post('statuses/update', $parameters);
     }
 }

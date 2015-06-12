@@ -6,12 +6,10 @@ class AuthController extends BasicController
 	function __construct($layout)
     {
         session_start();
-        error_log("authcontroller-constructor ".$_SESSION[CONF_AUTH_TOKEN]);
         if (!$this->isAuthorized()){
             $this->logout();
         } else {
             parent::__construct($layout);
-            $this->setLayoutVariable('logged_user', $_SESSION[CONF_AUTH_TOKEN]);
         }
     }
 
