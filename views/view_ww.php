@@ -1,5 +1,6 @@
-<h3><?= $titulo ?></h3>
-<br />
+<div class='page-header'>
+    <h3><?= $titulo ?></h3>
+</div>
 <?php	if (isset($form_action) || isset($actions)) {  ?>
 <div class="row">
   <?php	if (isset($form_action)) {

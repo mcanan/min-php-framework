@@ -44,7 +44,6 @@ class Output
             if ($stat[9]) {
                 if (time() > $stat[9] + $expiration) {
                     @unlink($cachedir.$filename);
-
                     return false;
                 }
             }
