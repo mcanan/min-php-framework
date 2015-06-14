@@ -36,6 +36,14 @@ class twitterapi
         );
     }
 
+    public function getFollowersByScreenName($screen_name, $count, $cursor)
+    {
+        return $this->twitterClient->get(
+            'followers/ids',
+            array('screen_name' => $screen_name, 'count' => $count, 'cursor' => $cursor)
+        );
+    }
+
     public function getFriendsById($id, $count, $cursor)
     {
         return $this->twitterClient->get(
