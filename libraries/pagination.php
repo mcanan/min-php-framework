@@ -1,7 +1,7 @@
 <?php
 namespace mcanan\framework\libraries;
 
-class pagination
+class Pagination
 {
     private $paginaActual;
     private $cntTotalPaginas;
@@ -37,22 +37,20 @@ class pagination
 
     public function render($link)
     {
-        // TODO: HTML.
-    ?>
-        <ul class="pagination">
-        <?php if ($this->paginaActual>3) {?>
-        <li><a href="<?=$link?>&p=1">1</a></li>
-        <li class="disabled"><a href=''>...</a></li>
-        <?php } ?>
-        <?php for ($i=($this->paginaActual>2 ? $this->paginaActual-2 : 1);$i<=($this->paginaActual<$this->cntTotalPaginas-2 ? $this->paginaActual+2 : $this->cntTotalPaginas);$i++) { ?>
-        <li <?= ($this->paginaActual==$i ? "class='active'" : "") ?>><a href="<?=$link?>&p=<?=$i?>"><?=$i?></a></li>
-        <?php } ?>
-        <?php if ($this->paginaActual<$this->cntTotalPaginas-2) {?>
-        <li class="disabled"><a href=''>...</a></li>
-        <li><a href="<?=$link?>&p=<?=$this->cntTotalPaginas?>"><?=$this->cntTotalPaginas?></a></li>
-        <?php } ?>
-        </ul>
-    <?php
-}
+        // TODO: Hacerlo con una vista.
+        $retorno = "<ul class='pagination'>";
+        if ($this->paginaActual>3) {
+            $retorno .= "<li><a href='$link&p=1'>1</a></li>";
+            $retorno .= "<li class='disabled'><a href=''>...</a></li>";
+        }
+        for ($i=($this->paginaActual>2 ? $this->paginaActual-2 : 1);$i<=($this->paginaActual<$this->cntTotalPaginas-2 ? $this->paginaActual+2 : $this->cntTotalPaginas);$i++) {
+            $retorno .= "<li ".($this->paginaActual==$i ? "class='active'" : "")."><a href='$link&p=$i'>$i</a></li>";
+        }
+        if ($this->paginaActual<$this->cntTotalPaginas-2) {
+            $retorno .= "<li class='disabled'><a href=''>...</a></li>";
+            $retorno .= "<li><a href='$link&p=".$this->cntTotalPaginas."'>".$this->cntTotalPaginas."</a></li>";
+        }
+        return $retorno;
+    }
 }
 ?>

@@ -51,6 +51,7 @@ class Application
         $action = $this->getRouter()->getAction();
 
         // Verifico cache
+        // TODO: Arreglar cache en url con parametros
         if (isset($this->urls_cache[$controller][$action])) {
             $time = $this->urls_cache[$controller][$action];
             if ($output->displayFromCache($controller, $action, $time)) {

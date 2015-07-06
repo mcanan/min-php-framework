@@ -1,5 +1,11 @@
-<h3><?= $titulo ?></h3>
-<br />
+<div class='page-header'>
+    <h3><?= $titulo ?></h3>
+</div>
+<?php	if (isset($top_section)) {  ?>
+<div class="row">
+    <?= $top_section ?>
+</div>
+<?php } ?>
 <form class="form-horizontal" id='formData' role="form">
     <?php foreach ($items as $i) { 
         switch ($i['type']) {

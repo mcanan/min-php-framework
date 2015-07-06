@@ -1,6 +1,11 @@
 <div class='page-header'>
     <h3><?= $titulo ?></h3>
 </div>
+<?php	if (isset($top_section)) {  ?>
+<div class="row">
+    <?= $top_section ?>
+</div>
+<?php } ?>
 <?php	if (isset($form_action) || isset($actions)) {  ?>
 <div class="row">
   <?php	if (isset($form_action)) {
@@ -59,10 +64,3 @@
 <?php if (isset($mensaje) && $mensaje!="") { ?>
 <div class="alert alert-<?= ($error==true ? "danger" : "success") ?>" role="alert"><?= $mensaje ?></div>
 <?php } ?>
-
-<script>
-  function confirmar(screen_name)
-  {
-    return confirm("¿Desea borrar el referente "+screen_name+"?");
-  }
-</script>

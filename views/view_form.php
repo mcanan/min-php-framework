@@ -1,5 +1,6 @@
-<h3><?= $titulo ?></h3>
-<br />
+<div class='page-header'>
+    <h3><?= $titulo ?></h3>
+</div>
 <form class="form-horizontal" id='formData' role="form" action="<?= $formActionAceptar ?>" method="post">
     <?php foreach ($items as $i) { 
         switch ($i['type']) {
