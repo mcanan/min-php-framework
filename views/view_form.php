@@ -7,6 +7,14 @@
             case 'hidden': ?>
                 <input type='hidden' name='<?= $i['id'] ?>' value='<?= $i['value'] ?>'>
                 <?php break;
+                case 'boolean': ?>
+                <div class="form-group">
+                    <label for="<?= $i['id'] ?>" class='control-label col-md-2'><?=$i['label']?></label>
+                    <div class='input-group <?= (isset($i['class'])?$i['class']:'col-md-1') ?>'>
+                        <input class="form-control" id="<?= $i['id'] ?>" name="<?= $i['id'] ?>" type="checkbox" value="1" <?= ($i['value']==1?'checked':'') ?>>
+                    </div>
+                </div>
+                <?php break;
             case 'readonly': ?>
                 <div class="form-group">
                     <label for="<?= $i['id'] ?>" class='control-label col-md-2'><?=$i['label']?></label>
@@ -45,8 +53,7 @@
                     </div>
                 </div>
                 <?php break;
-            case 'password':
-            default: ?>
+            case 'password': ?>
                 <div class="form-group">
                     <label for="<?= $i['id'] ?>" class='control-label col-md-2'><?=$i['label']?></label>
                     <div class='input-group <?= (isset($i['class'])?$i['class']:'col-md-8') ?>'>
