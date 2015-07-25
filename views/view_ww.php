@@ -1,3 +1,14 @@
+<?php if (isset($breadcrumb)) {  ?>
+<ol class="breadcrumb">
+    <?php foreach ($breadcrumb as $k=>$a) { ?>
+    <?php if ($k==(count($breadcrumb)-1)) {  ?>
+    <li class='active'><?= $a['description'] ?></li>
+    <?php } else { ?>
+    <li><a href="<?= $a['href'] ?>"><?= $a['description'] ?></a></li>
+    <?php } ?>
+    <?php } ?>
+</ol>
+<?php } ?>
 <div class='page-header'>
     <h3><?= $titulo ?></h3>
 </div>
