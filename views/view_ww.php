@@ -44,8 +44,20 @@
 <table class="table table-striped table-condensed">
   <?php foreach ($items as $i) { ?>
   <tr>
-    <?php foreach ($item_attributes as $a) { ?>
-    <td class='<?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><?= $i[$a['attribute']] ?></td>
+      <?php foreach ($item_attributes as $a) { 
+        if (!isset($a['type'])) $a['type']='text';
+        switch ($a['type']) {
+                case 'money': ?>
+                    <td class='text-right <?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><?= number_format($i[$a['attribute']],2,'.',',') ?></td>
+        <?php   break;
+                case 'date_from_mysqldatetime': ?>
+                    <td class='text-center <?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><?php $date = DateTime::createFromFormat('Y-m-d H:i:s', $i[$a['attribute']]); echo $date->format('d/m/Y'); ?></td>
+        <?php   break;
+                default: ?>
+                    <td class='<?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><?= $i[$a['attribute']] ?></td>
+        <?php   break;
+             } 
+        ?>
     <?php } ?>
     <?php if (isset($item_actions)) {?>
     <?php foreach ($item_actions as $a) { ?>
