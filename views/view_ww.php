@@ -50,6 +50,9 @@
                 case 'money': ?>
                     <td class='text-right <?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><?= number_format($i[$a['attribute']],2,'.',',') ?></td>
         <?php   break;
+                case 'date_from_mysqldate': ?>
+                    <td class='text-center <?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><?php $date = DateTime::createFromFormat('Y-m-d', $i[$a['attribute']]); echo $date->format('d/m/Y'); ?></td>
+        <?php   break;
                 case 'date_from_mysqldatetime': ?>
                     <td class='text-center <?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><?php $date = DateTime::createFromFormat('Y-m-d H:i:s', $i[$a['attribute']]); echo $date->format('d/m/Y'); ?></td>
         <?php   break;
