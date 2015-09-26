@@ -35,6 +35,18 @@ class facebookapi
         return $this->fbClient->api('/'.$id.'/links', 'POST', $params);
     }
 
+    public function postPhoto($id, $message, $picture)
+    {
+        $picture='@'.realpath($picture);
+        $params = array(
+            'access_token' => $this->access_token,
+            'message' => $message,
+            'image' => $picture
+        );
+        $this->fbClient->setFileUploadSupport(true);
+        return $this->fbClient->api('/'.$id.'/photos', 'POST', $params);
+    }
+
     public function getLikesById($id)
     {
         $params = array('fields' => 'likes');
