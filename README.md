@@ -32,3 +32,5 @@ The app must be in a structure like this:
   * helpers
   * batchs
   * cache
+
+More documentation: https://github.com/mcanan/min-php-framework/wiki
