@@ -3,52 +3,54 @@ namespace mcanan\framework\libraries;
 
 class Pagination
 {
-    private $paginaActual;
-    private $cntTotalPaginas;
-    private $cntTotalItems;
-    private $cntPorPagina;
+    private $currentPage;
+    private $totalAmountPages;
+    private $totalAmountItems;
+    private $amountPerPage;
+    private $link;
 
-    public function init($cntPorPagina, $paginaActual, $cntTotalItems)
+    public function init($amountPerPage, $currentPage, $totalAmountItems, $link)
     {
-        $cntTotalPaginas = floor($cntTotalItems/$cntPorPagina)+1;
+        $totalAmountPages = floor($totalAmountItems/$amountPerPage)+1;
 
-        if ($paginaActual<1) {
-            $paginaActual=1;
+        if ($currentPage<1) {
+            $currentPage=1;
         }
-        if ($paginaActual>$cntTotalPaginas) {
-            $paginaActual=$cntTotalPaginas;
+        if ($currentPage>$totalAmountPages) {
+            $currentPage=$totalAmountPages;
         }
 
-        $this->cntPorPagina=$cntPorPagina;
-        $this->paginaActual=$paginaActual;
-        $this->cntTotalItems=$cntTotalItems;
-        $this->cntTotalPaginas=$cntTotalPaginas;
+        $this->amountPerPage=$amountPerPage;
+        $this->currentPage=$currentPage;
+        $this->totalAmountItems=$totalAmountItems;
+        $this->totalAmountPages=$totalAmountPages;
+        $this->link=$link;
     }
 
-    public function getPaginaActual()
+    public function getCurrentPage()
     {
-        return $this->paginaActual;
+        return $this->currentPage;
     }
 
-    public function getCantidadTotalItems()
+    public function getTotalAmountOfItems()
     {
-        return $this->cntTotalItems;
+        return $this->totalAmountItems;
     }
 
-    public function render($link)
+    public function render()
     {
         // TODO: Hacerlo con una vista.
         $retorno = "<ul class='pagination'>";
-        if ($this->paginaActual>3) {
-            $retorno .= "<li><a href='$link&p=1'>1</a></li>";
+        if ($this->currentPage>3) {
+            $retorno .= "<li><a href='$this->link&p=1'>1</a></li>";
             $retorno .= "<li class='disabled'><a href=''>...</a></li>";
         }
-        for ($i=($this->paginaActual>2 ? $this->paginaActual-2 : 1);$i<=($this->paginaActual<$this->cntTotalPaginas-2 ? $this->paginaActual+2 : $this->cntTotalPaginas);$i++) {
-            $retorno .= "<li ".($this->paginaActual==$i ? "class='active'" : "")."><a href='$link&p=$i'>$i</a></li>";
+        for ($i=($this->currentPage>2 ? $this->currentPage-2 : 1);$i<=($this->currentPage<$this->totalAmountPages-2 ? $this->currentPage+2 : $this->totalAmountPages);$i++) {
+            $retorno .= "<li ".($this->currentPage==$i ? "class='active'" : "")."><a href='$this->link&p=$i'>$i</a></li>";
         }
-        if ($this->paginaActual<$this->cntTotalPaginas-2) {
+        if ($this->currentPage<$this->totalAmountPages-2) {
             $retorno .= "<li class='disabled'><a href=''>...</a></li>";
-            $retorno .= "<li><a href='$link&p=".$this->cntTotalPaginas."'>".$this->cntTotalPaginas."</a></li>";
+            $retorno .= "<li><a href='$this->link&p=".$this->totalAmountPages."'>".$this->totalAmountPages."</a></li>";
         }
         return $retorno;
     }

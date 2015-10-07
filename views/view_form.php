@@ -60,7 +60,7 @@
                 <label for="<?= $i['id'] ?>" class='control-label col-md-2'><?=$i['label']?></label>
                 <div class='input-group <?= (isset($i['class'])?$i['class']:'col-md-8') ?>'>
                     <?= (isset($i['addon'])?$i['addon']:'') ?>
-                    <input class='form-control' type="text" style='text-align: right;' id="<?= $i['id'] ?>" name="<?= $i['id'] ?>" placeholder="<?= (isset($i['placeholder'])?$i['placeholder']:'') ?>" value="<?= (isset($i['value'])?$i['value']:'') ?>" size="<?= (isset($i['size'])?$i['size']:'') ?>" maxlength="<?= (isset($i['maxlength'])?$i['maxlength']:'') ?>">
+                    <input class='form-control' data-validation="number" data-validation-optional="true" data-validation-allowing="float,negative" data-validation-error-msg="Debe ser un valor numérico" type="text" style='text-align: right;' id="<?= $i['id'] ?>" name="<?= $i['id'] ?>" placeholder="<?= (isset($i['placeholder'])?$i['placeholder']:'') ?>" value="<?= (isset($i['value'])?$i['value']:'') ?>" size="<?= (isset($i['size'])?$i['size']:'') ?>" maxlength="<?= (isset($i['maxlength'])?$i['maxlength']:'') ?>">
                 </div>
             </div>
             <?php break;
@@ -106,9 +106,10 @@
 <?php if (isset($mensaje) && $mensaje!="") { ?>
 <div class="alert alert-<?= ($error==true ? "danger" : "success") ?>" role="alert"><?= $mensaje ?></div>
 <?php } ?>
-
 <link href='/public/css/datepicker.css' rel='stylesheet' />
 <script src='/public/js/bootstrap-datepicker.js'></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.8/jquery.form-validator.min.js"></script>
+<script> $.validate(); </script>
 <script>
     function fillSelect(_url, _select, _texto, _noinfo){
             _texto = typeof _texto !== 'undefined' ? _texto : 'Ninguno';

@@ -122,22 +122,18 @@
                         <?php } ?> 
                         <?php if (isset($a['class'])) { ?>
                         class="<?= $a['class'] ?>">
-                        <?php } ?> 
+                        <?php } ?>
                     ><?= $a['description'] ?></a></td>    
         </td>
         <?php } ?>
         <?php } ?>
     </tr>
     <?php } ?>
-    <tr>
-        <?php if (isset($Pagination)) {?>
-        <td colspan="5">
-            <div>Total: <strong><?= $Pagination->getCantidadTotalItems() ?></strong></div>
-            <?php $Pagination->render("/admin/referentes?".($busqueda!="b=" ? "b=".urlencode($busqueda) : "")); ?>
-        </td>
-        <?php } ?>
-    </tr>
 </table>
+<?php if (isset($Pagination)) {?>
+    <div>Total: <strong><?= $Pagination->getTotalAmountOfItems() ?></strong></div>
+    <div><?php echo $Pagination->render(); ?></div>
+<?php } ?>
 
 <?php if (isset($mensaje) && $mensaje!="") { ?>
 <div class="alert alert-<?= ($error==true ? "danger" : "success") ?>" role="alert"><?= $mensaje ?></div>
