@@ -83,6 +83,15 @@
                 </table>
             </div>
             <?php break;
+            case 'text': ?>
+            <div class="form-group">
+                <label for="<?= $i['id'] ?>" class='control-label col-md-2'><?=$i['label']?></label>
+                <div class='input-group <?= (isset($i['class'])?$i['class']:'col-md-8') ?>'>
+                    <?= (isset($i['addon'])?$i['addon']:'') ?>
+                    <textarea class='form-control' id="<?= $i['id'] ?>" name="<?= $i['id'] ?>" placeholder="<?= (isset($i['placeholder'])?$i['placeholder']:'') ?>" rows="<?= (isset($i['rows'])?$i['rows']:'4') ?>" cols="<?= (isset($i['cols'])?$i['cols']:'20') ?>"><?= (isset($i['value'])?$i['value']:'') ?></textarea>
+                </div>
+            </div>
+            <?php break;
             case 'input':
             default: ?>
             <div class="form-group">
