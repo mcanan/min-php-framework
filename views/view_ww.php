@@ -97,8 +97,16 @@
             <?php foreach ($items as $i) { ?>
             <tr>
                 <?php foreach ($item_attributes as $a) { 
-                    if (!isset($a['type'])) $a['type']='text';
-                    switch ($a['type']) {
+                    if (isset($a['condition'])) {
+                        $ans=str_replace("}",'\']',str_replace("{", '$i[\'', $a['condition']));
+                        $condition = eval("return (".$ans.");");
+                    } else {
+                        $condition = true;
+                    }
+                    
+                    if ($condition) { 
+                     if (!isset($a['type'])) $a['type']='text';
+                     switch ($a['type']) {
                         case 'money': ?>
                         <td class='text-right <?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><?= number_format($i[$a['attribute']],2,'.',',') ?></td>
                         <?php   break;
@@ -108,22 +116,39 @@
                         case 'date_from_mysqldatetime': ?>
                         <td class='text-center <?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><?php $date = DateTime::createFromFormat('Y-m-d H:i:s', $i[$a['attribute']]); echo $date->format('d/m/Y'); ?></td>
                         <?php   break;
+                        case 'html': ?>
+                        <td class='text-center <?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><?= $a['html'] ?></td>
+                        <?php   break;
                         default: ?>
                         <td class='<?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><?= $i[$a['attribute']] ?></td>
                         <?php   break;
-                    } 
-                ?>
+                     } 
+                 } else {
+                 ?>
+                 <td class='text-center'>&nbsp;</td>
+                 <?php
+                 } ?>
                 <?php } ?>
                 <?php if (isset($item_actions)) {?>
                 <?php foreach ($item_actions as $a) { ?>
-                <td class='<?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><a 	href="<?php eval("echo '".str_replace("}",'\'].\'',str_replace("{", '\'.$i[\'', $a['href'])."';")); ?>"
+                <td class='<?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'>
+                    <?php if (isset($a['condition'])) {
+                        $ans=str_replace("}",'\']',str_replace("{", '$i[\'', $a['condition']));
+                        $condition = eval("return (".$ans.");");
+                    } else {
+                        $condition = true;
+                    }
+                        ?>
+                    <?php if ($condition) { ?>
+                        <a href="<?php eval("echo '".str_replace("}",'\'].\'',str_replace("{", '\'.$i[\'', $a['href'])."';")); ?>"
                         <?php if (isset($a['onclick'])) { ?>
                         onclick="<?php eval("echo '".str_replace("}",'\'].\'\\\'',str_replace("{", '\\\'\'.$i[\'', $a['onclick'])."';")); ?>"
                         <?php } ?> 
                         <?php if (isset($a['class'])) { ?>
                         class="<?= $a['class'] ?>">
                         <?php } ?>
-                    ><?= $a['description'] ?></a></td>    
+                        ><?= $a['description'] ?></a></td>    
+                    <?php } ?>
         </td>
         <?php } ?>
         <?php } ?>
