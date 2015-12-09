@@ -54,9 +54,9 @@ abstract class BasicController extends Controller
         $this->views['layout']->$variable = $value;
     }
 
-    protected function setMensaje($error, $mensaje)
+    protected function setMensaje($error, $message)
     {
-        $this->views['content']->error = $error;
-        $this->views['content']->mensaje = $mensaje;
+        $_SESSION['error'] = $error;
+        $_SESSION['message'] = $message;
     }
 }

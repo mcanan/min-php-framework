@@ -1,3 +1,9 @@
+<?php
+    $message=$_SESSION['message'];
+    $error=$_SESSION['error'];
+    $_SESSION['message']='';
+    $_SESSION['error']=false;
+?>
 <?php if (isset($breadcrumb)) {  ?>
 <ol class="breadcrumb">
     <?php foreach ($breadcrumb as $k=>$a) { ?>
@@ -15,6 +21,12 @@
 <?php	if (isset($top_section)) {  ?>
 <div class="row">
     <?= $top_section ?>
+</div>
+<?php } ?>
+
+<?php if ($message!="") { ?>
+<div class='row'>
+    <div class="alert alert-<?= ($error==true ? "danger" : "success") ?>" role="alert"><?= $message ?></div>
 </div>
 <?php } ?>
 
@@ -95,7 +107,15 @@
         <?php } ?>
         <table class="table table-striped table-condensed">
             <?php foreach ($items as $i) { ?>
-            <tr>
+            <?php
+                    if (isset($active_item)) {
+                        $ans=str_replace("}",'\']',str_replace("{", '$i[\'', $active_item));
+                        $active = eval("return (".$ans.");");
+                    } else {
+                        $active = false;
+                    }
+            ?>
+            <tr <?= ($active?'class="info"':'') ?>>
                 <?php foreach ($item_attributes as $a) { 
                     if (isset($a['condition'])) {
                         $ans=str_replace("}",'\']',str_replace("{", '$i[\'', $a['condition']));
@@ -103,12 +123,18 @@
                     } else {
                         $condition = true;
                     }
-                    
+
                     if ($condition) { 
                      if (!isset($a['type'])) $a['type']='text';
                      switch ($a['type']) {
                         case 'money': ?>
-                        <td class='text-right <?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><?= number_format($i[$a['attribute']],2,'.',',') ?></td>
+                        <td class='text-right <?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'>
+                        <?php if (isset($a['href'])) { ?>
+                        <a href="<?php eval("echo '".str_replace("}",'\'].\'',str_replace("{", '\'.$i[\'', $a['href'])."';")); ?>"><?= number_format($i[$a['attribute']],2,'.',',') ?></a>
+                        <?php } else { ?>
+                        <?= number_format($i[$a['attribute']],2,'.',',') ?>
+                        <?php } ?>
+                        </td>
                         <?php   break;
                         case 'date_from_mysqldate': ?>
                         <td class='text-center <?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><?php $date = DateTime::createFromFormat('Y-m-d', $i[$a['attribute']]); echo $date->format('d/m/Y'); ?></td>
@@ -120,7 +146,13 @@
                         <td class='text-center <?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><?= $a['html'] ?></td>
                         <?php   break;
                         default: ?>
-                        <td class='<?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><?= $i[$a['attribute']] ?></td>
+                            <td class='<?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'>
+                            <?php if (isset($a['href'])) { ?>
+                            <a href="<?php eval("echo '".str_replace("}",'\'].\'',str_replace("{", '\'.$i[\'', $a['href'])."';")); ?>"><?= $i[$a['attribute']] ?></a>
+                            <?php } else { ?>
+                            <?= $i[$a['attribute']] ?>
+                            <?php } ?>
+                            </td>
                         <?php   break;
                      } 
                  } else {
@@ -160,6 +192,3 @@
     <div><?php echo $Pagination->render(); ?></div>
 <?php } ?>
 
-<?php if (isset($mensaje) && $mensaje!="") { ?>
-<div class="alert alert-<?= ($error==true ? "danger" : "success") ?>" role="alert"><?= $mensaje ?></div>
-<?php } ?>

@@ -89,6 +89,19 @@ abstract class Controller extends Base
         return isset($_REQUEST["$parameter"]) ? $_REQUEST["$parameter"] : $default;
     }
 
+    protected function getRequestParameterOrSession($parameter, $default)
+    {
+        if (isset($_REQUEST["$parameter"])){
+            $_SESSION["$parameter"] = $_REQUEST["$parameter"];
+            return $_REQUEST["$parameter"];
+        } else if(isset($_SESSION["$parameter"])){
+            return $_SESSION["$parameter"];
+        } else {
+            return $default;    
+        }
+    }
+
+    /* TODO: Ver si la uso o no */
     protected function getRequestParameterOrCookie($parameter, $default)
     {
         if (isset($_REQUEST["$parameter"])){
@@ -99,6 +112,13 @@ abstract class Controller extends Base
         } else {
             return $default;    
         }
+    }
+
+    protected function redirect($url, $error=false, $message='')
+    {
+        $_SESSION['error']=$error;
+        $_SESSION['message']=$message;
+        header("Location: $url");
     }
 
     protected function getFullUrl($url)

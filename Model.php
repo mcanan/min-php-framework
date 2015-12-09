@@ -12,4 +12,19 @@ abstract class Model extends Base
     {
         $this->db = $db;
     }
+
+    public function startTransaction()
+    {
+        return $this->db->update("start transaction");
+    }
+    
+    public function commit()
+    {
+        return $this->db->update("commit");
+    }
+    
+    public function rollback()
+    {
+        return $this->db->update("rollback");
+    }
 }
