@@ -114,6 +114,43 @@ abstract class Controller extends Base
         }
     }
 
+    protected function renderToString($templateName, $variables)
+    {
+        $this->getBenchmark()->mark("controller_renderToString_start");
+        $view = new View();
+        $view->setTemplate($templateName);
+        foreach ($variables as $v) {
+            $view->$v[0] = $v[1];
+        }
+        $retorno = $view->render();
+        $this->getBenchmark()->mark("controller_renderToString_end");
+        return $retorno;
+    }
+
+    protected function recursiveRender($templatesArray, $commonVariables)
+    {
+        $this->getBenchmark()->mark("controller_recursiveRender_start");
+        $views = array();
+        $anterior = NULL;
+        foreach ($templatesArray as $template) {
+            $view = new View();
+            $view->setTemplate($template);
+            if (!is_null($anterior)){
+                $view->contenido = $anterior->render();
+                foreach ($commonVariables as $v) {
+                    $view->$v = $anterior->defined_vars["$v"];
+                }
+            }
+            $anterior = $view;
+        }
+        if ($this->isShowBenchmarks()) {
+            $this->getOutput()->setHtml($anterior->render()."%BENCHMARK%");
+        } else {
+            $this->getOutput()->setHtml($anterior->render());
+        }
+        $this->getBenchmark()->mark("controller_recursiveRender_end");
+    }
+
     protected function redirect($url, $error=false, $message='')
     {
         $_SESSION['error']=$error;

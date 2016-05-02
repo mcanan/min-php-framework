@@ -42,14 +42,15 @@ class ApplicationTest extends BaseTest
         echo $this->getUrlHttp($this->url."/batchcontrollertest/batchTest");
     }
 
+    // TODO : estos tests.
+    /*
     public function testCache()
     {
-        //TODO: implementar
     }
 
     public function testBenchmark()
     {
-        //TODO: implementar
     }
+    */
     // TODO :  Test de Cache, test de Benchmark y test de BasicRouter
 }

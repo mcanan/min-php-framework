@@ -1,4 +1,10 @@
-<?php if (isset($breadcrumb)) {  ?>
+<?php
+    $message=$_SESSION['message'];
+    $error=$_SESSION['error'];
+    $_SESSION['message']='';
+    $_SESSION['error']=false;
+    
+    if (isset($breadcrumb)) {  ?>
 <ol class="breadcrumb">
     <?php foreach ($breadcrumb as $k=>$a) { ?>
     <?php if ($k==(count($breadcrumb)-1)) {  ?>
@@ -112,8 +118,8 @@
     </div>
 </div>
 </form>
-<?php if (isset($mensaje) && $mensaje!="") { ?>
-<div class="alert alert-<?= ($error==true ? "danger" : "success") ?>" role="alert"><?= $mensaje ?></div>
+<?php if (isset($message) && $message!="") { ?>
+<div class="alert alert-<?= ($error==true ? "danger" : "success") ?>" role="alert"><?= $message ?></div>
 <?php } ?>
 <link href='/public/css/datepicker.css' rel='stylesheet' />
 <script src='/public/js/bootstrap-datepicker.js'></script>

@@ -34,6 +34,7 @@ class View extends Base
             include $this->vars['template'];
             $contents = ob_get_contents();
             ob_end_clean();
+            $this->defined_vars = get_defined_vars(); // for use in nested views.
         }
 
         return $contents;

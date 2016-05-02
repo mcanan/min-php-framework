@@ -17,19 +17,6 @@ abstract class BasicController extends Controller
         $this->views['content']->mensaje = "";
     }
 
-    protected function renderToString($templateName, $variables)
-    {
-        $this->getBenchmark()->mark("controller_renderToString_start");
-        $view = new View();
-        $view->setTemplate($templateName);
-        foreach ($variables as $v) {
-            $view->$v[0] = $v[1];
-        }
-        $retorno = $view->render();
-        $this->getBenchmark()->mark("controller_renderToString_end");
-        return $retorno;
-    }
-
     protected function render($contentTemplateName)
     {
         $this->getBenchmark()->mark("controller_render_start");

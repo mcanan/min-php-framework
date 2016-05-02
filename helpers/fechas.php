@@ -6,6 +6,12 @@ use \DateTimeZone;
 
 // TODO: mejorar en gral estas funciones
 
+function validateFechaEspanol($fecha)
+{
+    $d = DateTime::createFromFormat('d/m/Y', $fecha);
+    return $d && $d->format('d/m/Y') === $fecha;
+}
+
 function getFechaMysql($fecha)
 {
     $date = DateTime::createFromFormat('d/m/Y', $fecha);
@@ -16,6 +22,19 @@ function getFechaEspanol($fecha)
 {
     $date = DateTime::createFromFormat('Y-m-d', $fecha);
     return $date->format('d/m/Y');
+}
+
+function getAno($fecha)
+{
+    $date = DateTime::createFromFormat('d/m/Y', $fecha);
+    return $date->format('Y');
+}
+
+function getFechaLargaEspanol($fecha)
+{
+    $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Setiembre","Octubre","Noviembre","Diciembre");
+    $date = DateTime::createFromFormat('d/m/Y', $fecha);
+    return $date->format('j')." de ".$meses[$date->format('n')-1]." de ".$date->format('Y');
 }
 
 function getFechaEspanolFromDatetime($fecha)

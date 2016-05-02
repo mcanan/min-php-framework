@@ -1,6 +1,6 @@
 #### Instructions
 
-Before a commit please run tests.sh.
+Before a commit please run "ant phpunit".
 
 All tests must be passed.
 
