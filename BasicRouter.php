@@ -60,7 +60,7 @@ class BasicRouter implements IRouter
                     $instance->{$this->url_action}();
                 }
             } else {
-                if (method_exists($instance, $this->url_action)) {
+                if (method_exists($instance, $this->default_action)) {
                     $instance->{$this->default_action}();
                 } else {
                     // URL invalida, llamo index
