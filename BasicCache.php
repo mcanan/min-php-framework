@@ -7,13 +7,11 @@ class BasicCache implements ICache
 
     public function setUrl($controller, $action, $parameters, $time)
     {
-        error_log("$controller $action");
         $this->urls_cache[$controller][$action]=$time;
     }
 
     public function exists($controller, $action, $parameters)
     {
-        error_log("$controller $action");
         return isset($this->urls_cache[$controller][$action]);
     }
 

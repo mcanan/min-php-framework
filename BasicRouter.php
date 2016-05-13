@@ -38,6 +38,7 @@ class BasicRouter implements IRouter
     
     public function getParameters()
     {
+        // TODO
         return null;
     }
 
