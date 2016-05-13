@@ -6,16 +6,26 @@ require_once 'Common.php';
 
 class Application
 {
-    private $urls_cache = array();
-    private $router        = null;
+    private $router     = null;
+    private $cache      = null;
 
     public function __construct()
     {
     }
 
+    public function setCacheUrl($controller, $action, $time)
+    {
+        $this->getCache()->setUrl($controller, $action, $time);
+    }
+
     public function setRouter($router)
     {
         $this->router = $router;
+    }
+
+    public function setCache($cache)
+    {
+        $this->cache = $cache;
     }
 
     public function getRouter()
@@ -28,10 +38,16 @@ class Application
         return $this->router;
     }
 
-    public function setCacheUrl($controller, $action, $time)
+    public function getCache()
     {
-        $this->urls_cache[$controller][$action]=$time;
+        if ($this->cache==null) {
+            require_once 'BasicCache.php';
+            $this->cache = new BasicCache();
+        }
+
+        return $this->cache;
     }
+
 
     public function loadConfigurationFile($file)
     {
@@ -49,12 +65,13 @@ class Application
 
         $controller = $this->getRouter()->getController();
         $action = $this->getRouter()->getAction();
+        $parameters = $this->getRouter()->getParameters();
 
         // Verifico cache
-        // TODO: Arreglar cache en url con parametros
-        if (isset($this->urls_cache[$controller][$action])) {
-            $time = $this->urls_cache[$controller][$action];
-            if ($output->displayFromCache($controller, $action, $time)) {
+        if ($this->getCache()->exists($controller, $action, $parameters)) {
+            $time = $this->getCache()->getExpiration($controller, $action, $parameters);
+            $fileName = $this->getCache()->getFilename($controller, $action, $parameters);
+            if ($output->displayFromCache($fileName, $time)) {
                 // Imprimo desde cache y salgo
                 exit;
             }
@@ -65,7 +82,7 @@ class Application
         $benchmark->mark("controller_end");
         $benchmark->mark("application_end");
         if ($output->hasContent()) {
-            $output->display($controller, $action);
+            $output->display();
         }
     }
 }

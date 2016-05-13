@@ -12,5 +12,6 @@ require '../Application.php';
 //xdebug_start_trace('/tmp/1.xt');
 $app = new mcanan\framework\Application();
 $app->loadConfigurationFile(getenv("CONF_FILE"));
+$app->getCache()->setUrl('controllertest', 'actioncache', null, 10);
 $app->init();
 //xdebug_stop_trace();

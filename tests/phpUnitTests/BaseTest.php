@@ -15,6 +15,13 @@ class BaseTest extends PHPUnit_Framework_TestCase
         $output->setHtml("");
         $benchmark->reset();
         $this->url = 'http://'.WEB_SERVER_HOST.':'.WEB_SERVER_PORT;
+
+        // Borro cache
+        $files = glob('./app/cache/*');
+        foreach($files as $file){
+            if(is_file($file))
+                unlink($file);
+        }
     }
 
     protected function getUrlHttp($url)

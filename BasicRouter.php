@@ -35,6 +35,11 @@ class BasicRouter implements IRouter
     {
         return $this->url_action;
     }
+    
+    public function getParameters()
+    {
+        return null;
+    }
 
     public function dispatch()
     {

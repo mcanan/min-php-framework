@@ -9,4 +9,5 @@ interface IRouter
     public function setDefaultAction($default_action);
     public function getController();
     public function getAction();
+    public function getParameters();
 }

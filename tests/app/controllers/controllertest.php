@@ -13,6 +13,12 @@ class controllertest extends \mcanan\framework\BasicController
         $this->render("./app/views/viewtest.php");
     }
 
+    public function actionCache()
+    {
+        $this->setShowBenchmarks(true);
+        $this->render("./app/views/viewtest.php");
+    }
+
     public function actionWithModelTest()
     {
         $this->loadModel("ModelTest");

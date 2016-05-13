@@ -5,6 +5,7 @@ class Output
 {
     private $html;
     private $escribirCache=false;
+    private $archivo="";
 
     public function __construct()
     {
@@ -52,7 +53,7 @@ class Output
         return @file_get_contents($cachedir.$filename);
     }
 
-    public function display($controller, $action)
+    public function display()
     {
         $benchmark =& getBenchmarkInstance();
         $benchmark->mark("display_start");
@@ -63,19 +64,18 @@ class Output
             header('Content-Type: text/html; charset=utf-8');
         }
         if ($this->escribirCache) {
-            $archivo=$controller."_".$action;
-            $this->put($archivo, $this->html);
+            $this->put($this->archivo, $this->html);
         }
         $benchmark->mark("display_end");
         echo str_replace("%BENCHMARK%", $benchmark->getTimestampsAsHtmlComment(), $this->html);
     }
 
-    public function displayFromCache($controller, $action, $tiempo)
+    public function displayFromCache($archivo, $tiempo)
     {
         $benchmark =& getBenchmarkInstance();
         $benchmark->mark("displayFromCache_start");
         $retorno=false;
-        $archivo=$controller."_".$action;
+        $this->archivo = $archivo;
         if ($html=$this->get($archivo, $tiempo)) {
             if (!headers_sent()) {
                 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");

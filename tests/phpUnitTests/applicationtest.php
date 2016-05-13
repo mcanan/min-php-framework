@@ -42,15 +42,15 @@ class ApplicationTest extends BaseTest
         echo $this->getUrlHttp($this->url."/batchcontrollertest/batchTest");
     }
 
-    // TODO : estos tests.
-    /*
     public function testCache()
     {
+        $html = $this->getUrlHttp($this->url."/controllertest/actionCache");
+        $this->assertRegexp('/display_start/', $html);
+        $this->assertRegexp('/displayFromCache_start/', $html);
+        $this->assertRegexp('/cache old/', $html);
+        
+        $html = $this->getUrlHttp($this->url."/controllertest/actionCache");
+        $this->assertNotRegexp('/display_start/', $html);
+        $this->assertRegexp('/displayFromCache_start/', $html);
     }
-
-    public function testBenchmark()
-    {
-    }
-    */
-    // TODO :  Test de Cache, test de Benchmark y test de BasicRouter
 }
