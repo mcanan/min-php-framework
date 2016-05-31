@@ -114,22 +114,9 @@ abstract class Controller extends Base
         }
     }
 
-    protected function renderToString($templateName, $variables)
+    protected function recursiveRenderToString($templatesArray, $commonVariables)
     {
-        $this->getBenchmark()->mark("controller_renderToString_start");
-        $view = new View();
-        $view->setTemplate($templateName);
-        foreach ($variables as $v) {
-            $view->$v[0] = $v[1];
-        }
-        $retorno = $view->render();
-        $this->getBenchmark()->mark("controller_renderToString_end");
-        return $retorno;
-    }
-
-    protected function recursiveRender($templatesArray, $commonVariables)
-    {
-        $this->getBenchmark()->mark("controller_recursiveRender_start");
+        $this->getBenchmark()->mark("controller_recursiveRenderToString_start");
         $views = array();
         $anterior = NULL;
         foreach ($templatesArray as $template) {
@@ -144,11 +131,33 @@ abstract class Controller extends Base
             $anterior = $view;
         }
         if ($this->isShowBenchmarks()) {
-            $this->getOutput()->setHtml($anterior->render()."%BENCHMARK%");
+            $retorno = $anterior->render()."%BENCHMARK%";
         } else {
-            $this->getOutput()->setHtml($anterior->render());
+            $retorno = $anterior->render();
         }
+        $this->getBenchmark()->mark("controller_recursiveRenderToString_end");
+        return $retorno;
+    }
+    
+    protected function recursiveRender($templatesArray, $commonVariables)
+    {
+        $this->getBenchmark()->mark("controller_recursiveRender_start");
+        $html = $this->recursiveRenderToString($templatesArray, $commonVariables);
+        $this->getOutput()->setHtml($html);
         $this->getBenchmark()->mark("controller_recursiveRender_end");
+    }
+
+    protected function renderToString($templateName, $variables)
+    {
+        $this->getBenchmark()->mark("controller_renderToString_start");
+        $view = new View();
+        $view->setTemplate($templateName);
+        foreach ($variables as $v) {
+            $view->$v[0] = $v[1];
+        }
+        $retorno = $view->render();
+        $this->getBenchmark()->mark("controller_renderToString_end");
+        return $retorno;
     }
 
     protected function redirect($url, $error=false, $message='')
