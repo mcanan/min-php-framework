@@ -21,14 +21,22 @@ abstract class BasicController extends Controller
     {
         $this->getBenchmark()->mark("controller_render_start");
         $this->views['content']->setTemplate($contentTemplateName);
-        $this->views['layout']->contenido = $this->views['content']->render();
-
-        if ($this->isShowBenchmarks()) {
-            $this->getOutput()->setHtml($this->views['layout']->render()."%BENCHMARK%");
-        } else {
-            $this->getOutput()->setHtml($this->views['layout']->render());
-        }
+        $this->recursiveRender(array($this->views['content'], $this->views['layout']));
         $this->getBenchmark()->mark("controller_render_end");
+    }
+    
+    protected function renderToString($templateName, $variables)
+    {
+        // FIXME: ver de sacarla.
+        $this->getBenchmark()->mark("controller_renderToString_start");
+        $view = new View();
+        $view->setTemplate($templateName);
+        foreach ($variables as $v) {
+            $view->$v[0] = $v[1];
+        }
+        $retorno = $view->render();
+        $this->getBenchmark()->mark("controller_renderToString_end");
+        return $retorno;
     }
 
     protected function setContentVariable($variable, $value)

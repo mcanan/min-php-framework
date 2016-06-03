@@ -114,18 +114,19 @@ abstract class Controller extends Base
         }
     }
 
-    protected function recursiveRenderToString($templatesArray, $commonVariables)
+    protected function recursiveRenderToString($viewsArray, $commonVariables=NULL)
     {
         $this->getBenchmark()->mark("controller_recursiveRenderToString_start");
-        $views = array();
         $anterior = NULL;
-        foreach ($templatesArray as $template) {
-            $view = new View();
-            $view->setTemplate($template);
+        foreach ($viewsArray as $view) {
             if (!is_null($anterior)){
                 $view->contenido = $anterior->render();
-                foreach ($commonVariables as $v) {
-                    $view->$v = $anterior->defined_vars["$v"];
+                if (!is_null($commonVariables)){
+                    foreach ($commonVariables as $v) {
+                        if (defined($anterior->defined_vars["$v"])){
+                            $view->$v = $anterior->defined_vars["$v"];
+                        }
+                    }
                 }
             }
             $anterior = $view;
@@ -139,25 +140,12 @@ abstract class Controller extends Base
         return $retorno;
     }
     
-    protected function recursiveRender($templatesArray, $commonVariables)
+    protected function recursiveRender($viewsArray, $commonVariables=NULL)
     {
         $this->getBenchmark()->mark("controller_recursiveRender_start");
-        $html = $this->recursiveRenderToString($templatesArray, $commonVariables);
+        $html = $this->recursiveRenderToString($viewsArray, $commonVariables);
         $this->getOutput()->setHtml($html);
         $this->getBenchmark()->mark("controller_recursiveRender_end");
-    }
-
-    protected function renderToString($templateName, $variables)
-    {
-        $this->getBenchmark()->mark("controller_renderToString_start");
-        $view = new View();
-        $view->setTemplate($templateName);
-        foreach ($variables as $v) {
-            $view->$v[0] = $v[1];
-        }
-        $retorno = $view->render();
-        $this->getBenchmark()->mark("controller_renderToString_end");
-        return $retorno;
     }
 
     protected function redirect($url, $error=false, $message='')
