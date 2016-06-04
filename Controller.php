@@ -123,7 +123,7 @@ abstract class Controller extends Base
                 $view->contenido = $anterior->render();
                 if (!is_null($commonVariables)){
                     foreach ($commonVariables as $v) {
-                        if (defined($anterior->defined_vars["$v"])){
+                        if (isset($anterior->defined_vars["$v"])){
                             $view->$v = $anterior->defined_vars["$v"];
                         }
                     }
