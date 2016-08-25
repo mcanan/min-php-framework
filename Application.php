@@ -15,7 +15,7 @@ class Application
 
     public function setCacheUrl($controller, $action, $time)
     {
-        $this->getCache()->setUrl($controller, $action, $time);
+        $this->getCache()->setUrl($controller, $action, NULL, $time);
     }
 
     public function setRouter($router)
