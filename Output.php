@@ -3,14 +3,9 @@ namespace mcanan\framework;
 
 class Output
 {
-    private $html;
     private $escribirCache=false;
     private $archivo="";
-
-    public function __construct()
-    {
-        $this->html="";
-    }
+    private $html="";
 
     public function setHtml($html)
     {
@@ -22,7 +17,7 @@ class Output
         return ($this->html!="");
     }
 
-    public function put($filename, $buffer)
+    private function put($filename, $buffer)
     {
         $cachedir = './app/cache/';
         $tempfilename = $cachedir.$filename.getmypid();
@@ -36,14 +31,17 @@ class Output
         return true;
     }
 
-    public function get($filename, $expiration = false)
+    private function get($filename, $expiration = false)
     {
         // $expiration es en segundos.
         $cachedir = './app/cache/';
         if ($expiration) {
             $stat = @stat($cachedir.$filename);
             if ($stat[9]) {
-                if (time() > $stat[9] + $expiration) {
+                $time = time();
+                $benchmark =& getBenchmarkInstance();
+                $benchmark->mark("cache_age: ".($time-$stat[9]));
+                if ($time > $stat[9] + $expiration) {
                     @unlink($cachedir.$filename);
                     return false;
                 }
