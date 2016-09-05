@@ -3,55 +3,37 @@ namespace mcanan\framework;
 
 abstract class BasicController extends Controller
 {
-    private $views;
+    private $contentView = NULL;
+    private $layoutView = NULL;
+    private $vars = array();
 
     public function __construct($layoutTemplate)
     {
         parent::__construct();
-        $this->views = array();
-        $this->views['layout'] = new View();
-        $this->views['content'] = new View();
-        $this->views['layout']->setTemplate($layoutTemplate);
-        
-        $this->views['content']->error = false;
-        $this->views['content']->mensaje = "";
+        $this->layoutView = new View($layoutTemplate);
     }
 
-    protected function render($contentTemplateName)
+    protected function render($contentTemplate)
     {
         $this->getBenchmark()->mark("controller_render_start");
-        $this->views['content']->setTemplate($contentTemplateName);
-        $this->recursiveRender(array($this->views['content'], $this->views['layout']));
+        $this->contentView = new View($contentTemplate, $this->vars);
+        $this->layoutView->setVariables($this->vars);
+        $this->recursiveRender(array($this->contentView, $this->layoutView));
         $this->getBenchmark()->mark("controller_render_end");
     }
     
-    protected function renderToString($templateName, $variables)
+    protected function renderToString($contentTemplate)
     {
-        // FIXME: ver de sacarla.
-        $this->getBenchmark()->mark("controller_renderToString_start");
-        $view = new View();
-        $view->setTemplate($templateName);
-        foreach ($variables as $v) {
-            $view->$v[0] = $v[1];
-        }
-        $retorno = $view->render();
-        $this->getBenchmark()->mark("controller_renderToString_end");
+        $this->getBenchmark()->mark("controller_rendertostring_start");
+        $this->contentView = new View($contentTemplate, $this->vars);
+        $this->layoutView->setVariables($this->vars);
+        $retorno = $this->recursiveRenderToString(array($this->contentView, $this->layoutView));
+        $this->getBenchmark()->mark("controller_rendertostring_end");
         return $retorno;
     }
-
-    protected function setContentVariable($variable, $value)
+    
+    protected function __set($name, $value)
     {
-        $this->views['content']->$variable = $value;
-    }
-
-    protected function setLayoutVariable($variable, $value)
-    {
-        $this->views['layout']->$variable = $value;
-    }
-
-    protected function setMensaje($error, $message)
-    {
-        $_SESSION['error'] = $error;
-        $_SESSION['message'] = $message;
+        $this->vars[$name] = $value;
     }
 }

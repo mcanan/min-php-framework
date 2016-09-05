@@ -1,40 +1,47 @@
 <?php
 namespace mcanan\framework;
 
-class View extends Base
+class View
 {
-    protected $vars = array();
+    protected $vars = NULL;
+    protected $template = NULL;
+    protected $content = NULL;
 
-    public function __get($name)
+    public function __construct($template, $vars=NULL)
     {
-        return $this->vars[$name];
+        $this->template = $template;
+        $this->vars = $vars;
     }
 
-    public function __set($name, $value)
+    protected function setTemplate($template)
     {
-        $this->vars[$name] = $value;
+        $this->template = $template;
     }
 
-    public function setTemplate($template)
+    protected function setVariables($vars)
     {
-        $this->vars['template'] = $template;
+        $this->vars = $vars;
     }
 
-    public function getTemplate()
+    protected function setContent($content)
     {
-        return $this->vars['template'];
+        $this->content = $content;
     }
 
-    public function render()
+    protected function render()
     {
         $contents = "";
-        if (isset($this->vars['template']) && file_exists($this->vars['template'])) {
-            extract($this->vars);
+        if (isset($this->template) && file_exists($this->template)) {
+            if (!is_null($this->vars)){
+                if (!is_null($this->content)){
+                    $this->vars['contenido']=$this->content;
+                }
+                extract($this->vars);
+            }
             ob_start();
-            include $this->vars['template'];
+            include $this->template;
             $contents = ob_get_contents();
             ob_end_clean();
-            $this->defined_vars = get_defined_vars(); // for use in nested views.
         }
 
         return $contents;

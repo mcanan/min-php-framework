@@ -114,20 +114,13 @@ abstract class Controller extends Base
         }
     }
 
-    protected function recursiveRenderToString($viewsArray, $commonVariables=NULL)
+    protected function recursiveRenderToString($viewsArray)
     {
         $this->getBenchmark()->mark("controller_recursiveRenderToString_start");
         $anterior = NULL;
         foreach ($viewsArray as $view) {
             if (!is_null($anterior)){
-                $view->contenido = $anterior->render();
-                if (!is_null($commonVariables)){
-                    foreach ($commonVariables as $v) {
-                        if (isset($anterior->defined_vars["$v"])){
-                            $view->$v = $anterior->defined_vars["$v"];
-                        }
-                    }
-                }
+                $view->setContent($anterior->render());
             }
             $anterior = $view;
         }
@@ -140,10 +133,10 @@ abstract class Controller extends Base
         return $retorno;
     }
     
-    protected function recursiveRender($viewsArray, $commonVariables=NULL)
+    protected function recursiveRender($viewsArray)
     {
         $this->getBenchmark()->mark("controller_recursiveRender_start");
-        $html = $this->recursiveRenderToString($viewsArray, $commonVariables);
+        $html = $this->recursiveRenderToString($viewsArray);
         $this->getOutput()->setHtml($html);
         $this->getBenchmark()->mark("controller_recursiveRender_end");
     }
