@@ -1,0 +1,12 @@
+{
+    "name": "mcanan/framework",
+    "description": "min-php-framework",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Marcos Canán",
+            "email": "mcanan@gmail.com"
+        }
+    ],
+    "require": {}
+}
