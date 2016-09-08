@@ -1,12 +1,15 @@
 {
-    "name": "mcanan/framework",
-    "description": "min-php-framework",
-    "type": "library",
-    "authors": [
-        {
-            "name": "Marcos Canán",
-            "email": "mcanan@gmail.com"
-        }
-    ],
-    "require": {}
+	"name": "mcanan/framework",
+	"description": "min-php-framework",
+	"type": "library",
+	"authors": [
+		{
+			"name": "Marcos Canán",
+			"email": "mcanan@gmail.com"
+		}
+	],
+	"require": {},
+	"autoload": {
+		"psr-4": { "mcanan\\framework\\": "" }
+	}
 }
