@@ -3,6 +3,7 @@ namespace mcanan\framework\libraries;
 
 require dirname(__FILE__)."/twitterapi/autoload.php";
 use Abraham\TwitterOAuth\TwitterOAuth;
+use Abraham\TwitterOAuth\TwitterOAuthException;
 
 class twitterapi
 {
@@ -16,6 +17,28 @@ class twitterapi
     {
         $this->twitterClient = new TwitterOAuth($ck, $cs, $oat, $oas);
         $this->twitterClient->host = "https://api.twitter.com/1.1/";
+    }
+
+    public function login($url_redirect='')
+    {
+        try { 
+            $request_token = $this->twitterClient->oauth('oauth/request_token', array('oauth_callback' => $url_redirect));
+            $_SESSION['oauth_token'] = $request_token['oauth_token'];
+            $_SESSION['oauth_token_secret'] = $request_token['oauth_token_secret'];
+            $url = $this->twitterClient->url('oauth/authorize', array('oauth_token' => $request_token['oauth_token']));
+            header('Location: ' . $url); 
+        } catch (TwitterOAuthException $e) {
+        }
+    }
+    
+    public function getAccessToken($oauth_verifier)
+    {
+        $access_token = "";
+        try {
+            $access_token = $this->twitterClient->oauth("oauth/access_token", array("oauth_verifier" => $oauth_verifier));
+        } catch (TwitterOAuthException $e) {
+        }
+        return $access_token;
     }
 
     public function getUserByScreenName($screen_name)
