@@ -18,8 +18,8 @@ abstract class Base
 
         if (file_exists($this->getDocumentRoot().'/app/helpers/'.strtolower($helperName).'.php')) {
             require_once $this->getDocumentRoot().'/app/helpers/'.strtolower($helperName).'.php';
-        } elseif (file_exists($this->getDocumentRoot().'/framework/helpers/'.strtolower($helperName).'.php')) {
-            require_once $this->getDocumentRoot().'/framework/helpers/'.strtolower($helperName).'.php';
+        } elseif (file_exists(__DIR__.'/helpers/'.strtolower($helperName).'.php')) {
+            require_once __DIR__.'/helpers/'.strtolower($helperName).'.php';
         }
 
         return $this;
