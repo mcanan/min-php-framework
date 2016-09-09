@@ -43,8 +43,8 @@ abstract class Base
             require_once $this->getDocumentRoot().'/app/libraries/'.strtolower($libraryName).'.php';
             $libraryName = "\\mcanan\\app\\libraries\\".$libraryName;
             $this->$name = new $libraryName();
-        } elseif (file_exists($this->getDocumentRoot().'/framework/libraries/'.strtolower($libraryName).'.php')) {
-            require_once $this->getDocumentRoot().'/framework/libraries/'.strtolower($libraryName).'.php';
+        } elseif (file_exists(__DIR__.'/libraries/'.strtolower($libraryName).'.php')) {
+            require_once __DIR__.'/libraries/'.strtolower($libraryName).'.php';
             $libraryName = "\\mcanan\\framework\\libraries\\".$libraryName;
             $this->$name = new $libraryName();
         }
