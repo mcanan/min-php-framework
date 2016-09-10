@@ -1,7 +1,7 @@
 <?php
 namespace mcanan\framework;
 
-class Db2
+class Db
 {
     private $handler;
 

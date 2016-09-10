@@ -22,7 +22,7 @@ class controllertest extends \mcanan\framework\BasicController
     public function actionWithModelTest()
     {
         $this->loadModel("ModelTest");
-        $this->setContentVariable("items", $this->ModelTest->getItems());
+        $this->set('items', $this->ModelTest->getItems());
         $this->render("./app/views/viewWithModel.php");
     }
 }

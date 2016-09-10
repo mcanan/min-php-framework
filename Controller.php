@@ -16,7 +16,7 @@ abstract class Controller extends Base
         $this->benchmark =& getBenchmarkInstance();
         $this->output =& getOutputInstance();
         $this->benchmark->mark("controller_construct");
-        $this->db = new Db2();
+        $this->db = new Db();
     }
 
     protected function mark($m)
@@ -60,7 +60,7 @@ abstract class Controller extends Base
         require_once $this->getDocumentRoot().'/app/models/'.strtolower($modelName).'.php';
         $modelName = "\\mcanan\\app\\models\\".$modelName;
         $this->$name = new $modelName($this->db);
-
+       
         return $this;
     }
 
@@ -114,20 +114,14 @@ abstract class Controller extends Base
         }
     }
 
-    protected function recursiveRenderToString($viewsArray, $commonVariables=NULL)
+    protected function renderViewsToString($viewsArray)
     {
         $this->getBenchmark()->mark("controller_recursiveRenderToString_start");
+        $retorno = "";
         $anterior = NULL;
         foreach ($viewsArray as $view) {
             if (!is_null($anterior)){
-                $view->contenido = $anterior->render();
-                if (!is_null($commonVariables)){
-                    foreach ($commonVariables as $v) {
-                        if (isset($anterior->defined_vars["$v"])){
-                            $view->$v = $anterior->defined_vars["$v"];
-                        }
-                    }
-                }
+                $view->setContent($anterior->render());
             }
             $anterior = $view;
         }
@@ -140,10 +134,10 @@ abstract class Controller extends Base
         return $retorno;
     }
     
-    protected function recursiveRender($viewsArray, $commonVariables=NULL)
+    protected function renderViews($viewsArray)
     {
         $this->getBenchmark()->mark("controller_recursiveRender_start");
-        $html = $this->recursiveRenderToString($viewsArray, $commonVariables);
+        $html = $this->renderViewsToString($viewsArray);
         $this->getOutput()->setHtml($html);
         $this->getBenchmark()->mark("controller_recursiveRender_end");
     }
