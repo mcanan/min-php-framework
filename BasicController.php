@@ -18,7 +18,7 @@ abstract class BasicController extends Controller
         $this->getBenchmark()->mark("controller_render_start");
         $this->contentView = new View($contentTemplate, $this->vars);
         $this->layoutView->setVariables($this->vars);
-        $this->recursiveRender(array($this->contentView, $this->layoutView));
+        $this->renderViews([$this->contentView, $this->layoutView]);
         $this->getBenchmark()->mark("controller_render_end");
     }
     
@@ -27,12 +27,12 @@ abstract class BasicController extends Controller
         $this->getBenchmark()->mark("controller_rendertostring_start");
         $this->contentView = new View($contentTemplate, $this->vars);
         $this->layoutView->setVariables($this->vars);
-        $retorno = $this->recursiveRenderToString(array($this->contentView, $this->layoutView));
+        $retorno = $this->renderViewsToString([$this->contentView, $this->layoutView]);
         $this->getBenchmark()->mark("controller_rendertostring_end");
         return $retorno;
     }
     
-    protected function __set($name, $value)
+    protected function set($name, $value)
     {
         $this->vars[$name] = $value;
     }

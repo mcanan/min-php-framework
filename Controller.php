@@ -16,7 +16,7 @@ abstract class Controller extends Base
         $this->benchmark =& getBenchmarkInstance();
         $this->output =& getOutputInstance();
         $this->benchmark->mark("controller_construct");
-        $this->db = new Db2();
+        $this->db = new Db();
     }
 
     protected function mark($m)
@@ -60,7 +60,7 @@ abstract class Controller extends Base
         require_once $this->getDocumentRoot().'/app/models/'.strtolower($modelName).'.php';
         $modelName = "\\mcanan\\app\\models\\".$modelName;
         $this->$name = new $modelName($this->db);
-
+       
         return $this;
     }
 
@@ -114,9 +114,10 @@ abstract class Controller extends Base
         }
     }
 
-    protected function recursiveRenderToString($viewsArray)
+    protected function renderViewsToString($viewsArray)
     {
         $this->getBenchmark()->mark("controller_recursiveRenderToString_start");
+        $retorno = "";
         $anterior = NULL;
         foreach ($viewsArray as $view) {
             if (!is_null($anterior)){
@@ -133,10 +134,10 @@ abstract class Controller extends Base
         return $retorno;
     }
     
-    protected function recursiveRender($viewsArray)
+    protected function renderViews($viewsArray)
     {
         $this->getBenchmark()->mark("controller_recursiveRender_start");
-        $html = $this->recursiveRenderToString($viewsArray);
+        $html = $this->renderViewsToString($viewsArray);
         $this->getOutput()->setHtml($html);
         $this->getBenchmark()->mark("controller_recursiveRender_end");
     }

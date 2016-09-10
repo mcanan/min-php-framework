@@ -3,39 +3,42 @@ namespace mcanan\framework;
 
 class View
 {
-    protected $vars = NULL;
-    protected $template = NULL;
-    protected $content = NULL;
+    private $vars = NULL;
+    private $template = NULL;
+    private $content = NULL;
 
     public function __construct($template, $vars=NULL)
     {
         $this->template = $template;
         $this->vars = $vars;
     }
-
-    protected function setTemplate($template)
+    
+    public function setTemplate($template)
     {
         $this->template = $template;
     }
-
-    protected function setVariables($vars)
+    
+    public function setVariables($vars)
     {
         $this->vars = $vars;
     }
 
-    protected function setContent($content)
+    public function setContent($content)
     {
         $this->content = $content;
     }
 
-    protected function render()
+    public function render()
     {
         $contents = "";
         if (isset($this->template) && file_exists($this->template)) {
-            if (!is_null($this->vars)){
-                if (!is_null($this->content)){
-                    $this->vars['contenido']=$this->content;
+            if (!is_null($this->content)){
+                if (!is_null($this->vars)){
+                    $this->vars = array();
                 }
+                $this->vars['contenido']=$this->content;
+            }
+            if (!is_null($this->vars)){
                 extract($this->vars);
             }
             ob_start();
