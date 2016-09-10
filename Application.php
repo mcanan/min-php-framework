@@ -6,12 +6,8 @@ require_once 'Common.php';
 
 class Application
 {
-    private $router     = null;
-    private $cache      = null;
-
-    public function __construct()
-    {
-    }
+    private $router = null;
+    private $cache = null;
 
     public function setCacheUrl($controller, $action, $time)
     {
@@ -47,7 +43,6 @@ class Application
 
         return $this->cache;
     }
-
 
     public function loadConfigurationFile($file)
     {
