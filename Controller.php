@@ -114,7 +114,7 @@ abstract class Controller extends Base
         }
     }
 
-    protected function renderViewsToString($viewsArray)
+    protected function renderViewsToString($viewsArray, $commonVariables=NULL)
     {
         $this->getBenchmark()->mark("controller_recursiveRenderToString_start");
         $retorno = "";
@@ -122,6 +122,13 @@ abstract class Controller extends Base
         foreach ($viewsArray as $view) {
             if (!is_null($anterior)){
                 $view->setContent($anterior->render());
+                if (!is_null($commonVariables)){
+                    foreach ($commonVariables as $v) {
+                        if (isset($anterior->defined_vars["$v"])){
+                            $view->$v = $anterior->defined_vars["$v"];
+                        }
+                    }
+                }
             }
             $anterior = $view;
         }
@@ -134,7 +141,7 @@ abstract class Controller extends Base
         return $retorno;
     }
     
-    protected function renderViews($viewsArray)
+    protected function renderViews($viewsArray, $commonVariables=NULL)
     {
         $this->getBenchmark()->mark("controller_recursiveRender_start");
         $html = $this->renderViewsToString($viewsArray);

@@ -45,6 +45,7 @@ class View
             include $this->template;
             $contents = ob_get_contents();
             ob_end_clean();
+            $this->defined_vars = get_defined_vars();
         }
 
         return $contents;
