@@ -1,6 +1,12 @@
 <?php
 namespace mcanan\framework\helpers;
 
+function cache_remove($filename)
+{
+    $filename = "./app/cache/$filename";
+    @unlink($filename);
+}
+
 function cache_put($filename, $buffer)
 {
     $filename = "./app/cache/$filename";
