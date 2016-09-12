@@ -144,7 +144,7 @@ abstract class Controller extends Base
     protected function renderViews($viewsArray, $commonVariables=NULL)
     {
         $this->getBenchmark()->mark("controller_recursiveRender_start");
-        $html = $this->renderViewsToString($viewsArray);
+        $html = $this->renderViewsToString($viewsArray, $commonVariables);
         $this->getOutput()->setHtml($html);
         $this->getBenchmark()->mark("controller_recursiveRender_end");
     }
