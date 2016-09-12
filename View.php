@@ -23,6 +23,14 @@ class View
         $this->vars = $vars;
     }
 
+    public function setVariable($name, $v)
+    {
+        if (is_null($this->vars)){
+            $this->vars = array();
+        }
+        $this->vars["$name"]= $v;
+    }
+
     public function setContent($content)
     {
         $this->content = $content;
