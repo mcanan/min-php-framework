@@ -41,7 +41,7 @@ class View
         $contents = "";
         if (isset($this->template) && file_exists($this->template)) {
             if (!is_null($this->content)){
-                if (!is_null($this->vars)){
+                if (is_null($this->vars)){
                     $this->vars = array();
                 }
                 $this->vars['contenido']=$this->content;
