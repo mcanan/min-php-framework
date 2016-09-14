@@ -13,21 +13,21 @@ abstract class BasicController extends Controller
         $this->layoutView = new View($layoutTemplate);
     }
 
-    protected function render($contentTemplate)
+    protected function render($contentTemplate, $commonVariables=null)
     {
         $this->getBenchmark()->mark("controller_render_start");
         $this->contentView = new View($contentTemplate, $this->vars);
         $this->layoutView->setVariables($this->vars);
-        $this->renderViews([$this->contentView, $this->layoutView]);
+        $this->renderViews([$this->contentView, $this->layoutView], $commonVariables);
         $this->getBenchmark()->mark("controller_render_end");
     }
     
-    protected function renderToString($contentTemplate)
+    protected function renderToString($contentTemplate, $commonVariables=null)
     {
         $this->getBenchmark()->mark("controller_rendertostring_start");
         $this->contentView = new View($contentTemplate, $this->vars);
         $this->layoutView->setVariables($this->vars);
-        $retorno = $this->renderViewsToString([$this->contentView, $this->layoutView]);
+        $retorno = $this->renderViewsToString([$this->contentView, $this->layoutView], $commonVariables);
         $this->getBenchmark()->mark("controller_rendertostring_end");
         return $retorno;
     }

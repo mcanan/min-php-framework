@@ -123,11 +123,16 @@ abstract class Controller extends Base
             if (!is_null($anterior)){
                 $view->setContent($anterior->render());
                 if (!is_null($commonVariables)){
+                    $vars = $view->getVariables();
+                    if (is_null($vars)) {
+                        $vars = array();
+                    }
                     foreach ($commonVariables as $v) {
                         if (isset($anterior->defined_vars["$v"])){
-                            $view->setVariable($v, $anterior->defined_vars["$v"]);
+                            $vars["$v"] = $anterior->defined_vars["$v"];
                         }
                     }
+                    $view->setVariables($vars);
                 }
             }
             $anterior = $view;

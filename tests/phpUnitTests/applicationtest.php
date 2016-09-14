@@ -53,4 +53,10 @@ class ApplicationTest extends BaseTest
         $this->assertNotRegexp('/display_start/', $html);
         $this->assertRegexp('/displayFromCache_start/', $html);
     }
+    
+    public function testCommonVariables()
+    {
+        $this->expectOutputString('<html><title>titulo</title><body>test</body></html>'.PHP_EOL);
+        echo $this->getUrlHttp($this->url."/controllertest_common_variables/actionTest");
+    }
 }
