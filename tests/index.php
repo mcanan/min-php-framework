@@ -8,6 +8,7 @@ ini_set('xdebug.trace_output_dir', '/tmp/');
 ini_set('xdebug.show_mem_delta', '1');
 
 require '../Application.php';
+require 'autoloader.php';
 
 //xdebug_start_trace('/tmp/1.xt');
 $app = new mcanan\framework\Application();

@@ -1,7 +1,7 @@
 <?php
 namespace mcanan\framework\tests\phpUnitTests;
 
-require_once '../Autoloader.php';
+require_once 'autoloader.php';
 require_once '../Common.php';
 
 class RouterTest2 extends BaseTest

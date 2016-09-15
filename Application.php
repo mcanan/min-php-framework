@@ -1,7 +1,6 @@
 <?php
 namespace mcanan\framework;
 
-require 'Autoloader.php';
 require_once 'Common.php';
 
 class Application
