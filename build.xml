@@ -59,6 +59,21 @@
 			<env key="CONF_FILE" value="app/conf/configTest2.php"/>
 			<arg line="--colors --log-tap ${basedir}/tests_logs/tests3.log --coverage-clover ${basedir}/tests_logs/clover3.xml --bootstrap ${basedir}/tests/phpUnitTests/webserver.php ${basedir}/tests/phpUnitTests/routertest2.php"/>
 		</exec>
+		<exec dir="${basedir}/tests"
+			executable="phpunit"
+			failonerror="true">
+			<env key="CONF_FILE" value="app/conf/configTest3.php"/>
+			<env key="SECURITY" value="true"/>
+			<arg line="--colors --log-tap ${basedir}/tests_logs/tests4.log --coverage-clover ${basedir}/tests_logs/clover4.xml --bootstrap ${basedir}/tests/phpUnitTests/webserver.php ${basedir}/tests/phpUnitTests/securitytest.php"/>
+		</exec>
+		<exec dir="${basedir}/tests"
+			executable="phpunit"
+			failonerror="true">
+			<env key="CONF_FILE" value="app/conf/configTest3.php"/>
+			<env key="SECURITY" value="true"/>
+			<env key="AUTH" value="true"/>
+			<arg line="--colors --log-tap ${basedir}/tests_logs/test5.log --coverage-clover ${basedir}/tests_logs/clover5.xml --bootstrap ${basedir}/tests/phpUnitTests/webserver.php ${basedir}/tests/phpUnitTests/securitytest2.php"/>
+		</exec>
 	</target>
 
 	<target name="build"

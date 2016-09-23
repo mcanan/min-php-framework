@@ -7,6 +7,7 @@ class Application
 {
     private $router = null;
     private $cache = null;
+    private $security = null;
 
     public function setCacheUrl($controller, $action, $time)
     {
@@ -21,6 +22,11 @@ class Application
     public function setCache($cache)
     {
         $this->cache = $cache;
+    }
+
+    public function setSecurity($security)
+    {
+        $this->security = $security;
     }
 
     public function getRouter()
@@ -43,6 +49,11 @@ class Application
         return $this->cache;
     }
 
+    public function getSecurity()
+    {
+        return $this->security;
+    }
+
     public function loadConfigurationFile($file)
     {
         require_once $file;
@@ -60,23 +71,34 @@ class Application
         $controller = $this->getRouter()->getController();
         $action = $this->getRouter()->getAction();
         $parameters = $this->getRouter()->getParameters();
-
-        // Verifico cache
-        if ($this->getCache()->exists($controller, $action, $parameters)) {
-            $time = $this->getCache()->getExpiration($controller, $action, $parameters);
-            $fileName = $this->getCache()->getFilename($controller, $action, $parameters);
-            if ($output->displayFromCache($fileName, $time)) {
-                // Imprimo desde cache y salgo
-                exit;
+        
+        // Verifico que este autorizado
+        if (is_null($this->getSecurity()) || $this->getSecurity()->isAuthorized($controller, $action, $parameters) ) {
+            // Verifico cache
+            if ($this->getCache()->exists($controller, $action, $parameters)) {
+                $time = $this->getCache()->getExpiration($controller, $action, $parameters);
+                $fileName = $this->getCache()->getFilename($controller, $action, $parameters);
+                if ($output->displayFromCache($fileName, $time)) {
+                    // Imprimo desde cache y salgo
+                    exit;
+                }
             }
-        }
-
-        $benchmark->mark("controller_start c:$controller a:$action");
-        $this->getRouter()->dispatch();
-        $benchmark->mark("controller_end");
-        $benchmark->mark("application_end");
-        if ($output->hasContent()) {
-            $output->display();
+                
+            $benchmark->mark("controller_start c:$controller a:$action");
+            $this->getRouter()->dispatch();            $benchmark->mark("controller_end");
+            $benchmark->mark("controller_end");
+            $benchmark->mark("application_end");
+            if ($output->hasContent()) {
+                $output->display();
+            }
+        } else {
+            $url = $this->getSecurity()->getAccessDeniedUrl();
+            if (!is_null($url)){
+                header('Location: '.$url);
+            } else {
+                header("HTTP/1.1 401 Unauthorized");
+            }
+            exit;
         }
     }
 }

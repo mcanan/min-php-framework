@@ -21,7 +21,7 @@ class BaseTest extends PHPUnit_Framework_TestCase
         foreach($files as $file){
             if(is_file($file))
                 unlink($file);
-        }
+            }
     }
 
     protected function getUrlHttp($url)

@@ -13,6 +13,14 @@ require 'autoloader.php';
 //xdebug_start_trace('/tmp/1.xt');
 $app = new mcanan\framework\Application();
 $app->loadConfigurationFile(getenv("CONF_FILE"));
+if (getenv("SECURITY")){
+    require '../BasicSecurity.php';
+    $app->setSecurity(new mcanan\framework\BasicSecurity());
+}
+session_start();
+if (getenv("AUTH")){
+    $_SESSION[CONF_AUTH_TOKEN]='USER';
+}
 $app->getCache()->setUrl('controllertest', 'actioncache', null, 10);
 $app->init();
 //xdebug_stop_trace();
