@@ -85,7 +85,7 @@ class Application
             }
                 
             $benchmark->mark("controller_start c:$controller a:$action");
-            $this->getRouter()->dispatch();            $benchmark->mark("controller_end");
+            $this->getRouter()->dispatch();
             $benchmark->mark("controller_end");
             $benchmark->mark("application_end");
             if ($output->hasContent()) {
