@@ -145,6 +145,9 @@
                         case 'html': ?>
                         <td class='text-center <?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><?= $a['html'] ?></td>
                         <?php   break;
+                        case 'expression': ?>
+                        <td class='text-center <?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><?php eval("echo '".str_replace("}",'\'].\'',str_replace("{", '\'.$i[\'', $a['expression'])."';")); ?></td>
+                        <?php   break;
                         default: ?>
                             <td class='<?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'>
                             <?php if (isset($a['href'])) { ?>
