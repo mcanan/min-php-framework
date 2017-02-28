@@ -106,6 +106,13 @@
         <br/>
         <?php } ?>
         <table class="table table-striped table-condensed">
+            <thead><tr>
+            <?php foreach ($item_attributes as $a) { 
+                echo '<th class="text-center">'.(isset($a['header'])?$a['header']:'').'</th>';
+            }
+            ?>
+            </tr></thead>
+            <tbody>
             <?php foreach ($items as $i) { ?>
             <?php
                     if (isset($active_item)) {
@@ -142,11 +149,14 @@
                         case 'date_from_mysqldatetime': ?>
                         <td class='text-center <?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><?php $date = DateTime::createFromFormat('Y-m-d H:i:s', $i[$a['attribute']]); echo $date->format('d/m/Y'); ?></td>
                         <?php   break;
+                        case 'datetime_from_mysqldatetime': ?>
+                        <td class='text-center <?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><?php $date = DateTime::createFromFormat('Y-m-d H:i:s', $i[$a['attribute']]); echo $date->format('d/m/Y H:i:s'); ?></td>
+                        <?php   break;
                         case 'html': ?>
                         <td class='text-center <?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><?= $a['html'] ?></td>
                         <?php   break;
                         case 'expression': ?>
-                        <td class='text-center <?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><?php echo eval("'".str_replace("}",']',str_replace("{", '$i[', $a['expression'])."';")); ?></td>
+                        <td class='text-center <?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><?php eval("echo ".str_replace("}",'\']',str_replace("{", '$i[\'', $a['expression']).";")); ?></td>
                         <?php   break;
                         default: ?>
                             <td class='<?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'>
@@ -189,6 +199,7 @@
         <?php } ?>
     </tr>
     <?php } ?>
+    </tbody>
 </table>
 <?php if (isset($Pagination)) {?>
     <div>Total: <strong><?= $Pagination->getTotalAmountOfItems() ?></strong></div>
