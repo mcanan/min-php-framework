@@ -1,6 +1,9 @@
 <?php
-    $message=$_SESSION['message'];
-    $error=$_SESSION['error'];
+    if (!isset($_SESSION)){
+        session_start();
+    }
+    $message = (isset($_SESSION['message'])?$_SESSION['message']:'');
+    $error = (isset($_SESSION['error'])?$_SESSION['error']:false);
     $_SESSION['message']='';
     $_SESSION['error']=false;
 ?>
