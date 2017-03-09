@@ -29,6 +29,13 @@ class BasicSecurity implements ISecurity
         $_SESSION[self::VARIABLE_NAME] = $user;
     }
     
+    function logout(){
+        if (!isset($_SESSION)){
+            session_start();
+        }
+        unset($_SESSION[self::VARIABLE_NAME]);
+    }
+
     function getUser(){
         if (!isset($_SESSION)){
             session_start();
