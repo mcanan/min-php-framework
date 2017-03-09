@@ -3,6 +3,7 @@ date_default_timezone_set('America/Montevideo');
 $fch=strftime("%Y-%m-%d", time());
 ini_set('display_errors', 'on');
 ini_set('log_errors', 'on');
+ini_set('error_log','salida.log');
 ini_set('xdebug.auto_trace', '1');
 ini_set('xdebug.trace_output_dir', '/tmp/');
 ini_set('xdebug.show_mem_delta', '1');
@@ -19,7 +20,7 @@ if (getenv("SECURITY")){
 }
 session_start();
 if (getenv("AUTH")){
-    $_SESSION[CONF_AUTH_TOKEN]='USER';
+    $_SESSION['bs']='USER';
 }
 $app->getCache()->setUrl('controllertest', 'actioncache', null, 10);
 $app->init();

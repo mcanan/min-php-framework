@@ -7,7 +7,6 @@ class Application
 {
     private $router = null;
     private $cache = null;
-    private $security = null;
 
     public function setCacheUrl($controller, $action, $time)
     {
@@ -26,7 +25,7 @@ class Application
 
     public function setSecurity($security)
     {
-        $this->security = $security;
+        setSecurityInstance($security);
     }
 
     public function getRouter()
@@ -49,11 +48,6 @@ class Application
         return $this->cache;
     }
 
-    public function getSecurity()
-    {
-        return $this->security;
-    }
-
     public function loadConfigurationFile($file)
     {
         require_once $file;
@@ -64,7 +58,8 @@ class Application
         $benchmark =& getBenchmarkInstance();
         $benchmark->mark("application_start");
         $output =& getOutputInstance();
-
+        $security =& getSecurityInstance();
+        
         $url = isset($_GET['url']) ? $_GET['url'] : '';
         $this->getRouter()->setUrl($url);
 
@@ -73,7 +68,7 @@ class Application
         $parameters = $this->getRouter()->getParameters();
         
         // Verifico que este autorizado
-        if (is_null($this->getSecurity()) || $this->getSecurity()->isAuthorized($controller, $action, $parameters) ) {
+        if (is_null($security) || $security->isAuthorized($controller, $action, $parameters) ) {
             // Verifico cache
             if ($this->getCache()->exists($controller, $action, $parameters)) {
                 $time = $this->getCache()->getExpiration($controller, $action, $parameters);
@@ -92,7 +87,7 @@ class Application
                 $output->display();
             }
         } else {
-            $url = $this->getSecurity()->getAccessDeniedUrl();
+            $url = $security->getAccessDeniedUrl();
             if (!is_null($url)){
                 header('Location: '.$url);
             } else {

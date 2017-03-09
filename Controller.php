@@ -10,11 +10,13 @@ abstract class Controller extends Base
     private $showBenchmarks = false;
     private $benchmark;
     private $output;
+    private $security;
 
     public function __construct()
     {
         $this->benchmark =& getBenchmarkInstance();
         $this->output =& getOutputInstance();
+        $this->security =& getSecurityInstance();
         $this->benchmark->mark("controller_construct");
         $this->db = new Db();
     }
