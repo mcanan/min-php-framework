@@ -26,6 +26,11 @@ abstract class Controller extends Base
         $this->benchmark->mark($m);
     }
     
+    protected function getSecurity()
+    {
+        return $this->security;
+    }
+    
     protected function getBenchmark()
     {
         return $this->benchmark;
