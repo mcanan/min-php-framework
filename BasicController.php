@@ -36,4 +36,20 @@ abstract class BasicController extends Controller
     {
         $this->vars[$name] = $value;
     }
+    
+    protected function render_work_with()
+    {
+        $this->render("./vendor/mcanan/framework/views/view_ww.php"); 
+    }
+    
+    protected function render_form()
+    {
+        $this->render("./vendor/mcanan/framework/views/view_form.php"); 
+    }
+    
+    protected function render_form_readonly()
+    {
+        // TODO: Juntarlo con render_form. Que la vista sea una sola.
+        $this->render("./vendor/mcanan/framework/views/view_form_readonly.php"); 
+    }
 }
