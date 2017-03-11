@@ -42,12 +42,12 @@ abstract class BasicController extends Controller
         $this->render("./vendor/mcanan/framework/views/view_ww.php"); 
     }
     
-    protected function render_form()
+    protected function render_crud()
     {
         $this->render("./vendor/mcanan/framework/views/view_form.php"); 
     }
     
-    protected function render_form_readonly()
+    protected function render_crud_readonly()
     {
         // TODO: Juntarlo con render_form. Que la vista sea una sola.
         $this->render("./vendor/mcanan/framework/views/view_form_readonly.php"); 
