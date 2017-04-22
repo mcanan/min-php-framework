@@ -1,3 +1,9 @@
+<?php
+    $message=$_SESSION['message'];
+    $error=$_SESSION['error'];
+    $_SESSION['message']='';
+    $_SESSION['error']=false;
+?>
 <div class='page-header'>
     <h3><?= $titulo ?></h3>
 </div>
