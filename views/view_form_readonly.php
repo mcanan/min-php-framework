@@ -40,8 +40,8 @@
         </div>
     </div>
 </form>
-<?php if ($mensaje!="") { ?>
-<div class="alert alert-<?= ($error==true ? "danger" : "success") ?>" role="alert"><?= $mensaje ?></div>
+<?php if (isset($message) && $message!="") { ?>
+<div class="alert alert-<?= ($error==true ? "danger" : "success") ?>" role="alert"><?= $message ?></div>
 <?php } ?>
 
 <script>
