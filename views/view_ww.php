@@ -162,13 +162,8 @@
                         <td class='text-center <?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><?php eval("echo ".str_replace("}",'\']',str_replace("{", '$i[\'', $a['expression']).";")); ?></td>
                         <?php   break;
                         default: ?>
-                            <td class='<?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'>
-                            <?php if (isset($a['href'])) { ?>
-                            <a href="<?php eval("echo '".str_replace("}",'\'].\'',str_replace("{", '\'.$i[\'', $a['href'])."';")); ?>"><?= $i[$a['attribute']] ?></a>
-                            <?php } else { ?>
-                            <?= $i[$a['attribute']] ?>
-                            <?php } ?>
-                            </td>
+                            <td class='<?= (isset($a['tdclass'])?$a['tdclass']:"") ?>'><?php if (isset($a['href'])) { ?><a href="<?php eval("echo '".str_replace("}",'\'].\'',str_replace("{", '\'.$i[\'', $a['href'])."';")); ?>"><?= $i[$a['attribute']] ?></a><?php } else { ?><?= $i[$a['attribute']] ?><?php } ?>
+</td>
                         <?php   break;
                      } 
                  } else {
