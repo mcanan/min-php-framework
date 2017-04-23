@@ -63,7 +63,7 @@
             <div class="form-group">
                 <label for="<?= $i['id'] ?>" class='control-label col-md-2'><?=$i['label']?></label>
                 <div class='input-group <?= (isset($i['class'])?$i['class']:'col-md-8') ?>'>
-                    <select id="<?= $i['id'] ?>" name="<?= $i['id'] ?>" class='form-control'>
+                    <select id="<?= $i['id'] ?>" name="<?= $i['id'] ?>" class='form-control' <?=($readonly?'disabled':'')?>>
                         <?php foreach ($i['options'] as $o) { ?>
                         <option value='<?= $o['value'] ?>' <?= isset($i['value']) && $i['value']==$o['value']?'selected':'' ?>><?= $o['label'] ?></option>
                         <?php } ?>
