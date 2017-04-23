@@ -4,6 +4,12 @@
     $_SESSION['message']='';
     $_SESSION['error']=false;
     
+    if (defined("CONF_URL_BASE")){
+        $url_base = '/'.CONF_URL_BASE;
+    } else {
+        $url_base = '';
+    }
+    
     if (isset($breadcrumb)) {  ?>
 <ol class="breadcrumb">
     <?php foreach ($breadcrumb as $k=>$a) { ?>
@@ -121,8 +127,8 @@
 <?php if (isset($message) && $message!="") { ?>
 <div class="alert alert-<?= ($error==true ? "danger" : "success") ?>" role="alert"><?= $message ?></div>
 <?php } ?>
-<link href='/public/css/datepicker.css' rel='stylesheet' />
-<script src='/public/js/bootstrap-datepicker.js'></script>
+<link href='<?= $url_base ?>/public/css/datepicker.css' rel='stylesheet' />
+<script src='<?= $url_base ?>/public/js/bootstrap-datepicker.js'></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.8/jquery.form-validator.min.js"></script>
 <script> $.validate(); </script>
 <script>
