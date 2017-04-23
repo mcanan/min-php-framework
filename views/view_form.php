@@ -9,6 +9,10 @@
     } else {
         $url_base = '';
     }
+
+    if (!isset($readonly)){
+        $readonly=false;
+    }
     
     if (isset($breadcrumb)) {  ?>
 <ol class="breadcrumb">
@@ -34,7 +38,7 @@
             <div class="form-group">
                 <label for="<?= $i['id'] ?>" class='control-label col-md-2'><?=$i['label']?></label>
                 <div class='input-group <?= (isset($i['class'])?$i['class']:'col-md-1') ?>'>
-                    <input class="form-control" id="<?= $i['id'] ?>" name="<?= $i['id'] ?>" type="checkbox" value="1" <?= ($i['value']==1?'checked':'') ?>>
+                    <input class="form-control" id="<?= $i['id'] ?>" name="<?= $i['id'] ?>" type="checkbox" value="1" <?= ($i['value']==1?'checked':'') ?> <?=($readonly?'readonly':'')?>>
                 </div>
             </div>
             <?php break;
@@ -51,7 +55,7 @@
                 <label for="<?= $i['id'] ?>" class='control-label col-md-2'><?=$i['label']?></label>
                 <div class='input-group <?= (isset($i['class'])?$i['class']:'col-md-8') ?>'>
                     <label for="<?= $i['id'] ?>" class="input-group-addon btn"><span class="glyphicon glyphicon-calendar"></span></label>
-                    <input class='form-control date' type="text" id="<?= $i['id'] ?>" name="<?= $i['id'] ?>" value="<?= (isset($i['value'])?$i['value']:'') ?>" size="10" maxlength="10">
+                    <input class='form-control date' type="text" id="<?= $i['id'] ?>" name="<?= $i['id'] ?>" value="<?= (isset($i['value'])?$i['value']:'') ?>" size="10" maxlength="10" <?=($readonly?'readonly':'')?>>
                 </div>
             </div>
             <?php break;
@@ -72,7 +76,7 @@
                 <label for="<?= $i['id'] ?>" class='control-label col-md-2'><?=$i['label']?></label>
                 <div class='input-group <?= (isset($i['class'])?$i['class']:'col-md-8') ?>'>
                     <?= (isset($i['addon'])?$i['addon']:'') ?>
-                    <input class='form-control' data-validation="number" data-validation-optional="true" data-validation-allowing="float,negative" data-validation-error-msg="Debe ser un valor numérico" type="text" style='text-align: right;' id="<?= $i['id'] ?>" name="<?= $i['id'] ?>" placeholder="<?= (isset($i['placeholder'])?$i['placeholder']:'') ?>" value="<?= (isset($i['value'])?$i['value']:'') ?>" size="<?= (isset($i['size'])?$i['size']:'') ?>" maxlength="<?= (isset($i['maxlength'])?$i['maxlength']:'') ?>">
+                    <input class='form-control' data-validation="number" data-validation-optional="true" data-validation-allowing="float,negative" data-validation-error-msg="Debe ser un valor numérico" type="text" style='text-align: right;' id="<?= $i['id'] ?>" name="<?= $i['id'] ?>" placeholder="<?= (isset($i['placeholder'])?$i['placeholder']:'') ?>" value="<?= (isset($i['value'])?$i['value']:'') ?>" size="<?= (isset($i['size'])?$i['size']:'') ?>" maxlength="<?= (isset($i['maxlength'])?$i['maxlength']:'') ?>" <?=($readonly?'readonly':'')?>>
                 </div>
             </div>
             <?php break;
@@ -80,7 +84,7 @@
             <div class="form-group">
                 <label for="<?= $i['id'] ?>" class='control-label col-md-2'><?=$i['label']?></label>
                 <div class='input-group <?= (isset($i['class'])?$i['class']:'col-md-8') ?>'>
-                    <input class='form-control' type="password" id="<?= $i['id'] ?>" name="<?= $i['id'] ?>" >
+                    <input class='form-control' type="password" id="<?= $i['id'] ?>" name="<?= $i['id'] ?>" <?=($readonly?'readonly':'')?>>
                 </div>
             </div>
             <?php break;
@@ -100,7 +104,7 @@
                 <label for="<?= $i['id'] ?>" class='control-label col-md-2'><?=$i['label']?></label>
                 <div class='input-group <?= (isset($i['class'])?$i['class']:'col-md-8') ?>'>
                     <?= (isset($i['addon'])?$i['addon']:'') ?>
-                    <textarea class='form-control' id="<?= $i['id'] ?>" name="<?= $i['id'] ?>" placeholder="<?= (isset($i['placeholder'])?$i['placeholder']:'') ?>" rows="<?= (isset($i['rows'])?$i['rows']:'4') ?>" cols="<?= (isset($i['cols'])?$i['cols']:'20') ?>"><?= (isset($i['value'])?$i['value']:'') ?></textarea>
+                    <textarea <?=($readonly?'readonly':'')?> class='form-control' id="<?= $i['id'] ?>" name="<?= $i['id'] ?>" placeholder="<?= (isset($i['placeholder'])?$i['placeholder']:'') ?>" rows="<?= (isset($i['rows'])?$i['rows']:'4') ?>" cols="<?= (isset($i['cols'])?$i['cols']:'20') ?>"><?= (isset($i['value'])?$i['value']:'') ?></textarea>
                 </div>
             </div>
             <?php break;
@@ -110,7 +114,7 @@
                 <label for="<?= $i['id'] ?>" class='control-label col-md-2'><?=$i['label']?></label>
                 <div class='input-group <?= (isset($i['class'])?$i['class']:'col-md-8') ?>'>
                     <?= (isset($i['addon'])?$i['addon']:'') ?>
-                    <input class='form-control' type="text" id="<?= $i['id'] ?>" name="<?= $i['id'] ?>" placeholder="<?= (isset($i['placeholder'])?$i['placeholder']:'') ?>" value="<?= (isset($i['value'])?$i['value']:'') ?>" size="<?= (isset($i['size'])?$i['size']:'') ?>" maxlength="<?= (isset($i['maxlength'])?$i['maxlength']:'') ?>">
+                    <input class='form-control' type="text" id="<?= $i['id'] ?>" name="<?= $i['id'] ?>" placeholder="<?= (isset($i['placeholder'])?$i['placeholder']:'') ?>" value="<?= (isset($i['value'])?$i['value']:'') ?>" size="<?= (isset($i['size'])?$i['size']:'') ?>" maxlength="<?= (isset($i['maxlength'])?$i['maxlength']:'') ?>" <?=($readonly?'readonly':'')?>>
                 </div>
             </div>
             <?php break;

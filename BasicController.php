@@ -49,7 +49,7 @@ abstract class BasicController extends Controller
     
     protected function render_crud_readonly()
     {
-        // TODO: Juntarlo con render_form. Que la vista sea una sola.
-        $this->render("./vendor/mcanan/framework/views/view_form_readonly.php"); 
+        $this->set("readonly",true);
+        $this->render("./vendor/mcanan/framework/views/view_form.php"); 
     }
 }
