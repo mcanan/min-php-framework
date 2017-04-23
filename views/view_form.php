@@ -123,8 +123,15 @@
 ?>
 <div class="form-group">
     <div class="col-md-4 col-md-offset-2">
+        <?php if (!($readonly)) { ?>
         <button type="submit" class="btn btn-success" id='btnAceptar'>Aceptar</button>
         <a href='<?= $formActionCancelar ?>' class="btn">Cancelar</a>
+        <?php } ?>
+        <?php if (isset($buttons)) { ?>
+        <?php foreach ($buttons as $b) { ?>
+            <a href='<?= $b['action'] ?>' class="<?= (isset($b['class'])?$b['class']:'btn btn-primary') ?>"><?= $b['label'] ?></a>
+        <?php } ?>
+        <?php } ?>
     </div>
 </div>
 </form>
@@ -163,12 +170,14 @@
     }
 
     $(function() {
+            <?php if (! $readonly) { ?>
             $(".date").datepicker({
                     format: 'dd/mm/yyyy',
                     language: 'es',
                     autoclose: true,
                     todayHighlight: true
             });
+            <?php } ?>
             
             <?php if (isset($jquery_code)) {
                 echo $jquery_code;
