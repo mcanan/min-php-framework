@@ -43,7 +43,6 @@ class Db
 
     public function update($consulta)
     {
-        $retorno = 0;
         $result = mysql_query($consulta, $this->getHandler());
         if (!$result) {
             error_log(
@@ -52,16 +51,27 @@ class Db
                 mysql_error($this->getHandler())." - ".
                 $consulta
             );
-        } else {
-            $retorno = mysql_affected_rows($this->getHandler());
         }
 
-        return $retorno;
+        return $result;
     }
 
     public function updateAndReturnAffectedRows($consulta)
     {
-        return update($consulta);
+        $retorno = 0;
+        $result = $this->update($consulta);
+        if ($result) {
+            $retorno = mysql_affected_rows($this->getHandler());
+        } else {
+            error_log(
+                "DB::updateAndReturnAffectedRows - ".
+                mysql_errno($this->getHandler()).": ".
+                mysql_error($this->getHandler()). " - ".
+                $consulta
+            );
+        }
+
+        return $retorno;
     }
 
     public function getLastInsertId()
