@@ -15,12 +15,6 @@ The first concepts was taken from Codeigniter Framework and the book Pro PHP MVC
 
 #### Folder structure
 
-The framework have a structure like this:
-
-* framework
-  * helpers
-  * libraries
-
 The app must be in a structure like this:
 
 * app
