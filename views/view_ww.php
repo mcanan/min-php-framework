@@ -72,7 +72,7 @@
                     case 'default': ?>
                     <div class="form-group">
                         <label for="<?=$f['id']?>"><?=$f['label']?></label>
-                        <input type="text" class="form-control" id="<?=$f['id']?>" placeholder="<?=$f['label']?>">
+                        <input type="text" class="form-control" id="<?=$f['id']?>" name="<?= $f['id'] ?>" placeholder="<?=$f['label']?>" value="<?= (isset($f['value'])?$f['value']:'') ?>">
                     </div>
                     <?php break;
                     }
