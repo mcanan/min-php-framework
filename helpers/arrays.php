@@ -1,4 +1,6 @@
 <?php
+namespace mcanan\framework\helpers;
+
 if(!function_exists("array_column"))
 {
     /* 
