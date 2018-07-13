@@ -5,6 +5,8 @@ function rest_call($method, $url, $data = false)
 {
     $curl = curl_init();
 
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+
     switch ($method)
     {
         case "POST":
