@@ -28,7 +28,7 @@
 <div class='page-header'>
     <h3><?= $titulo ?></h3>
 </div>
-<form class="form-horizontal" id='formData' role="form" action="<?= $formActionAceptar ?>" method="post">
+<form class="form-horizontal" id='formData' role="form" action="<?= $formActionAceptar ?>" method="post" enctype="multipart/form-data">
     <?php foreach ($items as $i) { 
         switch ($i['type']) {
             case 'hidden': ?>
@@ -50,12 +50,26 @@
                 </div>
             </div>
             <?php break;
-            case 'date': ?>
+            case 'date_from_mysqldatetime':
+            case 'date_from_mysqldate':
+            case 'date':
+                if ($i['type']=='date_from_mysqldatetime'){
+                    $d = DateTime::createFromFormat('Y-m-d H:i:s', $i['value']); 
+                    $d = $d->format('d/m/Y');
+                }
+                if ($i['type']=='date_from_mysqldate') {
+                    $d = DateTime::createFromFormat('Y-m-d', $i['value']); 
+                    $d = $d->format('d/m/Y');
+                }
+                if ($i['type']=='date') {
+                    $d = isset($i['value'])?$i['value']:'';
+                }
+            ?>
             <div class="form-group">
                 <label for="<?= $i['id'] ?>" class='control-label col-md-2'><?=$i['label']?></label>
                 <div class='input-group <?= (isset($i['class'])?$i['class']:'col-md-8') ?>'>
                     <label for="<?= $i['id'] ?>" class="input-group-addon btn"><span class="glyphicon glyphicon-calendar"></span></label>
-                    <input class='form-control date' type="text" id="<?= $i['id'] ?>" name="<?= $i['id'] ?>" value="<?= (isset($i['value'])?$i['value']:'') ?>" size="10" maxlength="10" <?=($readonly?'readonly':'')?>>
+                    <input class='form-control date' type="text" id="<?= $i['id'] ?>" name="<?= $i['id'] ?>" value="<?= $d ?>" size="10" maxlength="10" <?=($readonly?'readonly':'')?>>
                 </div>
             </div>
             <?php break;
@@ -107,6 +121,25 @@
                     <textarea <?=($readonly?'readonly':'')?> class='form-control' id="<?= $i['id'] ?>" name="<?= $i['id'] ?>" placeholder="<?= (isset($i['placeholder'])?$i['placeholder']:'') ?>" rows="<?= (isset($i['rows'])?$i['rows']:'4') ?>" cols="<?= (isset($i['cols'])?$i['cols']:'20') ?>"><?= (isset($i['value'])?$i['value']:'') ?></textarea>
                 </div>
             </div>
+            <?php break;
+            case 'file':
+                $img_preview = isset($i['preview']);
+                $img_id = $i['id']; ?>
+            <div class="form-group">
+                <label for="<?= $i['id'] ?>" class='control-label col-md-2'><?=$i['label']?></label>
+                <?php if (! $readonly) { ?> 
+                <div class='custom-file <?= (isset($i['class'])?$i['class']:'col-md-8') ?>'>
+                    <?= (isset($i['addon'])?$i['addon']:'') ?>
+                    <input class='custom-file-input' type="file" id="<?= $i['id'] ?>" name="<?= $i['id'] ?>">
+                </div>
+                <?php } ?> 
+            </div>
+            <?php if (isset($i['preview'])) { ?>
+            <div class="form-group">
+                <label for="img_preview" class='control-label col-md-2'></label>
+                <img id='img-preview' style='max-width:50%;height:auto;' src='<?= isset($i['value'])?$i['value']:'' ?>'/>
+            </div>
+            <?php } ?>
             <?php break;
             case 'input':
             default: ?>
@@ -169,14 +202,34 @@
             });
     }
 
+    <?php if (isset($img_preview)) { ?>
+    function readURL(input, previewId) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $(previewId).attr('src', e.target.result)
+                $(previewId).hide();
+                $(previewId).fadeIn(650);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    <?php } ?>
+
     $(function() {
             <?php if (! $readonly) { ?>
-            $(".date").datepicker({
-                    format: 'dd/mm/yyyy',
-                    language: 'es',
-                    autoclose: true,
-                    todayHighlight: true
-            });
+                $(".date").datepicker({
+                        format: 'dd/mm/yyyy',
+                        language: 'es',
+                        autoclose: true,
+                        todayHighlight: true
+                });
+                
+                <?php if (isset($img_preview)) { ?>
+                $("#<?= $img_id ?>").change(function() {
+                    readURL(this, '#img-preview');
+                });
+                <?php } ?>
             <?php } ?>
             
             <?php if (isset($jquery_code)) {
