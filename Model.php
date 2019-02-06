@@ -27,4 +27,9 @@ abstract class Model extends Base
     {
         return $this->db->update("rollback");
     }
+    
+    public function getError()
+    {
+        return $this->db->getError();
+    }
 }
