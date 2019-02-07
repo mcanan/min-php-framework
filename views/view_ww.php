@@ -35,14 +35,14 @@
 
 <?php	if (isset($filters)) {  ?>
 <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-12">
         <form class="form-inline" method='post'>
             <?php foreach ($filters as $f) { 
                 switch ($f['type']) {
                     case 'select': ?>
-                    <div class="form-group">
-                        <label for="<?= $f['id'] ?>" class='control-label'><?=$f['label']?></label>
-                        <div class='input-group <?= (isset($f['class'])?$f['class']:'') ?>'>
+                    <div class="form-group <?= (isset($f['class'])?$f['class']:'') ?>">
+                        <label for="<?= $f['id'] ?>" class='control-label col-md-2'><?=$f['label']?></label>
+                        <div class='input-group'>
                             <select id="<?= $f['id'] ?>" name="<?= $f['id'] ?>" class='form-control'>
                                 <?php foreach ($f['options'] as $o) { ?>
                                 <option value='<?= $o['value'] ?>' <?= isset($f['value']) && $f['value']==$o['value']?'selected':'' ?>><?= $o['label'] ?></option>
@@ -52,32 +52,34 @@
                     </div>
                     <?php break;
                     case 'date': ?>
-                    <div class="form-group">
+                    <div class="form-group <?= (isset($f['class'])?$f['class']:'') ?>">
                         <label for="<?= $f['id'] ?>" class='control-label col-md-2'><?=$f['label']?></label>
-                        <div class='input-group <?= (isset($f['class'])?$f['class']:'col-md-8') ?>'>
+                        <div class='input-group') ?>'>
                             <label for="<?= $f['id'] ?>" class="input-group-addon btn"><span class="glyphicon glyphicon-calendar"></span></label>
                             <input class='form-control date' type="text" id="<?= $f['id'] ?>" name="<?= $f['id'] ?>" value="<?= (isset($f['value'])?$f['value']:'') ?>" size="10" maxlength="10">
                         </div>
                     </div>
                     <?php break;
                     case 'boolean': ?>
-                    <div class="form-group">
+                    <div class="form-group <?= (isset($f['class'])?$f['class']:'') ?>">
                         <label for="<?= $f['id'] ?>" class='control-label col-md-2'><?=$f['label']?></label>
-                        <div class='input-group <?= (isset($f['class'])?$f['class']:'col-md-1') ?>'>
+                        <div class='input-group col-md-1') ?>'>
                             <input class="form-control" id="<?= $f['id'] ?>" name="<?= $f['id'] ?>" type="checkbox" value="1" <?= ($f['value']==1?'checked':'') ?>>
                         </div>
                     </div>
                     <?php break;
                     case 'input': 
                     case 'default': ?>
-                    <div class="form-group">
-                        <label for="<?=$f['id']?>"><?=$f['label']?></label>
+                    <div class="form-group <?= (isset($f['class'])?$f['class']:'') ?>">
+                        <label for="<?=$f['id']?>" class='control-label col-md-2'><?=$f['label']?></label>
                         <input type="text" class="form-control" id="<?=$f['id']?>" name="<?= $f['id'] ?>" placeholder="<?=$f['label']?>" value="<?= (isset($f['value'])?$f['value']:'') ?>">
                     </div>
                     <?php break;
                     }
                 } ?>
+                <div class='col-md-12'>
                 <button type="submit" class="btn btn-default">Filtrar</button>
+                </div>
                 </form>
             </div>
         </div>
