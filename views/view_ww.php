@@ -199,8 +199,8 @@
     <?php } ?>
     </tbody>
 </table>
-<?php if (isset($Pagination)) {?>
-    <div>Total: <strong><?= $Pagination->getTotalAmountOfItems() ?></strong></div>
-    <div><?php echo $Pagination->render(); ?></div>
+<?php if (isset($pagination)) {?>
+    <div>Total: <strong><?= $pagination->getTotalAmountOfItems() ?></strong></div>
+    <div><?php echo $pagination->render(); ?></div>
 <?php } ?>
 
