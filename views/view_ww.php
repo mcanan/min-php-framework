@@ -201,6 +201,23 @@
 </table>
 <?php if (isset($pagination)) {?>
     <div>Total: <strong><?= $pagination->getTotalAmountOfItems() ?></strong></div>
-    <div><?php echo $pagination->render(); ?></div>
+    <div><ul class='pagination'>
+    <?php if ($pagination->getCurrentPage() > 3) { ?>
+        <li><a href='<?= $pagination->getLink() ?>&p=1'>1</a></li>
+        <li class='disabled'><a href=''>...</a></li>
+    <?php } 
+    for ($i=($pagination->getCurrentPage() > 2 ? $pagination->getCurrentPage() - 2 : 1);$i<=($pagination->getCurrentPage() < $pagination->getTotalAmountOfPages() - 2 ? $pagination->getCurrentPage() + 2 : $pagination->getTotalAmountOfPages());$i++) {
+    ?>
+        <li <?= ($pagination->getCurrentPage()==$i ? "class='active'" : "")?>><a href='<?= $pagination->getLink() ?>&p=<?=$i?>'><?=$i?></a></li>
+    
+    <?php 
+    }
+    if ($pagination->getCurrentPage()<$pagination->getTotalAmountOfPages()-2) {
+    ?>
+        <li class='disabled'><a href=''>...</a></li>
+        <li><a href='<?= $pagination->getLink() ?>&p=<?=$pagination->getTotalAmountOfPages()?>'><?=$pagination->getTotalAmountOfPages()?></a></li>
+    <?php 
+    } ?>
+    </ul>
+    </div>
 <?php } ?>
-

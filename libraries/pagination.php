@@ -36,23 +36,20 @@ class Pagination
     {
         return $this->totalAmountItems;
     }
-
-    public function render()
+    
+    public function getTotalAmountOfPages()
     {
-        // TODO: Hacerlo con una vista.
-        $retorno = "<ul class='pagination'>";
-        if ($this->currentPage>3) {
-            $retorno .= "<li><a href='$this->link&p=1'>1</a></li>";
-            $retorno .= "<li class='disabled'><a href=''>...</a></li>";
-        }
-        for ($i=($this->currentPage>2 ? $this->currentPage-2 : 1);$i<=($this->currentPage<$this->totalAmountPages-2 ? $this->currentPage+2 : $this->totalAmountPages);$i++) {
-            $retorno .= "<li ".($this->currentPage==$i ? "class='active'" : "")."><a href='$this->link&p=$i'>$i</a></li>";
-        }
-        if ($this->currentPage<$this->totalAmountPages-2) {
-            $retorno .= "<li class='disabled'><a href=''>...</a></li>";
-            $retorno .= "<li><a href='$this->link&p=".$this->totalAmountPages."'>".$this->totalAmountPages."</a></li>";
-        }
-        return $retorno;
+        return $this->totalAmountPages;
+    }
+    
+    public function getLink()
+    {
+        return $this->link;
+    }
+    
+    public function getQueryStart()
+    {
+        return ($this->currentPage - 1) * $this->amountPerPage;
     }
 }
 ?>
