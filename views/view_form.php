@@ -37,9 +37,7 @@
             case 'boolean': ?>
             <div class="form-group">
                 <label for="<?= $i['id'] ?>" class='control-label col-md-2'><?=$i['label']?></label>
-                <div class='input-group <?= (isset($i['class'])?$i['class']:'col-md-1') ?>'>
-                    <input class="form-control" id="<?= $i['id'] ?>" name="<?= $i['id'] ?>" type="checkbox" value="1" <?= (isset($i['value']) && $i['value']==1?'checked':'') ?> <?=($readonly?'disabled readonly':'')?>>
-                </div>
+                <input class="checkbox" id="<?= $i['id'] ?>" name="<?= $i['id'] ?>" type="checkbox" value="1" <?= (isset($i['value']) && $i['value']==1?'checked':'') ?> <?=($readonly?'disabled readonly':'')?>>
             </div>
             <?php break;
             case 'readonly': ?>
