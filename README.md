@@ -16,19 +16,18 @@ The first concepts was taken from Codeigniter Framework and the book Pro PHP MVC
 Usage
 ------------
 
-To create a project skeleton as a base run this command:
+The easyiest way to start a new project is creating a base skeleton with this command:
 
 ```sh
-composer.phar create-project --stability=dev --repository='{"type":"vcs","url":"https://github.com/mcanan/min-php-framework-skeleton/"}' mcanan/framework-skeleton [project-name]
+php composer.phar create-project --stability=dev --repository='{"type":"vcs","url":"https://github.com/mcanan/min-php-framework-skeleton/"}' mcanan/framework-skeleton [project-name]
 ```
 
 Replace [project-name] with the desired project name.
 
-You can then run it with PHP's built-in webserver:
+You can then run it with the PHP's built-in webserver:
 
 ```sh
-cd [project-name]
-php -S localhost:8000 utils/php_router.php
+cd [project-name]; php -S localhost:8000 utils/php_router.php
 ```
 
 More documentation: https://github.com/mcanan/min-php-framework/wiki
