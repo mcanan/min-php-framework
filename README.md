@@ -16,7 +16,7 @@ The first concepts was taken from Codeigniter Framework and the book Pro PHP MVC
 Usage
 ------------
 
-The easyiest way to start a new project is creating a base skeleton with this command:
+The easiest way to start a new project is creating a base skeleton with this command:
 
 ```sh
 php composer.phar create-project --stability=dev --repository='{"type":"vcs","url":"https://github.com/mcanan/min-php-framework-skeleton/"}' mcanan/framework-skeleton [project-name]
