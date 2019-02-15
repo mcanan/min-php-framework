@@ -18,11 +18,11 @@ Usage
 
 The easiest way to start a new project is creating a base skeleton with this command:
 
+(replace [project-name] with the desired project name.)
+
 ```sh
 php composer.phar create-project --stability=dev --repository='{"type":"vcs","url":"https://github.com/mcanan/min-php-framework-skeleton/"}' mcanan/framework-skeleton [project-name]
 ```
-
-Replace [project-name] with the desired project name.
 
 You can then run it with the PHP's built-in webserver:
 
