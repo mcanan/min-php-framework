@@ -68,7 +68,7 @@ class Application
         $parameters = $this->getRouter()->getParameters();
         
         // Verifico que este autorizado
-        if (is_null($security) || $security->isAuthorized($controller, $action, $parameters) ) {
+        if (is_null($security) || $security->isAuthorized($url, $controller, $action, $parameters) ) {
             // Verifico cache
             if ($this->getCache()->exists($controller, $action, $parameters)) {
                 $time = $this->getCache()->getExpiration($controller, $action, $parameters);

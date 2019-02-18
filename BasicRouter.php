@@ -69,8 +69,8 @@ class BasicRouter implements IRouter
                 if (method_exists($instance, $this->default_action)) {
                     $instance->{$this->default_action}();
                 } else {
-                    // URL invalida, llamo index
-                    error_log("URL invalida: ".$this->url_original);
+                    // Invalid URL
+                    error_log("Invalid URL: ".$this->url_original);
                     require './app/controllers/'.$this->default_controller.'.php';
                     $controller = "\\mcanan\\app\\controllers\\".$this->default_controller;
                     $instance = new $controller;
@@ -79,8 +79,8 @@ class BasicRouter implements IRouter
             }
         } else {
             if (defined("CONF_ERROR_404_DEFAULT_CONTROLLER") && CONF_ERROR_404_DEFAULT_CONTROLLER=='Y') {
-                // Url invalida, llamo index
-                error_log("URL invalida: ".$this->url_original);
+                // Invalid URL
+                error_log("Invalid URL: ".$this->url_original);
                 require './app/controllers/'.$this->default_controller.'.php';
                 $controller = "\\mcanan\\app\\controllers\\".$this->default_controller;
                 $instance = new $controller;

@@ -5,7 +5,7 @@ class BasicSecurity implements ISecurity
 {
     const VARIABLE_NAME  = 'bs';
 
-    function isAuthorized($controller, $action, $parameters)
+    function isAuthorized($url, $controller, $action, $parameters)
     {
         if (!isset($_SESSION)){
             session_start();
