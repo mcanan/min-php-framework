@@ -37,6 +37,11 @@ abstract class BasicController extends Controller
         $this->vars[$name] = $value;
     }
     
+    protected function get($name)
+    {
+        return $this->vars[$name];
+    }
+    
     protected function render_work_with()
     {
         $this->render("./vendor/mcanan/framework/views/view_ww.php"); 

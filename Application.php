@@ -8,11 +8,6 @@ class Application
     private $router = null;
     private $cache = null;
 
-    public function setCacheUrl($controller, $action, $time)
-    {
-        $this->getCache()->setUrl($controller, $action, NULL, $time);
-    }
-
     public function setRouter($router)
     {
         $this->router = $router;
