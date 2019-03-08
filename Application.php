@@ -62,14 +62,14 @@ class Application
         $action = $this->getRouter()->getAction();
         $parameters = $this->getRouter()->getParameters();
         
-        // Verifico que este autorizado
+        // Check if it is authorized
         if (is_null($security) || $security->isAuthorized($url, $controller, $action, $parameters) ) {
-            // Verifico cache
+            // Check cache
             if ($this->getCache()->exists($controller, $action, $parameters)) {
                 $time = $this->getCache()->getExpiration($controller, $action, $parameters);
                 $fileName = $this->getCache()->getFilename($controller, $action, $parameters);
                 if ($output->displayFromCache($fileName, $time)) {
-                    // Imprimo desde cache y salgo
+                    // Get output from cache and exit
                     exit;
                 }
             }

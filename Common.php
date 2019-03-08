@@ -3,8 +3,8 @@ namespace mcanan\framework;
 
 function &get_registry()
 {
-    // Esta declaración es resulta en tiempo de compilacion
-    // Se ejecuta solamente una vez.
+    // This declaration is resolved in compilation time.
+    // It runs only once.
     static $_registry = array();
     return $_registry;
 }

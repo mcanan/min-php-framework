@@ -11,9 +11,9 @@ class BasicSecurity implements ISecurity
             session_start();
         }
         if (isset($_SESSION[self::VARIABLE_NAME])){
-			return true;
-		} else {
-			return false;
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -21,29 +21,32 @@ class BasicSecurity implements ISecurity
     {
         return null;
     }
-    
-    function login($user){
+
+    function login($user)
+    {
         if (!isset($_SESSION)){
             session_start();
         }
         $_SESSION[self::VARIABLE_NAME] = $user;
     }
-    
-    function logout(){
+
+    function logout()
+    {
         if (!isset($_SESSION)){
             session_start();
         }
         unset($_SESSION[self::VARIABLE_NAME]);
     }
 
-    function getUser(){
+    function getUser()
+    {
         if (!isset($_SESSION)){
             session_start();
         }
         if (isset($_SESSION[self::VARIABLE_NAME])){
-			return $_SESSION[self::VARIABLE_NAME];
-		} else {
-			return NULL;
+            return $_SESSION[self::VARIABLE_NAME];
+        } else {
+            return NULL;
         }
     }
 }
