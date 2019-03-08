@@ -1,11 +1,11 @@
 <?php 
 namespace mcanan\framework\helpers;
 
-function rest_call($method, $url, $data = false)
+function rest_call($method, $url, $data=false, $content_type='application/json')
 {
     $curl = curl_init();
 
-    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-Type: $content_type"));
 
     switch ($method)
     {
