@@ -29,5 +29,6 @@ You can then run it with the PHP's built-in webserver:
 ```sh
 cd [project-name]; php -S localhost:8000 utils/php_router.php
 ```
+u/p: admin/admin
 
 More documentation: https://github.com/mcanan/min-php-framework/wiki
