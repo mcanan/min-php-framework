@@ -9,73 +9,73 @@
 
 	<target name="phpcs">
 		<exec dir="${basedir}"
-			executable="phpcs"
+            executable="vendor/bin/phpcs"
 			output="${basedir}/tests_logs/checkstyle.xml"
 			failonerror="false">
-			<arg line="--ignore=libraries/facebookapi,libraries/textrankapi,libraries/twitterapi --report=checkstyle --standard=PSR2 ."/>
+			<arg line="--ignore=vendor --report=checkstyle --standard=PSR2 ."/>
 		</exec>
 	</target>
 
 	<target name="phploc">
 		<exec dir="${basedir}"
-			executable="phploc"
+            executable="vendor/bin/phploc"
 			failonerror="true">
-			<arg line="--log-xml=${basedir}/tests_logs/phploc.xml --exclude libraries ."/>
+			<arg line="--log-xml=${basedir}/tests_logs/phploc.xml --exclude vendor ."/>
 		</exec>
 	</target>
 
 	<target name="phpmd">
 		<exec dir="${basedir}"
-			executable="phpmd"
+            executable="vendor/bin/phpmd"
 			failonerror="false">
-			<arg line=". xml codesize --reportfile ${basedir}/tests_logs/pmd.xml --exclude libraries"/>
+			<arg line=". xml codesize --reportfile ${basedir}/tests_logs/pmd.xml --exclude vendor"/>
 		</exec>
 	</target>
 
 	<target name="phpcpd">
 		<exec dir="${basedir}"
-			executable="phpcpd"
+            executable="vendor/bin/phpcpd"
 			failonerror="false">
-			<arg line="--log-pmd=${basedir}/tests_logs/pmd-cpd.xml --exclude libraries ."/>
+			<arg line="--log-pmd=${basedir}/tests_logs/pmd-cpd.xml --exclude vendor ."/>
 		</exec>
 	</target>
 
     <target name="phpunit">
 		<exec dir="${basedir}/tests"
-			executable="phpunit"
+            executable="../vendor/bin/phpunit"
 			failonerror="true">
 			<env key="CONF_FILE" value="app/conf/configTest.php"/>
-			<arg line="--colors --log-tap ${basedir}/tests_logs/tests1.log --coverage-clover ${basedir}/tests_logs/clover1.xml --bootstrap ${basedir}/tests/phpUnitTests/webserver.php ${basedir}/tests/phpUnitTests/applicationtest.php"/>
+			<arg line="--colors --log-tap ${basedir}/tests_logs/tests1.log --bootstrap ${basedir}/tests/phpUnitTests/webserver.php ${basedir}/tests/phpUnitTests/applicationtest.php"/>
 		</exec>
 		<exec dir="${basedir}/tests"
-			executable="phpunit"
+            executable="../vendor/bin/phpunit"
 			failonerror="true">
 			<env key="CONF_FILE" value="app/conf/configTest1.php"/>
-			<arg line="--colors --log-tap ${basedir}/tests_logs/tests2.log --coverage-clover ${basedir}/tests_logs/clover2.xml --bootstrap ${basedir}/tests/phpUnitTests/webserver.php ${basedir}/tests/phpUnitTests/routertest1.php"/>
+			<arg line="--colors --log-tap ${basedir}/tests_logs/tests2.log --bootstrap ${basedir}/tests/phpUnitTests/webserver.php ${basedir}/tests/phpUnitTests/routertest1.php"/>
 		</exec>
 		<exec dir="${basedir}/tests"
-			executable="phpunit"
+            executable="../vendor/bin/phpunit"
 			failonerror="true">
 			<env key="CONF_FILE" value="app/conf/configTest2.php"/>
-			<arg line="--colors --log-tap ${basedir}/tests_logs/tests3.log --coverage-clover ${basedir}/tests_logs/clover3.xml --bootstrap ${basedir}/tests/phpUnitTests/webserver.php ${basedir}/tests/phpUnitTests/routertest2.php"/>
+			<arg line="--colors --log-tap ${basedir}/tests_logs/tests3.log --bootstrap ${basedir}/tests/phpUnitTests/webserver.php ${basedir}/tests/phpUnitTests/routertest2.php"/>
 		</exec>
 		<exec dir="${basedir}/tests"
-			executable="phpunit"
+            executable="../vendor/bin/phpunit"
 			failonerror="true">
 			<env key="CONF_FILE" value="app/conf/configTest3.php"/>
 			<env key="SECURITY" value="true"/>
-			<arg line="--colors --log-tap ${basedir}/tests_logs/tests4.log --coverage-clover ${basedir}/tests_logs/clover4.xml --bootstrap ${basedir}/tests/phpUnitTests/webserver.php ${basedir}/tests/phpUnitTests/securitytest.php"/>
+			<arg line="--colors --log-tap ${basedir}/tests_logs/tests4.log --bootstrap ${basedir}/tests/phpUnitTests/webserver.php ${basedir}/tests/phpUnitTests/securitytest.php"/>
 		</exec>
 		<exec dir="${basedir}/tests"
-			executable="phpunit"
+            executable="../vendor/bin/phpunit"
 			failonerror="true">
 			<env key="CONF_FILE" value="app/conf/configTest3.php"/>
 			<env key="SECURITY" value="true"/>
 			<env key="AUTH" value="true"/>
-			<arg line="--colors --log-tap ${basedir}/tests_logs/test5.log --coverage-clover ${basedir}/tests_logs/clover5.xml --bootstrap ${basedir}/tests/phpUnitTests/webserver.php ${basedir}/tests/phpUnitTests/securitytest2.php"/>
+			<arg line="--colors --log-tap ${basedir}/tests_logs/test5.log --bootstrap ${basedir}/tests/phpUnitTests/webserver.php ${basedir}/tests/phpUnitTests/securitytest2.php"/>
 		</exec>
 	</target>
 
 	<target name="build"
-		depends="clean,prepare,phploc,phpcs,phpmd,phpcpd,phpunit"/>
+		depends="clean,prepare,phpunit"/>
 </project>

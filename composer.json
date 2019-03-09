@@ -1,15 +1,22 @@
 {
-	"name": "mcanan/framework",
-	"description": "min-php-framework",
-	"type": "library",
-	"authors": [
-		{
-			"name": "Marcos Canán",
-			"email": "mcanan@gmail.com"
-		}
-	],
-	"require": {},
-	"autoload": {
-		"psr-4": { "mcanan\\framework\\": "" }
-	}
+    "name": "mcanan/framework",
+    "description": "min-php-framework",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Marcos Canán",
+            "email": "mcanan@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^5",
+        "squizlabs/php_codesniffer": "3.*",
+        "phploc/phploc": "4.*",
+        "phpmd/phpmd" : "@stable",
+        "sebastian/phpcpd" : "3.*"
+    },
+    "autoload": {
+        "psr-4": { "mcanan\\framework\\": "" }
+    }
 }
