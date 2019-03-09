@@ -98,23 +98,23 @@ abstract class Controller extends Base
 
     protected function getRequestParameterOrSession($parameter, $default)
     {
-        if (isset($_REQUEST["$parameter"])){
+        if (isset($_REQUEST["$parameter"])) {
             $_SESSION["$parameter"] = $_REQUEST["$parameter"];
             return $_REQUEST["$parameter"];
-        } else if(isset($_SESSION["$parameter"])){
+        } elseif (isset($_SESSION["$parameter"])) {
             return $_SESSION["$parameter"];
         } else {
-            return $default;    
+            return $default;
         }
     }
 
     /* TODO: Ver si la uso o no */
     protected function getRequestParameterOrCookie($parameter, $default)
     {
-        if (isset($_REQUEST["$parameter"])){
-            setcookie($parameter,$_REQUEST["$parameter"]);
+        if (isset($_REQUEST["$parameter"])) {
+            setcookie($parameter, $_REQUEST["$parameter"]);
             return $_REQUEST["$parameter"];
-        } else if(isset($_COOKIE["$parameter"])){
+        } elseif (isset($_COOKIE["$parameter"])) {
             return $_COOKIE["$parameter"];
         } else {
             return $default;    

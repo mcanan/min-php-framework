@@ -63,7 +63,7 @@ class Application
         $parameters = $this->getRouter()->getParameters();
         
         // Check if it is authorized
-        if (is_null($security) || $security->isAuthorized($url, $controller, $action, $parameters) ) {
+        if (is_null($security) || $security->isAuthorized($url, $controller, $action, $parameters)) {
             // Check cache
             if ($this->getCache()->exists($controller, $action, $parameters)) {
                 $time = $this->getCache()->getExpiration($controller, $action, $parameters);
@@ -83,7 +83,7 @@ class Application
             }
         } else {
             $url = $security->getAccessDeniedUrl();
-            if (!is_null($url)){
+            if (!is_null($url)) {
                 header('Location: '.$url);
             } else {
                 header("HTTP/1.1 401 Unauthorized");

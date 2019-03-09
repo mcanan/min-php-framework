@@ -52,4 +52,3 @@ class Pagination
         return ($this->currentPage - 1) * $this->amountPerPage;
     }
 }
-?>
