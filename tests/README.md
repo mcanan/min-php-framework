@@ -1,11 +1,9 @@
 #### Instructions
 
-Before a commit please run "ant phpunit".
+Before a commit please run "ant phpunit" on the min-php-framework root directory..
 
 All tests must be passed.
 
 #### Requirements
 
-You must have installed phpunit and must be in your execution PATH.
-
-You can download it here: https://phpunit.de/
+You must have installed the composer development dependencies.
