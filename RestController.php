@@ -14,8 +14,8 @@ abstract class RestController extends Controller
     protected $secret = "";
 
     abstract protected function delete($parms);
-    abstract protected function update($parms);
-    abstract protected function insert($parms);
+    abstract protected function put($parms);
+    abstract protected function post($parms);
     abstract protected function get($parms);
     abstract protected function set_secret();
 
@@ -66,7 +66,7 @@ abstract class RestController extends Controller
                 }
                 break;
             case 'POST':
-                $result = $this->insert($_POST);
+                $result = $this->post($_POST);
                 if (!$result){
                     http_response_code($this->bad_data);
                 } else {
@@ -75,7 +75,7 @@ abstract class RestController extends Controller
                 break;
             case 'PUT':
                 $parms = $this->get_request_body();
-                $result = $this->update($parms);
+                $result = $this->put($parms);
                 if (!$result){
                     http_response_code($this->bad_data);
                 } else {

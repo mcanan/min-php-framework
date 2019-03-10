@@ -1,6 +1,6 @@
 #### Instructions
 
-Before a commit please run "ant phpunit" on the min-php-framework root directory..
+Before a commit please run "ant phpunit" on the min-php-framework root directory.
 
 All tests must be passed.
 
