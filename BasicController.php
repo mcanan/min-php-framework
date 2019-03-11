@@ -3,8 +3,8 @@ namespace mcanan\framework;
 
 abstract class BasicController extends Controller
 {
-    private $contentView = NULL;
-    private $layoutView = NULL;
+    private $contentView = null;
+    private $layoutView = null;
     private $vars = array();
 
     public function __construct($layoutTemplate)
@@ -13,7 +13,7 @@ abstract class BasicController extends Controller
         $this->layoutView = new View($layoutTemplate);
     }
 
-    protected function render($contentTemplate, $commonVariables=null)
+    protected function render($contentTemplate, $commonVariables = null)
     {
         $this->getBenchmark()->mark("controller_render_start");
         $this->contentView = new View($contentTemplate, $this->vars);
@@ -22,7 +22,7 @@ abstract class BasicController extends Controller
         $this->getBenchmark()->mark("controller_render_end");
     }
     
-    protected function renderToString($contentTemplate, $commonVariables=null)
+    protected function renderToString($contentTemplate, $commonVariables = null)
     {
         $this->getBenchmark()->mark("controller_rendertostring_start");
         $this->contentView = new View($contentTemplate, $this->vars);
@@ -44,17 +44,17 @@ abstract class BasicController extends Controller
     
     protected function render_work_with()
     {
-        $this->render("./vendor/mcanan/framework/views/view_ww.php"); 
+        $this->render("./vendor/mcanan/framework/views/view_ww.php");
     }
     
     protected function render_crud()
     {
-        $this->render("./vendor/mcanan/framework/views/view_form.php"); 
+        $this->render("./vendor/mcanan/framework/views/view_form.php");
     }
     
     protected function render_crud_readonly()
     {
-        $this->set("readonly",true);
-        $this->render("./vendor/mcanan/framework/views/view_form.php"); 
+        $this->set("readonly", true);
+        $this->render("./vendor/mcanan/framework/views/view_form.php");
     }
 }

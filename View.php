@@ -3,11 +3,11 @@ namespace mcanan\framework;
 
 class View
 {
-    private $vars = NULL;
-    private $template = NULL;
-    private $content = NULL;
+    private $vars = null;
+    private $template = null;
+    private $content = null;
 
-    public function __construct($template, $vars=NULL)
+    public function __construct($template, $vars = null)
     {
         $this->template = $template;
         $this->vars = $vars;
@@ -37,13 +37,13 @@ class View
     {
         $contents = "";
         if (isset($this->template) && file_exists($this->template)) {
-            if (!is_null($this->content)){
-                if (is_null($this->vars)){
+            if (!is_null($this->content)) {
+                if (is_null($this->vars)) {
                     $this->vars = array();
                 }
                 $this->vars['contenido']=$this->content;
             }
-            if (!is_null($this->vars)){
+            if (!is_null($this->vars)) {
                 extract($this->vars);
             }
             ob_start();

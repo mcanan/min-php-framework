@@ -19,7 +19,7 @@ function &getSecurityInstance()
 {
     $registry = &get_registry();
     if (!isset($registry['Security'])) {
-        $null = NULL;
+        $null = null;
         return $null;
     }
     return $registry['Security'];

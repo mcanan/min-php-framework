@@ -5,49 +5,48 @@ class BasicSecurity implements ISecurity
 {
     const VARIABLE_NAME  = 'bs';
 
-    function isAuthorized($url, $controller, $action, $parameters)
+    public function isAuthorized($url, $controller, $action, $parameters)
     {
-        if (!isset($_SESSION)){
+        if (!isset($_SESSION)) {
             session_start();
         }
-        if (isset($_SESSION[self::VARIABLE_NAME])){
+        if (isset($_SESSION[self::VARIABLE_NAME])) {
             return true;
         } else {
             return false;
         }
     }
 
-    function getAccessDeniedUrl()
+    public function getAccessDeniedUrl()
     {
         return null;
     }
 
-    function login($user)
+    public function login($user)
     {
-        if (!isset($_SESSION)){
+        if (!isset($_SESSION)) {
             session_start();
         }
         $_SESSION[self::VARIABLE_NAME] = $user;
     }
 
-    function logout()
+    public function logout()
     {
-        if (!isset($_SESSION)){
+        if (!isset($_SESSION)) {
             session_start();
         }
         unset($_SESSION[self::VARIABLE_NAME]);
     }
 
-    function getUser()
+    public function getUser()
     {
-        if (!isset($_SESSION)){
+        if (!isset($_SESSION)) {
             session_start();
         }
-        if (isset($_SESSION[self::VARIABLE_NAME])){
+        if (isset($_SESSION[self::VARIABLE_NAME])) {
             return $_SESSION[self::VARIABLE_NAME];
         } else {
-            return NULL;
+            return null;
         }
     }
 }
-?>

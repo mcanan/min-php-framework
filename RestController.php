@@ -1,7 +1,7 @@
 <?php
 namespace mcanan\framework;
 
-abstract class RestController extends Controller 
+abstract class RestController extends Controller
 {
     private $request_method;
 
@@ -19,7 +19,7 @@ abstract class RestController extends Controller
     abstract protected function get($parms);
     abstract protected function set_secret();
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         
@@ -37,8 +37,7 @@ abstract class RestController extends Controller
     {
         if (isset($_SERVER['HTTP_X_AUTH_TOKEN']) &&
             isset($_SERVER['HTTP_X_AUTH_SIGNATURE']) &&
-            isset($_SERVER['HTTP_X_AUTH_TIMESTAMP'])){
-
+            isset($_SERVER['HTTP_X_AUTH_TIMESTAMP'])) {
             $this->token = $_SERVER['HTTP_X_AUTH_TOKEN'];
             $signature = $_SERVER['HTTP_X_AUTH_SIGNATURE'];
             $timestamp = $_SERVER['HTTP_X_AUTH_TIMESTAMP'];
@@ -54,42 +53,42 @@ abstract class RestController extends Controller
     protected function process_request()
     {
         header('Content-Type: application/json');
-        if (!$this->secured || $this->is_authorized()){
+        if (!$this->secured || $this->is_authorized()) {
             switch ($this->request_method) {
-            case 'DELETE':
-                $parms = $this->get_request_body();
-                $result = $this->delete($parms);
-                if (!$result){
-                    http_response_code($this->bad_data);
-                } else {
-                    http_response_code($this->success);
-                }
-                break;
-            case 'POST':
-                $result = $this->post($_POST);
-                if (!$result){
-                    http_response_code($this->bad_data);
-                } else {
-                    http_response_code($this->success);
-                }
-                break;
-            case 'PUT':
-                $parms = $this->get_request_body();
-                $result = $this->put($parms);
-                if (!$result){
-                    http_response_code($this->bad_data);
-                } else {
-                    http_response_code($this->success);
-                }
-                break;
-            case 'GET':
-                $result = $this->get($_GET);
-                if (is_null($result)){
-                    http_response_code($this->bad_data);
-                } else {
-                    echo json_encode($result);
-                }
-                break;
+                case 'DELETE':
+                    $parms = $this->get_request_body();
+                    $result = $this->delete($parms);
+                    if (!$result) {
+                        http_response_code($this->bad_data);
+                    } else {
+                        http_response_code($this->success);
+                    }
+                    break;
+                case 'POST':
+                    $result = $this->post($_POST);
+                    if (!$result) {
+                        http_response_code($this->bad_data);
+                    } else {
+                        http_response_code($this->success);
+                    }
+                    break;
+                case 'PUT':
+                    $parms = $this->get_request_body();
+                    $result = $this->put($parms);
+                    if (!$result) {
+                        http_response_code($this->bad_data);
+                    } else {
+                        http_response_code($this->success);
+                    }
+                    break;
+                case 'GET':
+                    $result = $this->get($_GET);
+                    if (is_null($result)) {
+                        http_response_code($this->bad_data);
+                    } else {
+                        echo json_encode($result);
+                    }
+                    break;
             }
         } else {
             http_response_code($this->unauthorized);
@@ -97,4 +96,3 @@ abstract class RestController extends Controller
         }
     }
 }
-?>

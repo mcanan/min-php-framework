@@ -117,25 +117,25 @@ abstract class Controller extends Base
         } elseif (isset($_COOKIE["$parameter"])) {
             return $_COOKIE["$parameter"];
         } else {
-            return $default;    
+            return $default;
         }
     }
 
-    protected function renderViewsToString($viewsArray, $commonVariables=NULL)
+    protected function renderViewsToString($viewsArray, $commonVariables = null)
     {
         $this->getBenchmark()->mark("controller_recursiveRenderToString_start");
         $retorno = "";
-        $anterior = NULL;
+        $anterior = null;
         foreach ($viewsArray as $view) {
-            if (!is_null($anterior)){
+            if (!is_null($anterior)) {
                 $view->setContent($anterior->render());
-                if (!is_null($commonVariables)){
+                if (!is_null($commonVariables)) {
                     $vars = $view->getVariables();
                     if (is_null($vars)) {
                         $vars = array();
                     }
                     foreach ($commonVariables as $v) {
-                        if (isset($anterior->defined_vars["$v"])){
+                        if (isset($anterior->defined_vars["$v"])) {
                             $vars["$v"] = $anterior->defined_vars["$v"];
                         }
                     }
@@ -153,7 +153,7 @@ abstract class Controller extends Base
         return $retorno;
     }
     
-    protected function renderViews($viewsArray, $commonVariables=NULL)
+    protected function renderViews($viewsArray, $commonVariables = null)
     {
         $this->getBenchmark()->mark("controller_recursiveRender_start");
         $html = $this->renderViewsToString($viewsArray, $commonVariables);
@@ -161,7 +161,7 @@ abstract class Controller extends Base
         $this->getBenchmark()->mark("controller_recursiveRender_end");
     }
 
-    protected function redirect($url, $error=false, $message='')
+    protected function redirect($url, $error = false, $message = '')
     {
         $_SESSION['error']=$error;
         $_SESSION['message']=$message;
@@ -170,7 +170,7 @@ abstract class Controller extends Base
 
     protected function getFullUrl($url)
     {
-        if (defined("CONF_URL_BASE")){
+        if (defined("CONF_URL_BASE")) {
             return '/'.CONF_URL_BASE.$url;
         } else {
             return $url;
