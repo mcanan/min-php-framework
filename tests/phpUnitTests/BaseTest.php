@@ -18,10 +18,10 @@ class BaseTest extends PHPUnit_Framework_TestCase
 
         // Borro cache
         $files = glob('./app/cache/*');
-        foreach($files as $file){
-            if(is_file($file))
+        foreach ($files as $file) {
+            if (is_file($file))
                 unlink($file);
-            }
+        }
     }
 
     protected function getUrlHttp($url)
