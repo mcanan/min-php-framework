@@ -9,8 +9,8 @@ class Db
     {
         if (is_null($this->handler)) {
             $this->handler = mysqli_connect(CONF_DB_HOST, CONF_DB_USER, CONF_DB_PASSWORD);
-            mysqli_set_charset("utf8", $this->handler);
-            mysqli_select_db(CONF_DB_DBNAME, $this->handler);
+            mysqli_set_charset($this->handler, "utf8");
+            mysqli_select_db($this->handler, CONF_DB_DBNAME);
         }
 
         return $this->handler;
@@ -24,7 +24,7 @@ class Db
     public function consulta($consulta)
     {
         $resultado = array();
-        $result = mysqli_query($consulta, $this->getHandler());
+        $result = mysqli_query($this->getHandler(), $consulta);
         if ($result) {
             while ($query_data  =  mysqli_fetch_array($result)) {
                 $resultado[] = $query_data;
@@ -43,7 +43,7 @@ class Db
 
     public function update($consulta)
     {
-        $result = mysqli_query($consulta, $this->getHandler());
+        $result = mysqli_query($this->getHandler(), $consulta);
         if (!$result) {
             error_log(
                 "DB::update - ".
@@ -85,7 +85,7 @@ class Db
             return $string;
         }
 
-        $resultado = mysqli_real_escape_string($string, $this->getHandler());
+        $resultado = mysqli_real_escape_string($this->getHandler(), $string);
 
         if (!$resultado) {
             $resultado = $string;
