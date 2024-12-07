@@ -37,7 +37,7 @@ class Output
         $cachedir = './app/cache/';
         if ($expiration) {
             $stat = @stat($cachedir.$filename);
-            if ($stat[9]) {
+            if ($stat && isset($stat[9])) {
                 $time = time();
                 $benchmark =& getBenchmarkInstance();
                 $benchmark->mark("cache_age: ".($time-$stat[9]));
